@@ -10,12 +10,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stock {
+
     private int idStock;
     private int quantity;
     private double price;
     private LocalDateTime lastAddedDate;
     private Book book;
-
-
 
 }

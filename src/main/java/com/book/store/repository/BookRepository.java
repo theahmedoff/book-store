@@ -9,14 +9,10 @@ import java.util.List;
 
 public interface BookRepository {
 
+    List<Book> getBooksByMultipleParameters();
 
-    public List<Book> getBooksByMultipleParameters();
+    List<Book> getLastBooks();
 
-     List<Book> getAllBooks();
-     List<Book> getBooksByIdCategory(int id);
-     List<Book> getLastBooks();
-     List<Category> getAllCategories();
-
-
+    List<Category> getAllCategories();
 
 }

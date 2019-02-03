@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> getAllBooks();
-    List<Book> getBooksByIdCategory(int id);
+    List<Book> getBooksByMultipleParameters();
+
     List<Book> getLastBooks();
+
     List<Category> getAllCategories();
 
 }

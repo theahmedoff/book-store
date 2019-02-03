@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cart {
+
     private int idCart;
     private User user;
     private Book book;
+
 }

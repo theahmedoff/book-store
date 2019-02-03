@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Book {
+
     private int idBook;
     private String title;
     private String desc;
@@ -24,6 +25,5 @@ public class Book {
     public Book() {
         this.list = new ArrayList<>();
     }
-
 
 }

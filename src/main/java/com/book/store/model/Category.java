@@ -9,8 +9,8 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-
 public class Category {
+
     private int idCategory;
     private String type;
     private List<Book> list;
@@ -18,4 +18,5 @@ public class Category {
     public Category() {
         this.list = new ArrayList<>();
     }
+
 }

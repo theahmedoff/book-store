@@ -11,21 +11,18 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
+    //fields
     private BookRepository bookRepository;
 
+    //constructors
     @Autowired
     public BookServiceImpl (BookRepository bookRepository){
-        this.bookRepository=bookRepository;
+        this.bookRepository = bookRepository;
     }
 
-
+    //methods
     @Override
-    public List<Book> getAllBooks() {
-        return null;
-    }
-
-    @Override
-    public List<Book> getBooksByIdCategory(int id) {
+    public List<Book> getBooksByMultipleParameters() {
         return null;
     }
 
@@ -38,4 +35,5 @@ public class BookServiceImpl implements BookService {
     public List<Category> getAllCategories() {
         return bookRepository.getAllCategories();
     }
+
 }

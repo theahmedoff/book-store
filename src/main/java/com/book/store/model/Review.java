@@ -10,10 +10,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Review {
+
     private int idReview;
     private String desc;
     private LocalDate writeDate;
     private double rating;
     private User user;
     private Book book;
+
 }

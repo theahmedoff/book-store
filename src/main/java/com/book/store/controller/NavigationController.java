@@ -1,24 +1,42 @@
 package com.book.store.controller;
 
+import com.book.store.model.Book;
+import com.book.store.model.Category;
+import com.book.store.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class NavigationController {
 
-    /*
-    * Sehifeleri yoxlamaq ucun her sehifenin linkini elave etmiwem..
-    * blog.html ve blog-details.html ile cox vaxt itirmedim Bu sehifeleri sonda vaxt qalsa hell ederik..
-    *
-    * */
+    //fields
+    @Autowired
+    private BookService bookService;
 
+    //methods
     @RequestMapping("/")
     public String getIndexPage() {
         return "view/index";
     }
 
     @RequestMapping("/shop")
-    public String getShopPage(){
+    public String getShopPage(@RequestParam(value = "idCategory", required = false) Integer idCategory, Model model){
+        List<Category> categories = bookService.getAllCategories();
+        model.addAttribute("categories", categories);
+
+//        if (idCategory == null) {
+//            List<Book> books = bookService.getAllBooks();
+//            model.addAttribute("books", books);
+//        } else {
+//            List<Book> books = bookService.getBooksByIdCategory(idCategory);
+//            model.addAttribute("books", books);
+//        }
+
         return "view/shop";
     }
 

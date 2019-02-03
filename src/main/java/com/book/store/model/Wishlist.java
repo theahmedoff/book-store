@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Wishlist {
+
     private int idWishlist;
     private User user;
     private Book book;
+
 }
