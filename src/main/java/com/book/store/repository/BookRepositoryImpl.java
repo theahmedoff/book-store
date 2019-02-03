@@ -6,19 +6,9 @@ import java.util.List;
 
 public class BookRepositoryImpl implements BookRepository{
 
-    @Override
-    public List<Book> getAllBooks() {
-        return null;
-    }
 
     @Override
-    public List<Book> getBooksByIdCategory(int id) {
+    public List<Book> getBooksByMultipleParameters() {
         return null;
     }
-
-    @Override
-    public List<Book> getLastBooks() {
-        return null;
-    }
-
 }
