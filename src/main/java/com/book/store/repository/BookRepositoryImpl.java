@@ -5,6 +5,7 @@ import com.book.store.model.Book;
 import java.util.List;
 
 public class BookRepositoryImpl implements BookRepository{
+
     @Override
     public List<Book> getAllBooks() {
         return null;
@@ -19,4 +20,5 @@ public class BookRepositoryImpl implements BookRepository{
     public List<Book> getLastBooks() {
         return null;
     }
+
 }
