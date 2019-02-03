@@ -18,8 +18,6 @@ import java.util.List;
     private static final String GET_ALL_CATEGORIES_SQL="select * from category";
 
 
-<<<<<<< HEAD
-=======
     @Override
     public List<Book> getAllBooks() {
         return null;
@@ -31,14 +29,16 @@ import java.util.List;
 
 
     }
->>>>>>> fcbbd86b6f1a0bfb45b356314054403052630d2b
 
-    @Override
+        @Override
+        public List<Book> getLastBooks() {
+            return null;
+        }
+
+        @Override
     public List<Book> getBooksByMultipleParameters() {
         return null;
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public List<Category> getAllCategories() {
@@ -46,5 +46,4 @@ import java.util.List;
     }
 
 
->>>>>>> fcbbd86b6f1a0bfb45b356314054403052630d2b
 }
