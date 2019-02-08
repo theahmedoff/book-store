@@ -29,13 +29,9 @@ public class NavigationController {
         List<Category> categories = bookService.getAllCategories();
         model.addAttribute("categories", categories);
 
-//        if (idCategory == null) {
-//            List<Book> books = bookService.getAllBooks();
-//            model.addAttribute("books", books);
-//        } else {
-//            List<Book> books = bookService.getBooksByIdCategory(idCategory);
-//            model.addAttribute("books", books);
-//        }
+        List<Book> books = bookService.getBooksByMultipleParameters(idCategory);
+        System.out.println(books);
+        model.addAttribute("books", books);
 
         return "view/shop";
     }

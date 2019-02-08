@@ -88,7 +88,7 @@ CREATE TABLE `book_category` (
   KEY `fk_book_category_category_idx` (`id_category`),
   CONSTRAINT `fk_book_category_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_book_category_category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +97,7 @@ CREATE TABLE `book_category` (
 
 LOCK TABLES `book_category` WRITE;
 /*!40000 ALTER TABLE `book_category` DISABLE KEYS */;
+INSERT INTO `book_category` VALUES (1,1,6),(2,2,5),(3,3,7),(4,4,10),(5,4,9),(6,2,9);
 /*!40000 ALTER TABLE `book_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +172,7 @@ CREATE TABLE `review` (
   KEY `fk_review_book_idx` (`id_book`),
   CONSTRAINT `fk_review_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +181,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'Good','2019-01-05 00:00:00',5,1,2),(2,'Ok','2019-01-06 00:00:00',3,1,2),(3,'Thanks','2019-01-07 00:00:00',4,1,2),(4,'It does not work','2019-01-08 00:00:00',3,1,3),(5,'I have problems','2019-01-08 00:00:00',1,1,4);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +256,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id_user`),
   KEY `fk_user_role_idx` (`id_role`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +265,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Xalid','Memmedov','xalid224','xalid224','xalid224@gmail.com',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +306,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-03 13:06:02
+-- Dump completed on 2019-02-08 12:49:04

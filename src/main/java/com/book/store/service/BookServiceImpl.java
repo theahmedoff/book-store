@@ -22,8 +22,8 @@ public class BookServiceImpl implements BookService {
 
     //methods
     @Override
-    public List<Book> getBooksByMultipleParameters() {
-        return null;
+    public List<Book> getBooksByMultipleParameters(Integer idCategory) {
+        return bookRepository.getBooksByMultipleParameters(idCategory);
     }
 
     @Override

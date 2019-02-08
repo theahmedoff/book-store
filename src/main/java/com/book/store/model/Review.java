@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ public class Review {
 
     private int idReview;
     private String desc;
-    private LocalDate writeDate;
+    private LocalDateTime writeDate;
     private double rating;
     private User user;
     private Book book;

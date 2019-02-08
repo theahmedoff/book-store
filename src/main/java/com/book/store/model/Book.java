@@ -26,4 +26,8 @@ public class Book {
         this.list = new ArrayList<>();
     }
 
+    public void addCategory(Category category) {
+        list.add(category);
+    }
+
 }

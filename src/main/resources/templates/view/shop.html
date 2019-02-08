@@ -46,22 +46,12 @@
         					<aside class="wedget__categories product--cat">
         						<h3 class="wedget__title">Product Categories</h3>
         						<ul>
-        							<li><a th:href="@{/shop/biography}">Biography <span>(3)</span></a></li>
-        							<li><a th:href="@{/shop/business}">Business <span>(4)</span></a></li>
-        							<li><a th:href="@{/shop/cookbooks}">Cookbooks <span>(6)</span></a></li>
-        							<li><a th:href="@{/shop/health-fitness}">Health & Fitness <span>(7)</span></a></li>
-        							<li><a th:href="@{/shop/history}">History <span>(8)</span></a></li>
-        							<li><a th:href="@{/shop/mystery}">Mystery <span>(9)</span></a></li>
-        							<li><a th:href="@{/shop/inspiration}">Inspiration <span>(13)</span></a></li>
-        							<li><a th:href="@{/shop/romance}">Romance <span>(20)</span></a></li>
-        							<li><a th:href="@{/shop/fantasy}">Fantasy <span>(22)</span></a></li>
-        							<li><a th:href="@{/shop/sleeveless}">Sleeveless <span>(13)</span></a></li>
-        							<li><a th:href="@{/shop/harry-potter}">Harry Potter <span>(20)</span></a></li>
-        							<li><a th:href="@{/shop/self-improvemen}">Self-Improvemen <span>(34)</span></a></li>
-        							<li><a th:href="@{/shop/home-garden}">Home & Garden <span>(60)</span></a></li>
-        							<li><a th:href="@{/shop/humor-books}">Humor Books <span>(3)</span></a></li>
+        							<th:block th:each="category : ${categories}">
+										<li><a th:href="@{/shop?idCategory=} + ${category.idCategory}"> <th:block th:text="${category.type}"> <span>(3)</span></a></li>
+									</th:block>
         						</ul>
         					</aside>
+							<br>
         					<aside class="wedget__categories pro--range">
         						<h3 class="wedget__title">Filter by price</h3>
         						<div class="content-shopby">
@@ -101,7 +91,7 @@
         						</ul>
         					</aside>
         					<aside class="wedget__categories sidebar--banner">
-								<img src="images/others/banner_left.jpg" alt="banner images">
+								<img th:src="@{/images/others/banner_left.jpg}" alt="banner images">
 								<div class="text">
 									<h2>new products</h2>
 									<h6>save up to <br> <strong>40%</strong>off</h6>
