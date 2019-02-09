@@ -30,7 +30,6 @@ public class NavigationController {
         model.addAttribute("categories", categories);
 
         List<Book> books = bookService.getBooksByMultipleParameters(idCategory);
-        System.out.println(books);
         model.addAttribute("books", books);
 
         return "view/shop";
