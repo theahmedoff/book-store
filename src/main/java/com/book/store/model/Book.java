@@ -20,6 +20,7 @@ public class Book {
     private LocalDate writeDate;
     private Author author;
     private List<Category> list;
+    private Stock stock;
 
 
     public Book() {

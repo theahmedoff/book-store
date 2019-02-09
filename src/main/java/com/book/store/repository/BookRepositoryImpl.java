@@ -32,7 +32,7 @@ public class BookRepositoryImpl implements BookRepository {
 
             @Override
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<Book> list = new ArrayList<>();
+                List<Book> list;
                 Map<Integer, Book> bookMap = new LinkedHashMap<>();
                 Map<Integer, Category> categoryMap = new LinkedHashMap<>();
                 Map<Integer, Review> reviewMap = new LinkedHashMap<>();
@@ -58,7 +58,7 @@ public class BookRepositoryImpl implements BookRepository {
                         stock.setQuantity(rs.getInt("quantity"));
                         stock.setPrice(rs.getDouble("price"));
                         stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
-                        stock.setBook(book);
+                        book.setStock(stock);
 
                         bookMap.put(book.getIdBook(), book);
                     }
@@ -71,7 +71,7 @@ public class BookRepositoryImpl implements BookRepository {
                         categoryMap.put(category.getIdCategory(), category);
                     }
 
-                    if (reviewMap.get(rs.getInt("id_review")) == null) {
+                    if (reviewMap.get(rs.getInt("id_review")) == null & rs.getInt("id_review") != 0) {
                         Review review = new Review();
                         review.setIdReview(rs.getInt("id_review"));
                         review.setDesc(rs.getString("desc"));
