@@ -14,6 +14,7 @@ public class Stock {
     private int idStock;
     private int quantity;
     private double price;
+    private double oldPrice;
     private LocalDateTime lastAddedDate;
     private Book book;
 

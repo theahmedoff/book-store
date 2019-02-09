@@ -81,8 +81,8 @@ DROP TABLE IF EXISTS `book_category`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `book_category` (
   `id_book_category` int(11) NOT NULL AUTO_INCREMENT,
-  `id_book` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
+  `id_book` int(11) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_book_category`),
   KEY `fk_book_category_book_idx` (`id_book`),
   KEY `fk_book_category_category_idx` (`id_category`),
@@ -181,7 +181,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Good','2019-01-05 00:00:00',5,1,2),(2,'Ok','2019-01-06 00:00:00',3,1,2),(3,'Thanks','2019-01-07 00:00:00',4,1,2),(4,'It does not work','2019-01-08 00:00:00',3,1,3),(5,'I have problems','2019-01-08 00:00:00',1,1,4);
+INSERT INTO `review` VALUES (1,'Good','2019-01-05 00:00:00',5,1,2),(2,'Ok','2015-01-06 00:00:00',3,1,2),(3,'Thanks','2018-01-07 00:00:00',4,1,3),(4,'It does not work','2016-01-08 00:00:00',3,1,3),(5,'I have problems','2017-01-08 00:00:00',1,1,4);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,6 +220,7 @@ CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
+  `old_price` double DEFAULT NULL,
   `last_added_date` datetime DEFAULT NULL,
   `id_book` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_stock`),
@@ -234,7 +235,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,15,25.99,'2019-02-03 00:00:00',1),(2,79,18.75,'2019-01-03 00:00:00',2),(3,42,23.89,'2019-01-18 00:00:00',3),(4,125,9.99,'2018-11-11 00:00:00',4);
+INSERT INTO `stock` VALUES (1,15,25.95,38.95,'2019-02-03 00:00:00',1),(2,79,18.95,38.95,'2019-01-03 00:00:00',2),(3,42,12.95,38.95,'2019-01-18 00:00:00',3),(4,125,10.95,38.95,'2018-11-11 00:00:00',4);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-08 12:49:04
+-- Dump completed on 2019-02-09 23:54:55
