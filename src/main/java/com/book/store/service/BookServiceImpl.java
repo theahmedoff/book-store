@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getLastBooks() {
-        return null;
+        return bookRepository.getLastBooks();
     }
 
     @Override

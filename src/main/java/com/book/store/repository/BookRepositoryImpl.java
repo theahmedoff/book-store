@@ -23,7 +23,7 @@ public class BookRepositoryImpl implements BookRepository {
     private JdbcTemplate jdbcTemplate;
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
     private static final String GET_ALL_BOOKS_SQL = "select b.id_book, b.title, b.image_path, b.language, b.write_date as book_write_date, a.id_author, a.full_name, s.id_stock, s.quantity, s.price, s.last_added_date, c.id_category, c.type, r.id_review, r.desc, r.write_date as review_write_date, r.rating from book b inner join author a on b.id_author=a.id_author inner join book_category bc on b.id_book=bc.id_book inner join category c on bc.id_category=c.id_category inner join stock s on b.id_book=s.id_book left join review r on b.id_book=r.id_book";
-
+    private static final String GET_ALL_LAST_BOOK_SQL = "SELECT s.id_stock, s.last_added_date, s.quantity, s.price, b.id_book, b.image_path, b.title, a.id_author, a.full_name FROM stock s INNER JOIN book b ON s.id_book = b.id_book INNER JOIN author a ON b.id_author = a.id_author ORDER BY s.last_added_date DESC LIMIT 6";
 
     //methods
     @Override
@@ -92,7 +92,35 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public List<Book> getLastBooks() {
-        return null;
+        List<Book> books = jdbcTemplate.query(GET_ALL_LAST_BOOK_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new ArrayList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("id_book"));
+                    book.setImagePath(rs.getString("image_path"));
+                    book.setTitle(rs.getString("title"));
+
+                    Author a = new Author();
+                    a.setIdAuthor(rs.getInt("id_author"));
+                    a.setFullName(rs.getString("full_name"));
+                    book.setAuthor(a);
+
+                    Stock s = new Stock();
+                    s.setIdStock(rs.getInt("id_stock"));
+                    s.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
+                    s.setPrice(rs.getDouble("price"));
+                    s.setQuantity(rs.getInt("quantity"));
+                    book.setStock(s);
+
+                    list.add(book);
+                    System.out.println(book);
+                }
+                return list;
+            }
+        });
+        return books;
     }
 
     @Override

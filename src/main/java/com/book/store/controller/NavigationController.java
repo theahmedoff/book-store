@@ -20,7 +20,9 @@ public class NavigationController {
 
     //methods
     @RequestMapping("/")
-    public String getIndexPage() {
+    public String getIndexPage(Model model) {
+        List<Book> books = bookService.getLastBooks();
+        model.addAttribute("last-books", books);
         return "view/index";
     }
 
@@ -35,6 +37,8 @@ public class NavigationController {
 
         return "view/shop";
     }
+
+
 
     @RequestMapping("/single-product")
     public String getSingleProductPage(){
