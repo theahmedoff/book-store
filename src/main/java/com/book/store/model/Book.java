@@ -18,6 +18,7 @@ public class Book {
     private String imagePath;
     private String language;
     private LocalDate writeDate;
+    private double avarageRating;
     private Author author;
     private List<Category> list;
     private Stock stock;
