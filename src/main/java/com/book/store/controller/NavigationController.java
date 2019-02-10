@@ -2,10 +2,12 @@ package com.book.store.controller;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.SearchEntity;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,11 +29,19 @@ public class NavigationController {
     }
 
     @RequestMapping("/shop")
-    public String getShopPage(@RequestParam(value = "idCategory", required = false) Integer idCategory, Model model){
+    public String getShopPage(Model model, @RequestParam(name = "categories", required = false) String[] selectedCategories,
+                              @RequestParam(name = "priceRange", required = false) String priceRange,
+                              @RequestParam(name = "ageRange", required = false) String ageRange){
+        //setting entity class
+        SearchEntity searchEntity = new SearchEntity();
+        searchEntity.setCategories(selectedCategories);
+        searchEntity.parseAndSetPriceRange(priceRange);
+        searchEntity.parseAndSetAgeRange(ageRange);
+        //categories
         List<Category> categories = bookService.getAllCategories();
         model.addAttribute("categories", categories);
-
-        List<Book> books = bookService.getBooksByMultipleParameters(idCategory);
+        //books
+        List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
         model.addAttribute("books", books);
 
         return "view/shop";
