@@ -27,7 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     //methods
     @Override
-    public List<Book> getBooksByMultipleParameters(Integer idCategory) {
+    public List<Book> getBooksByMultipleParameters(SearchEntity searchEntity) {
         List<Book> books = jdbcTemplate.query(GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
 
             @Override

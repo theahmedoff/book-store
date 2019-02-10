@@ -2,6 +2,7 @@ package com.book.store.service;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.SearchEntity;
 import com.book.store.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class BookServiceImpl implements BookService {
 
     //methods
     @Override
-    public List<Book> getBooksByMultipleParameters(Integer idCategory) {
-        return bookRepository.getBooksByMultipleParameters(idCategory);
+    public List<Book> getBooksByMultipleParameters(SearchEntity searchEntity) {
+        return bookRepository.getBooksByMultipleParameters(searchEntity);
     }
 
     @Override

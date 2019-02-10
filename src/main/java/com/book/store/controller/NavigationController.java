@@ -2,6 +2,7 @@ package com.book.store.controller;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.SearchEntity;
 import com.book.store.model.User;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,24 @@ public class NavigationController {
     @RequestMapping("/")
     public String getIndexPage(Model model) {
         List<Book> books = bookService.getLastBooks();
-        System.out.println(books);
-        model.addAttribute("lastBooks", books);
+        model.addAttribute("last-books", books);
         return "view/index";
     }
 
     @RequestMapping("/shop")
-    public String getShopPage(@RequestParam(value = "idCategory", required = false) Integer idCategory, Model model){
+    public String getShopPage(Model model, @RequestParam(name = "categories", required = false) String[] selectedCategories,
+                              @RequestParam(name = "priceRange", required = false) String priceRange,
+                              @RequestParam(name = "ageRange", required = false) String ageRange){
+        //setting entity class
+        SearchEntity searchEntity = new SearchEntity();
+        searchEntity.setCategories(selectedCategories);
+        searchEntity.parseAndSetPriceRange(priceRange);
+        searchEntity.parseAndSetAgeRange(ageRange);
+        //categories
         List<Category> categories = bookService.getAllCategories();
         model.addAttribute("categories", categories);
-
-        List<Book> books = bookService.getBooksByMultipleParameters(idCategory);
+        //books
+        List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
         model.addAttribute("books", books);
 
         return "view/shop";
