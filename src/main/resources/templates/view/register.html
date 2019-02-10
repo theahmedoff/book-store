@@ -40,17 +40,34 @@
     <section class="my_account_area pt--80 pb--55 bg--white">
         <div class="container">
             <div class="row">
+                <from th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
                 <div class="col-lg-6 col-12">
                     <div class="my__account__wrapper">
                         <h3 class="account__title">Register</h3>
                         <form action="#">
                             <div class="account__form">
                                 <div class="input__box">
-                                    <label>Email address <span>*</span></label>
-                                    <input type="email">
+                                    <label>Name <span>*</span></label>
+                                    <input type="text" th:field="*{name}">
+                                </div>
+                                <div class="input__box">
+                                    <label>Surname<span>*</span></label>
+                                    <input type="text" th:field="*{surname}">
+                                </div>
+                                <div class="input__box">
+                                    <label>Username<span>*</span></label>
+                                    <input type="text" th:field="*{username}">
+                                </div>
+                                <div class="input__box">
+                                    <label>Email<span>*</span></label>
+                                    <input type="email" th:field="*{email}">
                                 </div>
                                 <div class="input__box">
                                     <label>Password<span>*</span></label>
+                                    <input type="password" th:field="*{password}">
+                                </div>
+                                <div class="input__box">
+                                    <label>Re-Password<span>*</span></label>
                                     <input type="password">
                                 </div>
                                 <div class="form__btn">
@@ -60,6 +77,7 @@
                         </form>
                     </div>
                 </div>
+                </from>
             </div>
         </div>
     </section>

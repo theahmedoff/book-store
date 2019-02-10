@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface BookRepository {
 
+
     List<Book> getBooksByMultipleParameters(Integer idCategory);
 
     List<Book> getLastBooks();

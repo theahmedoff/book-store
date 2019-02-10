@@ -2,10 +2,12 @@ package com.book.store.controller;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.User;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +24,8 @@ public class NavigationController {
     @RequestMapping("/")
     public String getIndexPage(Model model) {
         List<Book> books = bookService.getLastBooks();
-        model.addAttribute("last-books", books);
+        System.out.println(books);
+        model.addAttribute("lastBooks", books);
         return "view/index";
     }
 
@@ -49,10 +52,7 @@ public class NavigationController {
         return "view/login";
     }
 
-    @RequestMapping("/register")
-    public String getRegisterPage() {
-        return "view/register";
-    }
+
 
     @RequestMapping("/wishlist")
     public String getWishlistPage() {

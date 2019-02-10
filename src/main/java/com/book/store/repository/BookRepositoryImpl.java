@@ -23,7 +23,7 @@ public class BookRepositoryImpl implements BookRepository {
     private JdbcTemplate jdbcTemplate;
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
     private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book,b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
-    private static final String GET_ALL_LAST_BOOK_SQL = "SELECT s.id_stock, s.last_added_date, s.quantity, s.price, b.id_book, b.image_path, b.title, a.id_author, a.full_name FROM stock s INNER JOIN book b ON s.id_book = b.id_book INNER JOIN author a ON b.id_author = a.id_author ORDER BY s.last_added_date DESC LIMIT 6";
+    private static final String GET_ALL_LAST_BOOK_SQL = "select b.id_book, b.image_path, a.id_author, a.full_name, r.id_review, AVG(r.rating) as average_rating, s.id_stock, s.old_price, s.price FROM book b INNER JOIN author a on b.id_author = a.id_author INNER JOIN stock s on b.id_book = s.id_book LEFT JOIN review r on b.id_book = r.id_book GROUP BY b.id_book";
 
     //methods
     @Override
@@ -69,7 +69,32 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public List<Book> getLastBooks() {
-        return null;
+        List<Book> books = jdbcTemplate.query(GET_ALL_LAST_BOOK_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new ArrayList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("id_book"));
+                    book.setImagePath(rs.getString("image_path"));
+                    book.setAvarageRating(rs.getDouble("average_rating"));
+
+                    Author a = new Author();
+                    a.setIdAuthor(rs.getInt("id_author"));
+                    a.setFullName(rs.getString("full_name"));
+                    book.setAuthor(a);
+
+                    Stock s = new Stock();
+                    s.setIdStock(rs.getInt("id_stock"));
+                    s.setPrice(rs.getDouble("price"));
+                    book.setStock(s);
+
+                    list.add(book);
+                }
+                return list;
+            }
+        });
+        return books;
     }
 
     @Override
