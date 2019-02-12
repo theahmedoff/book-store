@@ -33,7 +33,7 @@ public class NavigationController {
     public String getShopPage(Model model, @RequestParam(name = "categories", required = false) String[] selectedCategories,
                               @RequestParam(name = "priceRange", required = false) String priceRange,
                               @RequestParam(name = "ageRange", required = false) String ageRange){
-        //setting entity class
+        //setting searchEntity class
         SearchEntity searchEntity = new SearchEntity();
         searchEntity.setCategories(selectedCategories);
         searchEntity.parseAndSetPriceRange(priceRange);
@@ -43,7 +43,7 @@ public class NavigationController {
         model.addAttribute("categories", categories);
         //books
         List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
-        model.addAttribute("books", books);
+//        model.addAttribute("books", books);
 
         return "view/shop";
     }

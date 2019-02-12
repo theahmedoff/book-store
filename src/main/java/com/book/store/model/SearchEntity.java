@@ -24,8 +24,8 @@ public class SearchEntity {
             this.minPrice = Double.parseDouble(prices[0]);
             this.maxPrice = Double.parseDouble(prices[1]);
         }else {
-            this.minPrice=0;
-            this.maxPrice=99999;
+            this.minPrice=10;
+            this.maxPrice=500;
         }
     }
 
@@ -35,8 +35,8 @@ public class SearchEntity {
             this.minAge = Integer.parseInt(ages[0]);
             this.maxAge = Integer.parseInt(ages[1]);
         }else {
-            this.minAge=0;
-            this.maxAge=Integer.MAX_VALUE;
+            this.minAge=1;
+            this.maxAge=99;
         }
     }
 
