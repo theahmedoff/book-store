@@ -499,7 +499,7 @@
         }
     });
     $('#ageRange').val($('#slider-age').slider('values', 0) +
-        " - " + $('#slider-age').slider('values', 1));
+        "-" + $('#slider-age').slider('values', 1));
 
 
 /*====== Dropdown ======*/

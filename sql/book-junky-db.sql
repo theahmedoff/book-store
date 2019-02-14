@@ -97,7 +97,7 @@ CREATE TABLE `book_category` (
 
 LOCK TABLES `book_category` WRITE;
 /*!40000 ALTER TABLE `book_category` DISABLE KEYS */;
-INSERT INTO `book_category` VALUES (1,1,6),(2,2,5),(3,3,7),(4,4,10),(5,4,9),(6,2,9);
+INSERT INTO `book_category` VALUES (1,1,6),(2,2,5),(3,3,7),(4,4,8),(5,4,9),(6,2,9);
 /*!40000 ALTER TABLE `book_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
-  `old_price` double DEFAULT NULL,
+  `age_range` int(11) DEFAULT NULL,
   `last_added_date` datetime DEFAULT NULL,
   `id_book` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_stock`),
@@ -235,7 +235,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,15,25.95,38.95,'2019-02-03 00:00:00',1),(2,79,18.95,38.95,'2019-01-03 00:00:00',2),(3,42,12.95,38.95,'2019-01-18 00:00:00',3),(4,125,10.95,38.95,'2018-11-11 00:00:00',4);
+INSERT INTO `stock` VALUES (1,15,25.95,12,'2019-02-03 00:00:00',1),(2,79,18.95,18,'2019-01-03 00:00:00',2),(3,42,12.95,3,'2019-01-18 00:00:00',3),(4,125,10.95,6,'2018-11-11 00:00:00',4);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,6 +253,8 @@ CREATE TABLE `user` (
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `status` int(11) DEFAULT NULL,
+  `token` text,
   `id_role` int(11) NOT NULL,
   PRIMARY KEY (`id_user`),
   KEY `fk_user_role_idx` (`id_role`),
@@ -266,7 +268,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Xalid','Memmedov','xalid224','xalid224','xalid224@gmail.com',2);
+INSERT INTO `user` VALUES (1,'Xalid','Memmedov','xalid224','xalid224','xalid224@gmail.com',NULL,NULL,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-09 23:54:55
+-- Dump completed on 2019-02-13  0:56:32

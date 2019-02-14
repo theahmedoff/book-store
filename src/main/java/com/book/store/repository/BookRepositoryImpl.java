@@ -22,49 +22,75 @@ public class BookRepositoryImpl implements BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
-    private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book,b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
-    private static final String GET_ALL_LAST_BOOK_SQL = "select b.id_book, b.image_path, a.id_author, a.full_name, r.id_review, AVG(r.rating) as average_rating, s.id_stock, s.old_price, s.price FROM book b INNER JOIN author a on b.id_author = a.id_author INNER JOIN stock s on b.id_book = s.id_book LEFT JOIN review r on b.id_book = r.id_book GROUP BY b.id_book";
+    private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
+    private static final String GET_ALL_LAST_BOOK_SQL = "select b.id_book, b.image_path, a.id_author, a.full_name, r.id_review, AVG(r.rating) as average_rating, s.id_stock, s.price FROM book b INNER JOIN author a on b.id_author = a.id_author INNER JOIN stock s on b.id_book = s.id_book LEFT JOIN review r on b.id_book = r.id_book GROUP BY b.id_book";
 
     //methods
     @Override
     public List<Book> getBooksByMultipleParameters(SearchEntity searchEntity) {
-        List<Book> books = jdbcTemplate.query(GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+        StringBuilder builder = new StringBuilder(GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL);
+        int categoriesLength = 0;
+        if (searchEntity.getCategories() != null) {
+            categoriesLength = searchEntity.getCategories().length;
+        }
+        int counter = 0;
 
-            @Override
-            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<Book> list = new ArrayList<>();
-
-                while (rs.next()) {
-                    Book book = new Book();
-                    book.setIdBook(rs.getInt("book.id_book"));
-                    book.setTitle(rs.getString("book.title"));
-                    book.setDesc(rs.getString("book.desc"));
-                    book.setImagePath(rs.getString("book.image_path"));
-                    book.setLanguage(rs.getString("book.language"));
-                    book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                    book.setAvarageRating(rs.getDouble("book.average_rating"));
-
-                    Author author = new Author();
-                    author.setIdAuthor(rs.getInt("id_author"));
-                    author.setFullName(rs.getString("full_name"));
-                    book.setAuthor(author);
-
-                    Stock stock = new Stock();
-                    stock.setIdStock(rs.getInt("id_stock"));
-                    stock.setQuantity(rs.getInt("quantity"));
-                    stock.setPrice(rs.getDouble("price"));
-                    stock.setOldPrice(rs.getDouble("old_price"));
-                    stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
-                    book.setStock(stock);
-
-                    list.add(book);
+        if (categoriesLength != 0) {
+            builder.append(" inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where (s.age_range > ? and s.age_range < ?) and (s.price > ? and s.price < ?) and (");
+            for (int i = 0; i < searchEntity.getCategories().length; i++) {
+                builder.append("c.id_category = ?");
+                counter++;
+                if (counter != searchEntity.getCategories().length) { //[counter = 3] fase
+                    builder.append(" or ");
                 }
-
-                return list;
             }
-        });
+            builder.append(")");
 
-        return books;
+
+        } else {
+            builder.append(" where (s.age_range > ? and s.age_range < ?) and (s.price > ? and s.price < ?)");
+        }
+
+        System.out.println(builder);
+
+
+//        List<Book> books = jdbcTemplate.query(GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+//
+//            @Override
+//            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+//                List<Book> list = new ArrayList<>();
+//
+//                while (rs.next()) {
+//                    Book book = new Book();
+//                    book.setIdBook(rs.getInt("book.id_book"));
+//                    book.setTitle(rs.getString("book.title"));
+//                    book.setDesc(rs.getString("book.desc"));
+//                    book.setImagePath(rs.getString("book.image_path"));
+//                    book.setLanguage(rs.getString("book.language"));
+//                    book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
+//                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+//
+//                    Author author = new Author();
+//                    author.setIdAuthor(rs.getInt("id_author"));
+//                    author.setFullName(rs.getString("full_name"));
+//                    book.setAuthor(author);
+//
+//                    Stock stock = new Stock();
+//                    stock.setIdStock(rs.getInt("id_stock"));
+//                    stock.setQuantity(rs.getInt("quantity"));
+//                    stock.setPrice(rs.getDouble("price"));
+//                    stock.setAgeRange(rs.getInt("age_range"));
+//                    stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
+//                    book.setStock(stock);
+//
+//                    list.add(book);
+//                }
+//
+//                return list;
+//            }
+//        });
+
+        return null;
     }
 
     @Override
