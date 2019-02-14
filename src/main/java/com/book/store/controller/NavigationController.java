@@ -25,7 +25,7 @@ public class NavigationController {
     @RequestMapping("/")
     public String getIndexPage(Model model) {
         List<Book> books = bookService.getLastBooks();
-        model.addAttribute("last-books", books);
+        model.addAttribute("lastBooks", books);
         return "view/index";
     }
 
