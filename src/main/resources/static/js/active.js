@@ -480,13 +480,26 @@
         range: true,
         min: 10,
         max: 500,
-        values: [110, 400],
+        values: [10, 500],
         slide: function(event, ui) {
-            $('#amount').val('$' + ui.values[0] + ' - $' + ui.values[1]);
+            $('#priceRange').val(ui.values[0] + '-' + ui.values[1]);
         }
     });
-    $('#amount').val('$' + $('#slider-range').slider('values', 0) +
-        " - $" + $('#slider-range').slider('values', 1));
+    $('#priceRange').val($('#slider-range').slider('values', 0) +
+        "-" + $('#slider-range').slider('values', 1));
+
+    /*====== Age Slider Active ======*/
+    $('#slider-age').slider({
+        range: true,
+        min: 1,
+        max: 99,
+        values: [1, 99],
+        slide: function(event, ui) {
+            $('#ageRange').val(ui.values[0] + '-'+ ui.values[1]);
+        }
+    });
+    $('#ageRange').val($('#slider-age').slider('values', 0) +
+        "-" + $('#slider-age').slider('values', 1));
 
 
 /*====== Dropdown ======*/

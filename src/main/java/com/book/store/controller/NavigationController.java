@@ -3,11 +3,15 @@ package com.book.store.controller;
 import com.book.store.model.Book;
 import com.book.store.model.Category;
 import com.book.store.model.Contact;
+import com.book.store.model.SearchEntity;
+import com.book.store.model.User;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,17 +28,25 @@ public class NavigationController {
     @RequestMapping("/")
     public String getIndexPage(Model model) {
         List<Book> books = bookService.getLastBooks();
-        model.addAttribute("last-books", books);
+        model.addAttribute("lastBooks", books);
         return "view/index";
     }
 
     @RequestMapping("/shop")
-    public String getShopPage(@RequestParam(value = "idCategory", required = false) Integer idCategory, Model model){
+    public String getShopPage(Model model, @RequestParam(name = "categories", required = false) String[] selectedCategories,
+                              @RequestParam(name = "priceRange", required = false) String priceRange,
+                              @RequestParam(name = "ageRange", required = false) String ageRange){
+        //setting searchEntity class
+        SearchEntity searchEntity = new SearchEntity();
+        searchEntity.setCategories(selectedCategories);
+        searchEntity.parseAndSetPriceRange(priceRange);
+        searchEntity.parseAndSetAgeRange(ageRange);
+        //categories
         List<Category> categories = bookService.getAllCategories();
         model.addAttribute("categories", categories);
-
-        List<Book> books = bookService.getBooksByMultipleParameters(idCategory);
-        model.addAttribute("books", books);
+        //books
+        List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
+//        model.addAttribute("books", books);
 
         return "view/shop";
     }
@@ -51,8 +63,10 @@ public class NavigationController {
         return "view/login";
     }
 
-    @RequestMapping("/register")
-    public String getRegisterPage() {
+    @GetMapping("/register")
+    public String getRegisterPage(Model model) {
+        User user = new User();
+        model.addAttribute("newUser", user);
         return "view/register";
     }
 
