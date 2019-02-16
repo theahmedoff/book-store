@@ -40,33 +40,33 @@
     <!-- Start My Account Area -->
 
     <section class="my_account_area pt--80 pb--55 bg--white">
-        <form th:action="@{/register}" th:object="${newUser}" method="post" enctype="multipart/form-data">
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="my__account__wrapper">
                             <h3 class="account__title">Login</h3>
-                            <form action="#">
+                            <form th:action="@{/register}" th:object="${newUser}" method="post" enctype="multipart/form-data">
                                 <div class="account__form">
                                     <div class="input__box">
                                         <label>Name <span>*</span></label>
-                                        <input type="text" placeholder="First Name...">
+                                        <input type="text" placeholder="First Name..." th:field="*{name}">
                                     </div>
                                     <div class="input__box">
                                         <label>Surname<span>*</span></label>
-                                        <input type="text" placeholder="First Name...">
+                                        <input type="text" placeholder="First Name..." th:field="*{surname}">
                                     </div>
                                     <div class="input__box">
                                         <label>Username <span>*</span></label>
-                                        <input type="text" placeholder="Username...">
+                                        <input type="text" placeholder="Username..." th:field="*{username}">
                                     </div>
                                     <div class="input__box">
                                         <label>E-Mail<span>*</span></label>
-                                        <input type="email" placeholder="Your E-Mail...">
+                                        <input type="email" placeholder="Your E-Mail..." th:field="*{email}">
                                     </div>
                                     <div class="input__box">
                                         <label>Password <span>*</span></label>
-                                        <input type="password" placeholder="Password...">
+                                        <input type="password" placeholder="Password..." th:field="*{password}">
                                     </div>
                                     <div class="input__box">
                                         <label>Re-Password<span>*</span></label>
@@ -81,7 +81,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </section>
     <!-- End My Account Area -->
     <!-- Footer Area -->
