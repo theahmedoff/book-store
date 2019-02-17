@@ -156,7 +156,6 @@
 
                                 <th:block th:each="book : ${books}">
                                     <!-- Start Single Product -->
-                                    <!-- SETIR 168 SILINECEK... -->
                                     <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="product__thumb">
                                             <a class="first__img" th:href="@{/single-product}"><img
@@ -174,8 +173,8 @@
                                                     <th:block th:text="'$' + ${book.stock.price}"></th:block>
                                                 </li>
                                                 <li class="old_prize">
-                                                    <th:block th:text="'$' + ${book.stock.oldPrice}"></th:block>
-                                                    >
+                                                    <span>40</span>
+                                                    <!--<th:block th:text="'$' + ${book.stock.oldPrice}"></th:block>-->
                                                 </li>
                                             </ul>
                                             <div class="action">
@@ -206,7 +205,6 @@
                                         </div>
                                     </div>
                                     <!-- End Single Product -->
-                                    <!--<li><a th:href="@{/shop?idCategory=} + ${category.idCategory}"> <th:block th:text="${category.type}"> <span>(3)</span></a></li>-->
                                 </th:block>
 
                             </div>

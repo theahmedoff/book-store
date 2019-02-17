@@ -24,8 +24,8 @@ public class NavigationController {
     //methods
     @RequestMapping("/")
     public String getIndexPage(Model model) {
-        List<Book> books = bookService.getLastBooks();
-        model.addAttribute("last-books", books);
+        List<Book> lastBooks = bookService.getLastBooks();
+        model.addAttribute("last-books", lastBooks);
         return "view/index";
     }
 
@@ -43,12 +43,9 @@ public class NavigationController {
         model.addAttribute("categories", categories);
         //books
         List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
-//        model.addAttribute("books", books);
-
+        model.addAttribute("books", books);
         return "view/shop";
     }
-
-
 
     @RequestMapping("/single-product")
     public String getSingleProductPage(){
@@ -59,8 +56,6 @@ public class NavigationController {
     public String getLoginPage() {
         return "view/login";
     }
-
-
 
     @RequestMapping("/wishlist")
     public String getWishlistPage() {
