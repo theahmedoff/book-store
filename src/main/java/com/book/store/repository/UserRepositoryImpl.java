@@ -17,8 +17,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String SET_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String ACTIVATE_USER_BY_TOKEN_SQL = "UPDATE user SET token=?, status=? WHERE token=?";
     private static final String GET_USER_BY_USERNAME_SQL = "SELECT * FROM user u INNER JOIN role r on u.id_role = r.id_role WHERE u.username = ?";
-    private static final String UPDATE_USER_STATUS_BY_TOKEN_SQL = "UPDATE user SET token=?, status=? WHERE token=?";
 
     @Override
     public void register(User user) {
@@ -49,11 +49,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void upadteUserByStatusByToken(String token) {
+    public void activateUserByToken(String token) {
         String newToken = UUID.randomUUID().toString();
         int status = 1;
 
-        int affectedRow = jdbcTemplate.update(UPDATE_USER_STATUS_BY_TOKEN_SQL, newToken, status, token);
+        int affectedRow = jdbcTemplate.update(ACTIVATE_USER_BY_TOKEN_SQL, newToken, status, token);
         if (affectedRow == 0){
             try {
                 throw new IllegalAccessException("Token is Invalide");

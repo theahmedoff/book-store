@@ -130,11 +130,7 @@
 	</div>
 	<!-- //Main wrapper -->
 
-	<!-- JS Files -->
-	<script src="js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/plugins.js"></script>
+	<th:block th:replace="fragments/imports :: js-imports" />
 	    <!-- Google Map js -->
 	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmGmeot5jcjdaJTvfCmQPfzeoG_pABeWo"></script>
 	    <script>
@@ -146,7 +142,7 @@
 	            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
 	            var mapOptions = {
 	                // How zoomed in you want the map to start at (always required)
-	                zoom: 12,
+	                zoom: 14,
 
 	                scrollwheel: true,
 
@@ -258,16 +254,18 @@
 	            // Let's also add a marker while we're at it
 	            var marker = new google.maps.Marker({
 	                position: new google.maps.LatLng(40.41488424, 49.8532777),
-	                map: map,
+
 	                title: 'Dcare!',
-	                icon: 'images/icons/map.png',
-	                animation:google.maps.Animation.BOUNCE
+	                // icon: '/images/icons/map.png',
+	                animation:google.maps.Animation.BOUNCE,
+					visible: true
 
 	            });
+	            marker.setMap(map);
 	        }
 	    </script>
 	
 </body>
-<th:block th:replace="fragments/imports :: js-imports" />
+
 <!-- Mirrored from demo.devitems.com/boighor-v2/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:06:38 GMT -->
 </html>
