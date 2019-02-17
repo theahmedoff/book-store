@@ -13,21 +13,13 @@ public class EmailUtil {
 
     @Autowired
     private JavaMailSender emailSender;
-
-    @Value("${spring.mail.to}")
-    private String to;
-
-    @Value("${spring.mail.subject}")
-    private String subject;
-
-
-    public void sendEmailMessage(Contact contact) {
-
+    
+    public void sendEmailMessage(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
-        message.setText("Firstname: "+contact.getFirstName()+"\nLastname: "+contact.getLastName()+"\nEmail: "+contact.getEmail()+"\nWebsite: "+contact.getWebsite()+"\nSubject: "+contact.getSubject()+"\nMessage: "+contact.getMessage());
+        message.setText(body);
         emailSender.send(message);
-
     }
+
 }

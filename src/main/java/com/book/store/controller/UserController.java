@@ -29,8 +29,9 @@ public class UserController {
         newUser.setRole(new Role(2));
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(2);
-        System.out.println(newUser);
         service.register(newUser);
+        //send email
+
         return "redirect:/login";
     }
 }
