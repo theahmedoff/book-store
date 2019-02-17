@@ -3,6 +3,7 @@ package com.book.store.controller;
 import com.book.store.model.Role;
 import com.book.store.model.User;
 import com.book.store.service.UserService;
+import com.book.store.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class UserController {
         newUser.setPassword(encoder.encode(newUser.getPassword()));
         newUser.setRole(new Role(2));
         newUser.setToken(UUID.randomUUID().toString());
-        newUser.setStatus(2);
+        newUser.setStatus(Constants.USER_STATUS_INACTIVE);
         service.register(newUser);
         //send email
 

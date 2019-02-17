@@ -30,7 +30,7 @@ public class ContactController {
         }
 
 
-        emailUtil.sendEmailMessage(contact);
+//        emailUtil.sendEmailMessage(contact);
 
         return "redirect:/contact";
 
