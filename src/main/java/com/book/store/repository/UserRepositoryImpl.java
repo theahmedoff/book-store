@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String SET_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String GET_USER_BY_EMAIL_SQL = "SELECT * FROM user u INNER JOIN role r on u.id_role = r.id_role WHERE u.email = ?";
+    private static final String GET_USER_BY_USERNAME_SQL = "SELECT * FROM user u INNER JOIN role r on u.id_role = r.id_role WHERE u.username = ?";
     private static final String UPDATE_USER_STATUS_BY_TOKEN_SQL = "UPDATE user SET token=?, status=? WHERE token=?";
 
     @Override
@@ -26,8 +26,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL_SQL, new Object[]{email}, new RowMapper<User>() {
+    public User getUserByUsername(String username) {
+        return jdbcTemplate.queryForObject(GET_USER_BY_USERNAME_SQL, new Object[]{username}, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs, int i) throws SQLException {
                 User user = new User();
