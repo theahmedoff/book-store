@@ -100,6 +100,7 @@ public class NavigationController {
     @GetMapping("/contact")
     public String getContactPage(Model model) {
         model.addAttribute("contact", new Contact());
+        System.out.print(model.asMap().get("message"));
         return "view/contact";
     }
 
