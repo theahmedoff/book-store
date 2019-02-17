@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void upadteUserByStatusByToken(String token) {
-        userRepository.upadteUserByStatusByToken(token);
+    public void activateUserByToken(String token) {
+        userRepository.activateUserByToken(token);
     }
 
 

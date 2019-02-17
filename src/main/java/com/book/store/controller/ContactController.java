@@ -35,6 +35,8 @@ public class ContactController {
 
         }
 
+
+//        emailUtil.sendEmailMessage(contact);
         String body="Firstname: " + contact.getFirstName() + "\nLastname: " +contact.getLastName() + "\nEmail: " +contact.getEmail() + "\nSubject: " +contact.getSubject() +"\nWebsite: " +contact.getWebsite();
         emailUtil.sendEmailMessage(to, subject, body);
 
