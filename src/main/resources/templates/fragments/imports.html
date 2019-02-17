@@ -1,4 +1,6 @@
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="imports">
+
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Home Two | Bookshop Responsive Bootstrap4 Template</title>
@@ -35,10 +37,11 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/plugins.js}"></script>
     <script th:src="@{/js/active.js}"></script>
-    <script type="javascript"  th:inline="javascript">
+    <script  th:inline="javascript" th:if="${message !=null}">
         $(function () {
-            alert("alert");
+            alert(/*[[${message}]]*/);
 
         });
     </script>
 </th:block>
+

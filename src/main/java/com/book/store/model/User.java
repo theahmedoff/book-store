@@ -1,5 +1,6 @@
 package com.book.store.model;
 
+import com.book.store.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return status != Constants.USER_STATUS_BLOCK;
     }
 
     @Override
@@ -51,6 +52,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return status != Constants.USER_STATUS_ACTIVE;
     }
 }
