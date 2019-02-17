@@ -11,5 +11,5 @@ public interface UserService extends UserDetailsService {
     @Override
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 
-    void upadteUserByStatusByToken(String token);
+    void activateUserByToken(String token);
 }

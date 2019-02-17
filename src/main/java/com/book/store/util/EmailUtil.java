@@ -13,7 +13,7 @@ public class EmailUtil {
 
     @Autowired
     private JavaMailSender emailSender;
-    
+
     public void sendEmailMessage(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
