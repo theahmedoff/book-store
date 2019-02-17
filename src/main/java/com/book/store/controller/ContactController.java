@@ -35,13 +35,10 @@ public class ContactController {
 
         }
 
-<<<<<<< HEAD
 
 //        emailUtil.sendEmailMessage(contact);
-=======
         String body="Firstname: " + contact.getFirstName() + "\nLastname: " +contact.getLastName() + "\nEmail: " +contact.getEmail() + "\nSubject: " +contact.getSubject() +"\nWebsite: " +contact.getWebsite();
         emailUtil.sendEmailMessage(to, subject, body);
->>>>>>> 80090f0eb0844bfaaa5545c1a1551b4e13163ac1
 
         return "redirect:/contact";
 
