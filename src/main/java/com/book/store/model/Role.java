@@ -12,4 +12,8 @@ public class Role {
     private int idRole;
     private String roleType;
 
+    public Role(int id){
+        this.idRole = id;
+    }
+
 }

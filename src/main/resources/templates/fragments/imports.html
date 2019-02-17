@@ -19,7 +19,7 @@
     <link rel="stylesheet" th:href="@{/css/plugins.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Cusom css -->
+    <!-- Custom css -->
     <link rel="stylesheet" th:href="@{css/custom.css}">
 
 
@@ -35,4 +35,10 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/plugins.js}"></script>
     <script th:src="@{/js/active.js}"></script>
+    <script type="javascript"  th:inline="javascript">
+        $(function () {
+            alert("alert");
+
+        });
+    </script>
 </th:block>

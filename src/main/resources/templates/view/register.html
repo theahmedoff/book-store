@@ -3,20 +3,21 @@
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:06 GMT -->
 <head>
-    <th:block th:replace="fragments/imports :: imports" />
+    <th:block th:replace="fragments/imports :: imports"/>
 </head>
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 
 <!-- Main wrapper -->
 <div class="wrapper" id="wrapper">
     <!-- Header -->
-    <th:block th:replace="fragments/header :: header" />
+    <th:block th:replace="fragments/header :: header"/>
     <!-- //Header -->
     <!-- Start Search Popup -->
-    <th:block th:replace="fragments/header :: search" />
+    <th:block th:replace="fragments/header :: search"/>
     <!-- End Search Popup -->
     <!-- Start Bradcaump area -->
     <div class="ht__bradcaump__area bg-image--6">
@@ -37,53 +38,53 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- Start My Account Area -->
+
     <section class="my_account_area pt--80 pb--55 bg--white">
-        <div class="container">
-            <div class="row">
-                <from th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
-                <div class="col-lg-6 col-12">
-                    <div class="my__account__wrapper">
-                        <h3 class="account__title">Register</h3>
-                        <form action="#">
-                            <div class="account__form">
-                                <div class="input__box">
-                                    <label>Name <span>*</span></label>
-                                    <input type="text" th:field="*{name}">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="my__account__wrapper">
+                            <h3 class="account__title">Login</h3>
+                            <form th:action="@{/register}" th:object="${newUser}" method="post" enctype="multipart/form-data">
+                                <div class="account__form">
+                                    <div class="input__box">
+                                        <label>Name <span>*</span></label>
+                                        <input type="text" placeholder="First Name..." th:field="*{name}">
+                                    </div>
+                                    <div class="input__box">
+                                        <label>Surname<span>*</span></label>
+                                        <input type="text" placeholder="First Name..." th:field="*{surname}">
+                                    </div>
+                                    <div class="input__box">
+                                        <label>Username <span>*</span></label>
+                                        <input type="text" placeholder="Username..." th:field="*{username}">
+                                    </div>
+                                    <div class="input__box">
+                                        <label>E-Mail<span>*</span></label>
+                                        <input type="email" placeholder="Your E-Mail..." th:field="*{email}">
+                                    </div>
+                                    <div class="input__box">
+                                        <label>Password <span>*</span></label>
+                                        <input type="password" placeholder="Password..." th:field="*{password}">
+                                    </div>
+                                    <div class="input__box">
+                                        <label>Re-Password<span>*</span></label>
+                                        <input type="password" placeholder="Re-Password...">
+                                    </div>
+                                    <div class="form__btn">
+                                        <button>Login</button>
+                                    </div>
                                 </div>
-                                <div class="input__box">
-                                    <label>Surname<span>*</span></label>
-                                    <input type="text" th:field="*{surname}">
-                                </div>
-                                <div class="input__box">
-                                    <label>Username<span>*</span></label>
-                                    <input type="text" th:field="*{username}">
-                                </div>
-                                <div class="input__box">
-                                    <label>Email<span>*</span></label>
-                                    <input type="email" th:field="*{email}">
-                                </div>
-                                <div class="input__box">
-                                    <label>Password<span>*</span></label>
-                                    <input type="password" th:field="*{password}">
-                                </div>
-                                <div class="input__box">
-                                    <label>Re-Password<span>*</span></label>
-                                    <input type="password">
-                                </div>
-                                <div class="form__btn">
-                                    <button>Register</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                </from>
             </div>
-        </div>
     </section>
     <!-- End My Account Area -->
     <!-- Footer Area -->
-    <th:block th:replace="fragments/footer :: footer" />
+    <th:block th:replace="fragments/footer :: footer"/>
     <!-- //Footer Area -->
 
 </div>
@@ -91,6 +92,6 @@
 
 
 </body>
-<th:block th:replace="fragments/imports :: js-imports" />
+<th:block th:replace="fragments/imports :: js-imports"/>
 <!-- Mirrored from demo.devitems.com/boighor-v2/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:06 GMT -->
 </html>

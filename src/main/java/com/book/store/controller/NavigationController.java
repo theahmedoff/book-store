@@ -2,12 +2,15 @@ package com.book.store.controller;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.Contact;
 import com.book.store.model.SearchEntity;
 import com.book.store.model.User;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +27,8 @@ public class NavigationController {
     //methods
     @RequestMapping("/")
     public String getIndexPage(Model model) {
-        List<Book> lastBooks = bookService.getLastBooks();
-        model.addAttribute("last-books", lastBooks);
+        List<Book> books = bookService.getLastBooks();
+        model.addAttribute("lastBooks", books);
         return "view/index";
     }
 
@@ -55,6 +58,13 @@ public class NavigationController {
     @RequestMapping("/login")
     public String getLoginPage() {
         return "view/login";
+    }
+
+    @GetMapping("/register")
+    public String getRegisterPage(Model model) {
+        User user = new User();
+        model.addAttribute("newUser", user);
+        return "view/register";
     }
 
     @RequestMapping("/wishlist")
@@ -87,8 +97,9 @@ public class NavigationController {
         return "view/about";
     }
 
-    @RequestMapping("/contact")
-    public String getContactPage() {
+    @GetMapping("/contact")
+    public String getContactPage(Model model) {
+        model.addAttribute("contact", new Contact());
         return "view/contact";
     }
 
