@@ -56,15 +56,15 @@
         					<!--<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>-->
                             <form th:action="@{/contact}" method="post" th:object="${contact}">
                                 <div class="single-contact-form space-between">
-                                    <input type="text" name="firstname" placeholder="First Name*" th:field="*{firstName}">
-                                    <input type="text" name="lastname" placeholder="Last Name*" th:field="*{lastName}">
+                                    <input type="text" name="firstname" placeholder="First Name *" th:field="*{firstName}" required>
+                                    <input type="text" name="lastname" placeholder="Last Name *" th:field="*{lastName}" required>
                                 </div>
                                 <div class="single-contact-form space-between">
-                                    <input type="email" name="email" placeholder="Email*" th:field="*{email}">
-                                    <input type="text" name="website" placeholder="Website*" th:field="*{website}">
+                                    <input type="email" name="email" placeholder="Email *" th:field="*{email}" required>
+                                    <input type="text" name="website" placeholder="Website *" th:field="*{website}" required>
                                 </div>
                                 <div class="single-contact-form">
-                                    <input type="text" name="subject" placeholder="Subject*" th:field="*{subject}">
+                                    <input type="text" name="subject" placeholder="Subject *" th:field="*{subject}" required>
                                 </div>
                                 <div class="single-contact-form message">
                                     <textarea name="message" placeholder="Type your message here.." th:field="*{message}"></textarea>

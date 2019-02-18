@@ -45,32 +45,32 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="my__account__wrapper">
-                            <h3 class="account__title">Login</h3>
+                            <h3 class="account__title">Registration</h3>
                             <form th:action="@{/register}" th:object="${newUser}" method="post" enctype="multipart/form-data">
                                 <div class="account__form">
                                     <div class="input__box">
-                                        <label>Name <span>*</span></label>
-                                        <input type="text" placeholder="First Name..." th:field="*{name}">
+                                        <label>First name <span>*</span></label>
+                                        <input type="text" placeholder="First name" th:field="*{name}" required>
                                     </div>
                                     <div class="input__box">
-                                        <label>Surname<span>*</span></label>
-                                        <input type="text" placeholder="First Name..." th:field="*{surname}">
+                                        <label>Last name <span>*</span></label>
+                                        <input type="text" placeholder="Last name" th:field="*{surname}" required>
                                     </div>
                                     <div class="input__box">
                                         <label>Username <span>*</span></label>
-                                        <input type="text" placeholder="Username..." th:field="*{username}">
+                                        <input type="text" placeholder="Username" th:field="*{username}" required>
                                     </div>
                                     <div class="input__box">
-                                        <label>E-Mail<span>*</span></label>
-                                        <input type="email" placeholder="Your E-Mail..." th:field="*{email}">
+                                        <label>Email <span>*</span></label>
+                                        <input type="email" placeholder="Email address" th:field="*{email}" required>
                                     </div>
                                     <div class="input__box">
-                                        <label>Password <span>*</span></label>
-                                        <input type="password" placeholder="Password..." th:field="*{password}">
+                                        <label>Password (8 or more characters) <span>*</span></label>
+                                        <input type="password" placeholder="Password" th:field="*{password}" required>
                                     </div>
                                     <div class="input__box">
-                                        <label>Re-Password<span>*</span></label>
-                                        <input type="password" placeholder="Re-Password...">
+                                        <label>Confirm password <span>*</span></label>
+                                        <input type="password" placeholder="Confirm password" required>
                                     </div>
                                     <div class="form__btn">
                                         <button>Register</button>

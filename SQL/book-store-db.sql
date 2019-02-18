@@ -140,7 +140,7 @@ CREATE TABLE `category` (
   `id_category` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`id_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Biography'),(2,'Business'),(3,'Cookbooks'),(4,'Health & Fitness'),(5,'History'),(6,'Inspiration'),(7,'Romance'),(8,'Fantasy'),(9,'Sleeveless'),(10,'Harry Potter'),(11,'Self-Improvemen'),(12,'Home & Garden'),(13,'Humor Books'),(14,'Mystery');
+INSERT INTO `category` VALUES (1,'Biography'),(2,'Business'),(3,'Cookbooks'),(4,'Health & Fitness'),(5,'History'),(6,'Mystery'),(7,'Religion & Inspiration'),(8,'Romance'),(9,'Fantasy'),(10,'Sleeveless'),(11,'Science'),(12,'Harry Potter'),(13,'Self-Improvemen'),(14,'Home & Garden'),(15,'Humor books');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-17 13:12:35
+-- Dump completed on 2019-02-18 18:20:48
