@@ -14,4 +14,6 @@ public interface BookService {
 
     List<Category> getAllCategories();
 
+    Book getBookById(int idBook);
+
 }

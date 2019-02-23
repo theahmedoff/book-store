@@ -20,16 +20,22 @@ public class Book {
     private LocalDate writeDate;
     private double avarageRating;
     private Author author;
-    private List<Category> list;
+    private List<Category> categoryList;
+    private List<Review> reviewList;
     private Stock stock;
 
 
     public Book() {
-        this.list = new ArrayList<>();
+        this.categoryList = new ArrayList<>();
+        this.reviewList = new ArrayList<>();
     }
 
     public void addCategory(Category category) {
-        list.add(category);
+        categoryList.add(category);
+    }
+
+    public void addReview(Review review) {
+        reviewList.add(review);
     }
 
 }

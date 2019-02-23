@@ -51,7 +51,9 @@ public class NavigationController {
     }
 
     @RequestMapping("/single-product")
-    public String getSingleProductPage(){
+    public String getSingleProductPage(Model model, @RequestParam(name = "idBook") Integer idBook){
+        Book book = bookService.getBookById(idBook);
+        model.addAttribute("book", book);
         return "view/single-product";
     }
 

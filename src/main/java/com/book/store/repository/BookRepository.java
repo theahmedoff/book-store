@@ -16,4 +16,6 @@ public interface BookRepository {
 
     List<Category> getAllCategories();
 
+    Book getBookById(int idBook);
+
 }

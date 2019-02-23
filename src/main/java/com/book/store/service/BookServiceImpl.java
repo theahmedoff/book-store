@@ -37,4 +37,9 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getAllCategories();
     }
 
+    @Override
+    public Book getBookById(int idBook) {
+        return bookRepository.getBookById(idBook);
+    }
+
 }
