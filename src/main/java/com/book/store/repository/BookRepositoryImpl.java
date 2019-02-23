@@ -24,7 +24,7 @@ public class BookRepositoryImpl implements BookRepository {
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
     private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
     private static final String GET_ALL_LAST_BOOK_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
-    private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category left join review re on book.id_book = re.id_book inner join user u on re.id_user = u.id_user where book.id_book = ?";
+    private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
 
     //methods
     @Override
@@ -142,7 +142,6 @@ public class BookRepositoryImpl implements BookRepository {
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Map<Integer, Book> bookMap = new HashMap<>();
                 Map<Integer, Category> categoryMap = new HashMap<>();
-                Map<Integer, Review> reviewMap = new HashMap<>();
                 List<Book> list = new ArrayList<>();
 
                 while (rs.next()) {
@@ -182,25 +181,6 @@ public class BookRepositoryImpl implements BookRepository {
                         categoryMap.put(category.getIdCategory(), category);
                     }
 
-                    if (reviewMap.get(rs.getInt("re.id_review")) == null) {
-                        Review review = new Review();
-                        review.setIdReview(rs.getInt("re.id_review"));
-                        review.setDesc(rs.getString("re.desc"));
-                        review.setWriteDate(rs.getTimestamp("re.write_date").toLocalDateTime());
-                        review.setRating(rs.getInt("re.rating"));
-
-                        User user = new User();
-                        user.setIdUser(rs.getInt("u.id_user"));
-                        user.setName(rs.getString("u.name"));
-                        user.setSurname(rs.getString("u.surname"));
-                        user.setUsername(rs.getString("u.username"));
-                        user.setEmail(rs.getString("u.email"));
-
-                        review.setUser(user);
-                        book.addReview(review);
-                        reviewMap.put(review.getIdReview(), review);
-                    }
-
                     list.add(book);
                 }
 
@@ -208,24 +188,8 @@ public class BookRepositoryImpl implements BookRepository {
             }
         });
 
-        System.out.println(list.size());
         return list.get(0);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //private methods
     private Object[] add(Object[] arr, Object... elements){

@@ -1,0 +1,100 @@
+<!doctype html>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/categories",
+            dataType: "json",
+            success: function (categories) {
+                $('#idCategories').empty();
+                categories.forEach(function (category) {
+                    $('#idCategories').append('<input type="checkbox" name="categories" value="'+category.idCategory+'">');
+                    $('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
+                });
+            }
+        });
+    });
+</script>
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="advanced-search">
+    <div class="col-lg-3 col-12 order-2 order-lg-1 md-mt-40 sm-mt-40">
+        <div class="shop__sidebar">
+            <form th:action="@{/shop}" method="GET">
+                <aside class="wedget__categories product--cat">
+                    <h3 class="wedget__title">Product Categories</h3>
+
+                    <!--categories-->
+                    <ul id="idCategories"></ul>
+                </aside>
+                <br>
+                <aside class="wedget__categories pro--range">
+                    <h3 class="wedget__title">Filter by price</h3>
+                    <div class="content-shopby">
+                        <div class="price_filter s-filter clear">
+
+                            <div id="slider-range"></div>
+                            <div class="slider__range--output">
+                                <div class="price__output--wrap">
+                                    <div class="price--output">
+                                        <span>Price :</span><input type="text" id="priceRange" name="priceRange"
+                                                                   readonly="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </aside>
+                <aside class="wedget__categories pro--range">
+                    <h3 class="wedget__title">Filter by Age</h3>
+                    <div class="content-shopby">
+                        <div class="price_filter s-filter clear">
+
+
+                            <div id="slider-age"></div>
+                            <div class="slider__range--output">
+                                <div class="price__output--wrap">
+                                    <div class="price--output">
+                                        <span>Age :</span><input type="text" id="ageRange" name="ageRange" readonly="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </aside>
+                <div class="price--filter">
+                    <input type="submit" value="Filter">
+                </div>
+            </form>
+            <br>
+            <aside class="wedget__categories poroduct--tag">
+                <h3 class="wedget__title">Product Tags</h3>
+                <ul>
+                    <li><a href="#">Biography</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Cookbooks</a></li>
+                    <li><a href="#">Health & Fitness</a></li>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">Mystery</a></li>
+                    <li><a href="#">Inspiration</a></li>
+                    <li><a href="#">Religion</a></li>
+                    <li><a href="#">Fiction</a></li>
+                    <li><a href="#">Fantasy</a></li>
+                    <li><a href="#">Music</a></li>
+                    <li><a href="#">Toys</a></li>
+                    <li><a href="#">Hoodies</a></li>
+                </ul>
+            </aside>
+            <aside class="wedget__categories sidebar--banner">
+                <img th:src="@{/images/others/banner_left.jpg}" alt="banner images">
+                <div class="text">
+                    <h2>new products</h2>
+                    <h6>save up to <br> <strong>40%</strong>off</h6>
+                </div>
+            </aside>
+        </div>
+    </div>
+</th:block>
