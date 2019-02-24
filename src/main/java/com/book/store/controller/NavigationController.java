@@ -69,11 +69,6 @@ public class NavigationController {
         return "view/register";
     }
 
-    @RequestMapping("/wishlist")
-    public String getWishlistPage() {
-        return "view/wishlist";
-    }
-
     @RequestMapping("/team")
     public String getTeamPage() {
         return "view/team";
@@ -84,11 +79,6 @@ public class NavigationController {
         return "view/faq";
     }
 
-    @RequestMapping("/cart")
-    public String getCartPage() {
-        return "view/cart";
-    }
-
     @RequestMapping("/blog")
     public String getBlogPage() {
         return "view/blog";
@@ -97,11 +87,6 @@ public class NavigationController {
     @RequestMapping("/about")
     public String getAboutPage() {
         return "view/about";
-    }
-
-    @RequestMapping("/checkout")
-    public String getCheckoutPage() {
-        return "view/checkout";
     }
 
     @GetMapping("/contact")

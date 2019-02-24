@@ -81,8 +81,8 @@
                         <div class="product product__style--3">
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img th:src="@{/images/books/1.jpg}" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img th:src="@{/images/books/2.jpg}" alt="product image"></a>
+                                    <a class="first__img" th:href="@{/single-product?idBook=} + ${lb.idBook}"><img th:src="@{/images/books/1.jpg}" alt="product image"></a>
+                                    <a class="second__img animation1" th:href="@{/single-product?idBook=} + ${lb.idBook}"><img th:src="@{/images/books/2.jpg}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALLER</span>
                                     </div>
@@ -90,8 +90,8 @@
                                 <div class="product__content content--center">
                                     <h4><a th:text="${lb.getAuthor().getFullName()}" href="single-product.html">robin parrish</a></h4>
                                     <ul class="prize d-flex">
-                                        <li th:text="${lb.getStock().getPrice()}">$35.00</li>
-                                        <li th:text="${lb.getStock().getPrice()}" class="old_prize">$156.00</li>
+                                        <li th:text="'$' + ${lb.getStock().getPrice()}"></li>
+                                        <li th:text="'$' + ${lb.getStock().getPrice()}" class="old_prize"></li>
                                     </ul>
                                     <div class="action">
                                         <div class="actions_inner">

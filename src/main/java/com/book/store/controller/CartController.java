@@ -8,4 +8,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/cart")
 public class CartController {
 
+    @RequestMapping
+    public String getCartPage() {
+        return "view/cart";
+    }
+
+    @RequestMapping("/wishlist")
+    public String  getWishlistPage() {
+        return "view/wishlist";
+    }
+
+    @RequestMapping("/checkout")
+    public String getCheckoutPage() {
+        return "view/checkout";
+    }
+
 }
