@@ -8,7 +8,7 @@
                 success: function (categories) {
                     $('#idCategories').empty();
                     categories.forEach(function (category) {
-                        $('#idCategories').append('<input type="checkbox" name="categories" value="'+category.idCategory+'">');
+                        $('#idCategories').append('<input type="checkbox" name="categories" value="' + category.idCategory + '">');
                         $('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
                         $('#idCategories').append('<br>');
                     });

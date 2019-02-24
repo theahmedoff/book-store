@@ -2,6 +2,7 @@ package com.book.store.service;
 
 import com.book.store.model.Book;
 import com.book.store.model.Category;
+import com.book.store.model.Review;
 import com.book.store.model.SearchEntity;
 import com.book.store.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookById(int idBook) {
         return bookRepository.getBookById(idBook);
+    }
+
+    @Override
+    public List<Review> getReviewsByIdBook(int idBook) {
+        return bookRepository.getReviewsByIdBook(idBook);
     }
 
 }

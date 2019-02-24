@@ -25,6 +25,7 @@ public class BookRepositoryImpl implements BookRepository {
     private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
     private static final String GET_ALL_LAST_BOOK_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
     private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
+    private static final String GET_REVIEWS_BY_ID_BOOK = "select * from review r inner join user u on r.id_user = u.id_user where r.id_book = ?";
 
     //methods
     @Override
@@ -190,6 +191,33 @@ public class BookRepositoryImpl implements BookRepository {
 
         return list.get(0);
     }
+
+    @Override
+    public List<Review> getReviewsByIdBook(int idBook) {
+        List<Review> reviews = jdbcTemplate.query(GET_REVIEWS_BY_ID_BOOK, new Object[]{idBook}, new RowMapper<Review>() {
+            @Override
+            public Review mapRow(ResultSet rs, int i) throws SQLException {
+                    Review review = new Review();
+                    review.setIdReview(rs.getInt("id_review"));
+                    review.setDesc(rs.getString("desc"));
+                    review.setWriteDate(rs.getTimestamp("write_date").toLocalDateTime());
+                    review.setRating(rs.getInt("rating"));
+
+                    User user = new User();
+                    user.setIdUser(rs.getInt("id_user"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setUsername(rs.getString("username"));
+                    user.setEmail(rs.getString("email"));
+                    review.setUser(user);
+
+                return review;
+            }
+        });
+        return reviews;
+    }
+
+
 
     //private methods
     private Object[] add(Object[] arr, Object... elements){
