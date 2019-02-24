@@ -1,22 +1,22 @@
-<!doctype html>
-<script type="text/javascript">
-    $(function () {
-        $.ajax({
-            type: "GET",
-            url: "/categories",
-            dataType: "json",
-            success: function (categories) {
-                $('#idCategories').empty();
-                categories.forEach(function (category) {
-                    $('#idCategories').append('<input type="checkbox" name="categories" value="'+category.idCategory+'">');
-                    $('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
-                });
-            }
-        });
-    });
-</script>
-
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="advanced-search">
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "/categories",
+                dataType: "json",
+                success: function (categories) {
+                    $('#idCategories').empty();
+                    categories.forEach(function (category) {
+                        $('#idCategories').append('<input type="checkbox" name="categories" value="' + category.idCategory + '">');
+                        $('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
+                        $('#idCategories').append('<br>');
+                    });
+                }
+            });
+        });
+    </script>
+
     <div class="col-lg-3 col-12 order-2 order-lg-1 md-mt-40 sm-mt-40">
         <div class="shop__sidebar">
             <form th:action="@{/shop}" method="GET">
