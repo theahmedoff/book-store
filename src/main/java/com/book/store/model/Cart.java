@@ -12,5 +12,6 @@ public class Cart {
     private int idCart;
     private User user;
     private Book book;
+    private int quantity;
 
 }

@@ -45,6 +45,10 @@
 							<h3 class="account__title">Login</h3>
 							<form th:action="@{/login}" method="post">
 								<div class="account__form">
+									<div class="checkout_info" th:if="${SPRING_SECURITY_LAST_EXCEPTION!=null}">
+										<span>Error Login ?</span>
+										<a class="showlogin" href="#"><span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span></a>
+									</div>
 									<div class="input__box">
 										<label>Username or email address <span>*</span></label>
 										<input type="text" name="username" required>
@@ -54,6 +58,7 @@
 										<input type="password" name="password" required>
 									</div>
 									<div class="form__btn">
+										<!--<span th:if="${SPRING_SECURITY_LAST_EXCEPTION!=null}" th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>-->
 										<button>Login</button>
 										<label class="label-for-checkbox">
 											<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">

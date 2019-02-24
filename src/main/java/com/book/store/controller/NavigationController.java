@@ -99,6 +99,11 @@ public class NavigationController {
         return "view/about";
     }
 
+    @RequestMapping("/checkout")
+    public String getCheckoutPage() {
+        return "view/checkout";
+    }
+
     @GetMapping("/contact")
     public String getContactPage(Model model) {
         model.addAttribute("contact", new Contact());

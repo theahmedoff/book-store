@@ -31,7 +31,7 @@ public class UserController {
     private String body;
 
     @PostMapping("/register")
-    public String getRegisterPage(@ModelAttribute("newUser")User newUser) {
+    public String getRegisterPage(@ModelAttribute("newUser")User newUser, RedirectAttributes redirectAttributes) {
         newUser.setPassword(encoder.encode(newUser.getPassword()));
         newUser.setRole(new Role(2));
         newUser.setToken(UUID.randomUUID().toString());
@@ -39,6 +39,8 @@ public class UserController {
         service.register(newUser);
         //send email
         emailUtil.sendEmailMessage(newUser.getEmail(), subject, String.format(body, newUser.getToken()));
+        //message
+        redirectAttributes.addFlashAttribute("message", "Success Register...");
         return "redirect:/login";
     }
 
