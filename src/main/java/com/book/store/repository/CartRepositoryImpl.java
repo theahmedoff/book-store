@@ -1,12 +1,11 @@
 package com.book.store.repository;
 
-import com.book.store.model.Book;
-import com.book.store.model.Cart;
-import com.book.store.model.Stock;
-import com.book.store.model.User;
+import com.book.store.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -17,13 +16,17 @@ import java.util.List;
 @Repository
 public class CartRepositoryImpl implements CartRepository {
 
+    //fields
+    @Autowired
     private JdbcTemplate jdbcTemplate;
+    private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
+    private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
 
-    public static final String GET_ALL_CART_LIST_SQL = "select b.id_book, b.image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.email = ?";
 
+    //methods
     @Override
-    public List<Cart> getAllCartListByUserId(String email) {
-        List<Cart> carts = jdbcTemplate.query(GET_ALL_CART_LIST_SQL, new Object[]{email}, new ResultSetExtractor<List<Cart>>() {
+    public List<Cart> getCartsByIdUser(int idUser) {
+        List<Cart> carts = jdbcTemplate.query(GET_CARTS_BY_ID_USER_SQL, new Object[]{idUser}, new ResultSetExtractor<List<Cart>>() {
             @Override
             public List<Cart> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Cart> cartList = new ArrayList<>();
@@ -57,5 +60,44 @@ public class CartRepositoryImpl implements CartRepository {
             }
         });
         return carts;
+    }
+
+    @Override
+    public List<Wishlist> getWishlistsByIdUser(int idUser) {
+        List<Wishlist> wishlists = jdbcTemplate.query(GET_WISHLISTS_BY_ID_USER_SQL, new Object[]{idUser}, new ResultSetExtractor<List<Wishlist>>() {
+            @Override
+            public List<Wishlist> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Wishlist> list = new ArrayList<>();
+                while (rs.next()) {
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("id_book"));
+                    book.setTitle(rs.getString("title"));
+                    book.setImagePath(rs.getString("image_path"));
+
+                    Stock stock = new Stock();
+                    stock.setIdStock(rs.getInt("id_stock"));
+                    stock.setQuantity(rs.getInt("quantity"));
+                    stock.setPrice(rs.getInt("price"));
+                    book.setStock(stock);
+
+                    User user = new User();
+                    user.setIdUser(rs.getInt("id_user"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setUsername(rs.getString("username"));
+                    user.setEmail(rs.getString("email"));
+
+                    Wishlist wishlist = new Wishlist();
+                    wishlist.setIdWishlist(rs.getInt("id_wishlist"));
+                    wishlist.setBook(book);
+                    wishlist.setUser(user);
+
+                    list.add(wishlist);
+                }
+
+                return list;
+            }
+        });
+        return wishlists;
     }
 }

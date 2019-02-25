@@ -57,30 +57,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="product-remove"><a href="#">×</a></td>
-                                                <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>
-                                                <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                                <td class="product-price"><span class="amount">$165.00</span></td>
-                                                <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                                <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-remove"><a href="#">×</a></td>
-                                                <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>
-                                                <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                                <td class="product-price"><span class="amount">$165.00</span></td>
-                                                <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                                <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-remove"><a href="#">×</a></td>
-                                                <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>
-                                                <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                                <td class="product-price"><span class="amount">$165.00</span></td>
-                                                <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                                <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                            </tr>
+                                            <th:block th:each="wishlist : ${wishlists}">
+                                                <tr>
+                                                    <td class="product-remove"><a href="#">×</a></td>
+                                                    <td class="product-thumbnail"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>
+                                                    <td class="product-name"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}" th:text="${wishlist.book.title}"></a></td>
+                                                    <td class="product-price"><span class="amount" th:text="${'$' + wishlist.book.stock.price}"></span></td>
+                                                    <td class="product-stock-status"><span class="wishlist-in-stock" th:text="${wishlist.book.stock.quantity != 0} ? 'In Stock' : 'Non Stock'"></span></td>
+                                                    <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
+                                                </tr>
+                                            </th:block>
                                         </tbody>
                                     </table>
                                 </div>  
