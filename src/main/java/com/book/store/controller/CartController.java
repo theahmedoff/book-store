@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -26,16 +27,21 @@ public class CartController {
     }
 
     @GetMapping("/wishlist")
-    public String  getWishlistPage(Model model) {
-        //TODO: get id_user and set to method
-        List<Wishlist> wishlists = cartService.getWishlistsByIdUser(3);
-        model.addAttribute("wishlists", wishlists);
+    public String getWishlistPage() {
         return "view/wishlist";
     }
 
     @GetMapping("/checkout")
     public String getCheckoutPage() {
         return "view/checkout";
+    }
+
+    @GetMapping("/wishlists")
+    @ResponseBody
+    public List<Wishlist> getWishlistsByIdUser() {
+        //TODO: get idUser and set it to metod
+        List<Wishlist> wishlists = cartService.getWishlistsByIdUser(3);
+        return wishlists;
     }
 
 }

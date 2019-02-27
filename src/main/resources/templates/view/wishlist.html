@@ -4,6 +4,29 @@
 <!-- Mirrored from demo.devitems.com/boighor-v2/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:06 GMT -->
 <head>
 	<th:block th:replace="fragments/imports :: imports" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "/cart/wishlists",
+                dataType: "json",
+                success: function (wishlists) {
+                    $('#idWishlists').empty();
+                    wishlists.forEach(function (wishlist) {
+                        $('#idWishlists').append('<tr>');
+                        $('#idWishlists').append('<td class="product-remove"><a href="#">×</a></td>');
+                        $('#idWishlists').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + wishlist.book.idBook + '"><img src="/images/product/sm-3/1.jpg" alt=""></a></td>');
+                        $('#idWishlists').append('<td class="product-name"><a href="'+ "/single-product?idBook=" + wishlist.book.idBook + '">' + wishlist.book.title + '</a></td>');
+                        $('#idWishlists').append('<td class="product-price"><span class="amount">' + "$" + wishlist.book.stock.price + '</span></td>');
+                        $('#idWishlists').append('<td class="product-stock-status"><span class="wishlist-in-stock">' + (wishlist.book.stock.quantity != 0 ? "In Stock" : "Non Stock") + '</span></td>');
+                        $('#idWishlists').append('<td class="product-add-to-cart"><a href="#">Add to Cart</a></td>');
+                        $('#idWishlists').append('</tr>');
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -56,17 +79,17 @@
                                                 <th class="product-add-to-cart"></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <th:block th:each="wishlist : ${wishlists}">
-                                                <tr>
-                                                    <td class="product-remove"><a href="#">×</a></td>
-                                                    <td class="product-thumbnail"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>
-                                                    <td class="product-name"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}" th:text="${wishlist.book.title}"></a></td>
-                                                    <td class="product-price"><span class="amount" th:text="${'$' + wishlist.book.stock.price}"></span></td>
-                                                    <td class="product-stock-status"><span class="wishlist-in-stock" th:text="${wishlist.book.stock.quantity != 0} ? 'In Stock' : 'Non Stock'"></span></td>
-                                                    <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                                </tr>
-                                            </th:block>
+                                        <tbody id="idWishlists">
+                                            <!--<th:block th:each="wishlist : ${wishlists}">-->
+                                                <!--<tr>-->
+                                                    <!--<td class="product-remove"><a href="#">×</a></td>-->
+                                                    <!--<td class="product-thumbnail"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}"><img th:src="@{/images/product/sm-3/1.jpg}" alt=""></a></td>-->
+                                                    <!--<td class="product-name"><a th:href="@{/single-product?idBook=} + ${wishlist.book.idBook}" th:text="${wishlist.book.title}"></a></td>-->
+                                                    <!--<td class="product-price"><span class="amount" th:text="${'$' + wishlist.book.stock.price}"></span></td>-->
+                                                    <!--<td class="product-stock-status"><span class="wishlist-in-stock" th:text="${wishlist.book.stock.quantity != 0} ? 'In Stock' : 'Non Stock'"></span></td>-->
+                                                    <!--<td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>-->
+                                                <!--</tr>-->
+                                            <!--</th:block>-->
                                         </tbody>
                                     </table>
                                 </div>  
