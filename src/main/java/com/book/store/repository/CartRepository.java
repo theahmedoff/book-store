@@ -11,4 +11,8 @@ public interface CartRepository {
 
     List<Wishlist> getWishlistsByIdUser(int idUser);
 
+    void deleteWishlistById(int idWishlist);
+
+    void addWishlistToCart(int idUser, int idBook);
+
 }

@@ -25,4 +25,14 @@ public class CartServiceImpl implements CartService {
     public List<Wishlist> getWishlistsByIdUser(int idUser) {
         return cartRepository.getWishlistsByIdUser(idUser);
     }
+
+    @Override
+    public void deleteWishlistById(int idWishlist) {
+        cartRepository.deleteWishlistById(idWishlist);
+    }
+
+    @Override
+    public void addWishlistToCart(int idUser, int idBook) {
+        cartRepository.addWishlistToCart(idUser, idBook);
+    }
 }

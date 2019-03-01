@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,8 @@ public class CartRepositoryImpl implements CartRepository {
     private JdbcTemplate jdbcTemplate;
     private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
     private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
+    private static final String DELETE_WISHLIST_BY_ID_SQL = "delete from wishlist where id_wishlist = ?";
+    private static final String ADD_WISHLIST_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
 
 
     //methods
@@ -99,5 +102,17 @@ public class CartRepositoryImpl implements CartRepository {
             }
         });
         return wishlists;
+    }
+
+    @Override
+    public void deleteWishlistById(int idWishlist) {
+        //TODO: jdbcTemplate update not working!
+        int affectedRows = jdbcTemplate.update(DELETE_WISHLIST_BY_ID_SQL, idWishlist);
+        System.out.println(affectedRows);
+    }
+
+    @Override
+    public void addWishlistToCart(int idUser, int idBook) {
+        int affectedRows = jdbcTemplate.update(ADD_WISHLIST_TO_CART_SQL, idUser, idBook);
     }
 }
