@@ -1,17 +1,23 @@
 package com.book.store.repository;
 
+import com.book.store.model.Book;
 import com.book.store.model.Role;
 import com.book.store.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Repository
@@ -21,7 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
     private JdbcTemplate jdbcTemplate;
     private static final String SET_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String ACTIVATE_USER_BY_TOKEN_SQL = "UPDATE user SET token=?, status=? WHERE token=?";
-    private static final String GET_USER_BY_USERNAME_SQL = "SELECT * FROM user u INNER JOIN role r on u.id_role = r.id_role WHERE u.username = ?";
+    private static final String GET_USER_BY_USERNAME_SQL = "select * from user u inner join role r on u.id_role = r.id_role left join wishlist w on u.id_user = w.id_user where u.username = ?";
 
     @Override
     public void register(User user) {
@@ -34,32 +40,33 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByUsername(String username) {
-        User user1 = null;
-        try {
-            user1 = jdbcTemplate.queryForObject(GET_USER_BY_USERNAME_SQL, new Object[]{username}, new RowMapper<User>() {
-                @Override
-                public User mapRow(ResultSet rs, int i) throws SQLException {
+        List<User> list = jdbcTemplate.query(GET_USER_BY_USERNAME_SQL, new Object[]{username}, new ResultSetExtractor<List<User>>() {
+            @Override
+            public List<User> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                //TODO: map
+                List<User> list = new ArrayList<>();
+
+                while (rs.next()) {
                     User user = new User();
-                    user.setIdUser(rs.getInt("id_user"));
-                    user.setName(rs.getString("name"));
-                    user.setSurname(rs.getString("surname"));
-                    user.setUsername(rs.getString("username"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPassword(rs.getString("password"));
-                    user.setStatus(rs.getInt("status"));
+                    user.setIdUser(rs.getInt("u.id_user"));
+                    user.setName(rs.getString("u.name"));
+                    user.setSurname(rs.getString("u.surname"));
+                    user.setUsername(rs.getString("u.username"));
+                    user.setEmail(rs.getString("u.email"));
+                    user.setPassword(rs.getString("u.password"));
+                    user.setStatus(rs.getInt("u.status"));
 
                     Role role = new Role();
-                    role.setIdRole(rs.getInt("id_role"));
-                    role.setRoleType(rs.getString("role_type"));
+                    role.setIdRole(rs.getInt("r.id_role"));
+                    role.setRoleType(rs.getString("r.role_type"));
                     user.setRole(role);
 
-                    return user;
+                    list.add(user);
                 }
-            });
-        }catch (EmptyResultDataAccessException e){
-            e.printStackTrace();
-        }
-        return user1;
+                return list;
+            }
+        });
+        return list.get(0);
     }
 
     @Override

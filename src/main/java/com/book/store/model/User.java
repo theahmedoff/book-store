@@ -28,6 +28,7 @@ public class User implements UserDetails {
     private String email;
     private String token;
     private int status;
+    private List<Wishlist> wishlists;
     private Role role;
 
     @Override

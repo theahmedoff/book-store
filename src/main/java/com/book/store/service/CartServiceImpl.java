@@ -27,12 +27,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteWishlistById(int idWishlist) {
-        cartRepository.deleteWishlistById(idWishlist);
+    public void deleteWishlistById(int idWishlist, int idUser) {
+        cartRepository.deleteWishlistById(idWishlist, idUser);
     }
 
     @Override
-    public void addWishlistToCart(int idUser, int idBook) {
-        cartRepository.addWishlistToCart(idUser, idBook);
+    public void addWishlistToCart(int idUser, int idBook, int idWishlist) {
+        cartRepository.addWishlistToCart(idUser, idBook, idWishlist);
     }
 }
