@@ -4,6 +4,8 @@
 <!-- Mirrored from demo.devitems.com/boighor-v2/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:04 GMT -->
 <head>
 	<th:block th:replace="fragments/imports :: imports" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/js/cart.js}"></script>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -55,31 +57,15 @@
                                             <th class="product-remove">Remove</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt="product img"></a></td>
-                                            <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                            <td class="product-price"><span class="amount">$165.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1"></td>
-                                            <td class="product-subtotal">$165.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt="product img"></a></td>
-                                            <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                            <td class="product-price"><span class="amount">$165.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1"></td>
-                                            <td class="product-subtotal">$165.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt="product img"></a></td>
-                                            <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                            <td class="product-price"><span class="amount">$165.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1"></td>
-                                            <td class="product-subtotal">$165.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
-                                        </tr>
+                                    <tbody id="idCarts">
+                                        <!--<tr>-->
+                                            <!--<td class="product-thumbnail"><a href="#"><img th:src="@{/images/product/sm-3/1.jpg}" alt="product img"></a></td>-->
+                                            <!--<td class="product-name"><a href="#">Natoque penatibus</a></td>-->
+                                            <!--<td class="product-price"><span class="amount">$165.00</span></td>-->
+                                            <!--<td class="product-quantity"><input type="number" value="1"></td>-->
+                                            <!--<td class="product-subtotal">$165.00</td>-->
+                                            <!--<td class="product-remove"><a href="#">X</a></td>-->
+                                        <!--</tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -89,7 +75,7 @@
                                 <li><a href="#">Coupon Code</a></li>
                                 <li><a href="#">Apply Code</a></li>
                                 <li><a href="#">Update Cart</a></li>
-                                <li><a href="#">Check Out</a></li>
+                                <li><a th:href="@{/cart/checkout}">Check Out</a></li>
                             </ul>
                         </div>
                     </div>

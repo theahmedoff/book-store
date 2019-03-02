@@ -21,6 +21,8 @@ public class CartRepositoryImpl implements CartRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
+    private static final String DELETE_CART_BY_ID_SQL = "delete from cart where id_cart = ?";
+    private static final String UPDATE_CART_BY_ID_SQL = "";
     private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
     private static final String DELETE_WISHLIST_BY_ID_SQL = "delete from wishlist where id_wishlist = ?";
     private static final String ADD_WISHLIST_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
@@ -51,6 +53,7 @@ public class CartRepositoryImpl implements CartRepository {
                     user.setEmail(rs.getString("email"));
 
                     Cart cart = new Cart();
+                    cart.setIdCart(rs.getInt("id_cart"));
                     cart.setBook(book);
                     cart.setUser(user);
                     cart.setQuantity(rs.getInt("cartQuantity"));
@@ -64,6 +67,12 @@ public class CartRepositoryImpl implements CartRepository {
         });
         return carts;
     }
+
+    @Override
+    public void deleteCartById(int id) {
+        int affectedRows = jdbcTemplate.update(DELETE_CART_BY_ID_SQL, id);
+    }
+
 
     @Override
     public List<Wishlist> getWishlistsByIdUser(int idUser) {

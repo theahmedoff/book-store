@@ -16,4 +16,8 @@ public class Cart {
     private Book book;
     private int quantity;
 
+    public double getSubTotal(){
+        return book.getStock().getPrice() * quantity;
+    }
+
 }

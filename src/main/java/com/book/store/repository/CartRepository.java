@@ -9,6 +9,8 @@ public interface CartRepository {
 
     List<Cart> getCartsByIdUser(int idUser);
 
+    void deleteCartById(int id);
+
     List<Wishlist> getWishlistsByIdUser(int idUser);
 
     void deleteWishlistById(int idWishlist);

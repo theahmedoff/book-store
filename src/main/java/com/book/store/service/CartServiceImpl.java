@@ -22,6 +22,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void deleteCartById(int id) {
+        cartRepository.deleteCartById(id);
+    }
+
+    @Override
     public List<Wishlist> getWishlistsByIdUser(int idUser) {
         return cartRepository.getWishlistsByIdUser(idUser);
     }

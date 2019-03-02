@@ -1,5 +1,6 @@
 package com.book.store.controller;
 
+import com.book.store.model.Cart;
 import com.book.store.model.User;
 import com.book.store.model.Wishlist;
 import com.book.store.service.CartService;
@@ -37,8 +38,19 @@ public class CartController {
         return "view/checkout";
     }
 
+    @GetMapping("/get-carts")
+    @ResponseBody
+    public List<Cart> getCartByIdUser(){
+        List<Cart> carts = cartService.getCartsByIdUser(5);
+        return carts;
+    }
 
-
+    @RequestMapping("/delete-cart")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCartById(@RequestParam("id") Integer id){
+        cartService.deleteCartById(id);
+        System.out.println(id);
+    }
 
     @GetMapping("/get-wishlists")
     @ResponseBody
@@ -60,5 +72,6 @@ public class CartController {
         cartService.addWishlistToCart(idUser, idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
+
 
 }
