@@ -17,7 +17,7 @@ function getCarts(){
                     $('#idCarts').append('<td class="product-price"><span class="amount">' + "$" + cart.book.stock.price + '</span></td>');
                     $('#idCarts').append('<td class="product-stock-status"><input type="number" value="'+ cart.quantity + '">'+'</input></td>');
                     $('#idCarts').append('<td class="product-subtotal">' + "$" + cart.subTotal + '</td>');
-                    $('#idCarts').append('<td class="product-delete"> <a href="#" onclick="deleteCartById('+ cart.idCart +')" >X</a></td>')
+                    $('#idCarts').append('<td class="product-remove"> <button onclick="deleteCartById('+ cart.idCart +')" >X</button></td>')
                 $('#idCarts').append('</tr>')
             })
         }
@@ -32,7 +32,6 @@ function deleteCartById(id) {
         data: {id: id},
         success: function () {
             getCarts();
-            alert("success")
         }
 
     })

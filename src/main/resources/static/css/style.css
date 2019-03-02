@@ -5256,6 +5256,20 @@ h3.widget-title-modal {
   line-height: 40px;
   text-align: center;
   width: 40px; }
+.table-content table td.product-remove button {
+  color: #919191;
+  display: inline-block;
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 40px; }
+.cartbox__btn button {
+  background: #f6f6f6 none repeat scroll 0 0;
+  border-bottom: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+  padding: 40px; }
 .table-content table .product-price .amount {
   font-size: 16px;
   font-weight: 700;
