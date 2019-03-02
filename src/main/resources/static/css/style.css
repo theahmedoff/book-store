@@ -5407,13 +5407,15 @@ h3.widget-title-modal {
   font-weight: 600;
   padding: 20px 0;
   text-transform: uppercase; }
-.wnro__table tbody td.product-remove a {
-  color: #3f3f3f;
+.wnro__table tbody td.product-remove button {
+  color: black;
+  background-color: white;
   display: block;
   font-weight: 700;
   height: 1em;
   line-height: 1;
   padding: 10px 0;
+  border: white;
   text-align: center; }
 .wnro__table tbody td.product-remove {
   padding-right: 0;
@@ -5431,7 +5433,7 @@ h3.widget-title-modal {
   font-weight: 700; }
 .product-stock-status span.wishlist-in-stock {
   color: #e59285; }
-.product-add-to-cart a {
+.product-add-to-cart button {
   border: 2px solid #333;
   color: #333;
   display: inline-block;
@@ -5446,7 +5448,7 @@ h3.widget-title-modal {
 .product-add-to-cart {
   padding: 0;
   width: 210px; }
-.product-add-to-cart a:hover {
+.product-add-to-cart button:hover {
   border: 2px solid #e59285;
   color: #e59285; }
 

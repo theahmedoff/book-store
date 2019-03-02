@@ -7,6 +7,7 @@ import com.book.store.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,21 +56,23 @@ public class CartController {
     @GetMapping("/get-wishlists")
     @ResponseBody
     public List<Wishlist> getWishlistsByIdUser() {
-        //TODO: get idUser and set it to metod
-        List<Wishlist> wishlists = cartService.getWishlistsByIdUser(5);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Wishlist> wishlists = cartService.getWishlistsByIdUser(user.getIdUser());
         return wishlists;
     }
 
     @DeleteMapping("/delete-wishlist")
     public ResponseEntity deleteWishlistById(@RequestParam(name = "idWishlist") Integer idWishlist) {
-        cartService.deleteWishlistById(idWishlist);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cartService.deleteWishlistById(idWishlist, user.getIdUser());
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/add-wishlist-to-cart")
     public ResponseEntity addCart(@RequestParam(name = "idUser") Integer idUser,
-                        @RequestParam(name = "idBook") Integer idBook) {
-        cartService.addWishlistToCart(idUser, idBook);
+                                  @RequestParam(name = "idBook") Integer idBook,
+                                  @RequestParam(name = "idWishlist") Integer idWishlist) {
+        cartService.addWishlistToCart(idUser, idBook, idWishlist);
         return new ResponseEntity(HttpStatus.OK);
     }
 

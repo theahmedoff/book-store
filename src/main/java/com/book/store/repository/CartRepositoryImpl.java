@@ -24,7 +24,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String DELETE_CART_BY_ID_SQL = "delete from cart where id_cart = ?";
     private static final String UPDATE_CART_BY_ID_SQL = "";
     private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
-    private static final String DELETE_WISHLIST_BY_ID_SQL = "delete from wishlist where id_wishlist = ?";
+    private static final String DELETE_WISHLIST_BY_ID_SQL = "delete from wishlist where id_wishlist = ? and id_user = ?";
     private static final String ADD_WISHLIST_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
 
 
@@ -114,14 +114,20 @@ public class CartRepositoryImpl implements CartRepository {
     }
 
     @Override
-    public void deleteWishlistById(int idWishlist) {
-        //TODO: jdbcTemplate update not working!
-        int affectedRows = jdbcTemplate.update(DELETE_WISHLIST_BY_ID_SQL, idWishlist);
-        System.out.println(affectedRows);
+    public void deleteWishlistById(int idWishlist, int idUser) {
+        int affectedRows = jdbcTemplate.update(DELETE_WISHLIST_BY_ID_SQL, idWishlist, idUser);
+        if (affectedRows == 0) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
-    public void addWishlistToCart(int idUser, int idBook) {
+    public void addWishlistToCart(int idUser, int idBook, int idWishlist) {
         int affectedRows = jdbcTemplate.update(ADD_WISHLIST_TO_CART_SQL, idUser, idBook);
+        if (affectedRows == 0) {
+            throw new RuntimeException();
+        }
+
+        deleteWishlistById(idWishlist, idUser);
     }
 }
