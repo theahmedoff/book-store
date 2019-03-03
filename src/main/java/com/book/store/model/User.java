@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String email;
     private String token;
     private int status;
-    private List<Wishlist> wishlists;
+    private List<Wishlist> wishlists = new ArrayList<>();
     private Role role;
 
     @Override
@@ -58,5 +58,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return status != Constants.USER_STATUS_INACTIVE;
+    }
+
+    public void addWishlist(Wishlist wishlist) {
+        this.wishlists.add(wishlist);
     }
 }

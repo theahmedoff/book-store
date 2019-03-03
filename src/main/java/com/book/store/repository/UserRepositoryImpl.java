@@ -3,6 +3,7 @@ package com.book.store.repository;
 import com.book.store.model.Book;
 import com.book.store.model.Role;
 import com.book.store.model.User;
+import com.book.store.model.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -15,10 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -38,32 +36,47 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    //TODO: throw exception
     @Override
     public User getUserByUsername(String username) {
         List<User> list = jdbcTemplate.query(GET_USER_BY_USERNAME_SQL, new Object[]{username}, new ResultSetExtractor<List<User>>() {
             @Override
             public List<User> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                //TODO: map
-                List<User> list = new ArrayList<>();
+                Map<Integer, User> map = new HashMap<>();
 
                 while (rs.next()) {
-                    User user = new User();
-                    user.setIdUser(rs.getInt("u.id_user"));
-                    user.setName(rs.getString("u.name"));
-                    user.setSurname(rs.getString("u.surname"));
-                    user.setUsername(rs.getString("u.username"));
-                    user.setEmail(rs.getString("u.email"));
-                    user.setPassword(rs.getString("u.password"));
-                    user.setStatus(rs.getInt("u.status"));
+                    User user = map.get(rs.getInt("u.id_user"));
 
-                    Role role = new Role();
-                    role.setIdRole(rs.getInt("r.id_role"));
-                    role.setRoleType(rs.getString("r.role_type"));
-                    user.setRole(role);
+                    if (user == null) {
+                        user = new User();
+                        user.setIdUser(rs.getInt("u.id_user"));
+                        user.setName(rs.getString("u.name"));
+                        user.setSurname(rs.getString("u.surname"));
+                        user.setUsername(rs.getString("u.username"));
+                        user.setEmail(rs.getString("u.email"));
+                        user.setPassword(rs.getString("u.password"));
+                        user.setStatus(rs.getInt("u.status"));
 
-                    list.add(user);
+                        Role role = new Role();
+                        role.setIdRole(rs.getInt("r.id_role"));
+                        role.setRoleType(rs.getString("r.role_type"));
+                        user.setRole(role);
+
+                        map.put(user.getIdUser(), user);
+                    }
+
+                    Wishlist wishlist = new Wishlist();
+                    wishlist.setIdWishlist(rs.getInt("w.id_wishlist"));
+                    User userWishlist = new User();
+                    userWishlist.setIdUser(rs.getInt("w.id_user"));
+                    Book bookWishlist = new Book();
+                    bookWishlist.setIdBook(rs.getInt("w.id_book"));
+                    wishlist.setUser(userWishlist);
+                    wishlist.setBook(bookWishlist);
+
+                    user.addWishlist(wishlist);
                 }
-                return list;
+                return new ArrayList<>(map.values());
             }
         });
         return list.get(0);
