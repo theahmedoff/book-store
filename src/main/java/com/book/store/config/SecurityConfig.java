@@ -20,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService service;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -30,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").failureForwardUrl("/login").successForwardUrl("/")
                 .and()
-                .logout().logoutSuccessUrl("/");
+                .logout().invalidateHttpSession(true).logoutSuccessUrl("/");
+
+        // remember me (selectBooleanCheckBox and id=_spring_security_remember_me)
     }
 
     @Override
@@ -38,17 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(provider());
     }
 
+    //username and password ->
     @Bean
-    public AuthenticationProvider provider(){
+    public AuthenticationProvider provider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder());
         provider.setUserDetailsService(service);
-
         return provider;
     }
 
-        @Bean
-        public BCryptPasswordEncoder bCryptPasswordEncoder(){
-            return new BCryptPasswordEncoder();
-        }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

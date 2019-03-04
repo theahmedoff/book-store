@@ -36,7 +36,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    //TODO: throw exception
     @Override
     public User getUserByUsername(String username) {
         List<User> list = jdbcTemplate.query(GET_USER_BY_USERNAME_SQL, new Object[]{username}, new ResultSetExtractor<List<User>>() {

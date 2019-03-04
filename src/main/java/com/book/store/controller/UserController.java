@@ -38,6 +38,7 @@ public class UserController {
         newUser.setStatus(Constants.USER_STATUS_INACTIVE);
         service.register(newUser);
         //send email
+        //TODO: see this part later..
         emailUtil.sendEmailMessage(newUser.getEmail(), subject, String.format(body, newUser.getToken()));
         //message
         redirectAttributes.addFlashAttribute("message", "Success Register...");
