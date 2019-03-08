@@ -1,5 +1,8 @@
 $(function () {
-    getCarts();
+    var pageName = $('#pageName').val();
+    if (pageName === 'cartPage') {
+        getCarts();
+    }
 });
 
 
@@ -35,5 +38,19 @@ function deleteCartById(id) {
         }
 
     })
+}
+
+function addToCart(idBook, idWishlist) {
+    $.ajax({
+        type: "POST",
+        url: "/cart/add-to-cart",
+        data: {idBook: idBook, idWishlist: idWishlist},
+        success: function () {
+            alert('Book successfully added to cart!');
+            getWishlists();
+        },error: function () {
+            alert('Internal error!');
+        }
+    });
 }
 

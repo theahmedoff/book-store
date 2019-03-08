@@ -68,13 +68,19 @@ public class CartController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/add-wishlist-to-cart")
-    public ResponseEntity addCart(@RequestParam(name = "idUser") Integer idUser,
-                                  @RequestParam(name = "idBook") Integer idBook,
-                                  @RequestParam(name = "idWishlist") Integer idWishlist) {
-        cartService.addWishlistToCart(idUser, idBook, idWishlist);
+    @PostMapping("/add-to-cart")
+    public ResponseEntity addToCart(@RequestParam(name = "idBook") Integer idBook,
+                                  @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cartService.addToCart(user.getIdUser(), idBook, idWishlist);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/add-to-wishlist")
+    public ResponseEntity addToWishlist(@RequestParam(name = "idBook") Integer idBook) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cartService.addToWishlist(user.getIdUser(), idBook);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

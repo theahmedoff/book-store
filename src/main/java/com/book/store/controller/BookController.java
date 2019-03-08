@@ -1,5 +1,6 @@
 package com.book.store.controller;
 
+import com.book.store.model.Book;
 import com.book.store.model.Category;
 import com.book.store.model.Review;
 import com.book.store.service.BookService;
@@ -32,6 +33,12 @@ public class BookController {
     public List<Review> getReviewsByIdBook(@RequestParam(name = "idBook") Integer idBook) {
         List<Review> reviews = bookService.getReviewsByIdBook(idBook);
         return reviews;
+    }
+
+    @RequestMapping("/get-books")
+    @ResponseBody
+    public List<Book> getBooksByIdCategory(@RequestParam(name = "idCategory") Integer idCategory) {
+        return null;
     }
 
 }

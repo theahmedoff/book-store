@@ -22,27 +22,27 @@
                                 <div class="megamenu mega03">
                                     <ul class="item item03">
                                         <li class="title">Categories</li>
-                                        <li><a th:href="@{/shop?idCategory=1}">Biography </a></li>
-                                        <li><a th:href="@{/shop?idCategory=2}">Business </a></li>
-                                        <li><a th:href="@{/shop?idCategory=3}">Cookbooks </a></li>
-                                        <li><a th:href="@{/shop?idCategory=4}">Health & Fitness </a></li>
-                                        <li><a th:href="@{/shop?idCategory=5}">History </a></li>
+                                        <li><a th:href="@{/shop?categories=1}">Biography </a></li>
+                                        <li><a th:href="@{/shop?categories=2}">Business </a></li>
+                                        <li><a th:href="@{/shop?categories=3}">Cookbooks </a></li>
+                                        <li><a th:href="@{/shop?categories=4}">Health & Fitness </a></li>
+                                        <li><a th:href="@{/shop?categories=5}">History </a></li>
                                     </ul>
                                     <ul class="item item03">
                                         <li class="title">Customer Favourite</li>
-                                        <li><a th:href="@{/shop?idCategory=6}">Mystery</a></li>
-                                        <li><a th:href="@{/shop?idCategory=7}">Religion & Inspiration</a></li>
-                                        <li><a th:href="@{/shop?idCategory=8}">Romance</a></li>
-                                        <li><a th:href="@{/shop?idCategory=9}">Fantasy</a></li>
-                                        <li><a th:href="@{/shop?idCategory=10}">Sleeveless</a></li>
+                                        <li><a th:href="@{/shop?categories=6}">Mystery</a></li>
+                                        <li><a th:href="@{/shop?categories=7}">Religion & Inspiration</a></li>
+                                        <li><a th:href="@{/shop?categories=8}">Romance</a></li>
+                                        <li><a th:href="@{/shop?categories=9}">Fantasy</a></li>
+                                        <li><a th:href="@{/shop?categories=10}">Sleeveless</a></li>
                                     </ul>
                                     <ul class="item item03">
                                         <li class="title">Collections</li>
-                                        <li><a th:href="@{/shop?idCategory=11}">Science </a></li>
-                                        <li><a th:href="@{/shop?idCategory=12}">Harry Potter</a></li>
-                                        <li><a th:href="@{/shop?idCategory=13}">Self-Improvemen</a></li>
-                                        <li><a th:href="@{/shop?idCategory=14}">Home & Garden</a></li>
-                                        <li><a th:href="@{/shop?idCategory=15}">Humor Books</a></li>
+                                        <li><a th:href="@{/shop?categories=11}">Science </a></li>
+                                        <li><a th:href="@{/shop?categories=12}">Harry Potter</a></li>
+                                        <li><a th:href="@{/shop?categories=13}">Self-Improvemen</a></li>
+                                        <li><a th:href="@{/shop?categories=14}">Home & Garden</a></li>
+                                        <li><a th:href="@{/shop?categories=15}">Humor Books</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -68,7 +68,7 @@
                         <li class="shop_search"><a class="search__active" href="#"></a></li>
                         <li class="wishlist"><a th:href="@{/cart/wishlist}"></a></li>
                         <li class="shopcart"><a class="cartbox_active" th:href="@{/cart}"><span
-                                class="product_qun">3</span></a>
+                                class="product_qun">${}</span></a>
                             <!-- Start Shopping Cart -->
                             <div class="block-minicart minicart__active">
                                 <div class="minicart-content-wrapper">

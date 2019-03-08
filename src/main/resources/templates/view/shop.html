@@ -5,8 +5,11 @@
 <head>
     <th:block th:replace="fragments/imports :: imports"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/js/wishlist.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 </head>
 <body>
+<input type="hidden" id="pageName" value="shopPage">
 <!--[if lte IE 9]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
     your browser</a> to improve your experience and security.</p>
@@ -78,9 +81,9 @@
                                     <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="product__thumb">
                                             <a class="first__img" th:href="@{/single-product?idBook=} + ${book.idBook}"><img
-                                                    th:src="@{images/books/9.jpg}" alt="product image"></a>
+                                                    th:src="@{images/books/6.jpg}" alt="product image"></a>
                                             <a class="second__img animation1" th:href="@{/single-product?idBook=} + ${book.idBook}"><img
-                                                    th:src="@{images/books/14.jpg}" alt="product image"></a>
+                                                    th:src="@{images/books/8.jpg}" alt="product image"></a>
                                             <div class="hot__box">
                                                 <span class="hot-label">BEST SALLER</span>
                                             </div>
@@ -98,8 +101,8 @@
                                             <div class="action">
                                                 <div class="actions_inner">
                                                     <ul class="add_to_links">
-                                                        <li><a class="wishlist" th:href="@{/cart}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                        <li><a class="compare" th:href="@{/cart/wishlist}"><i class="bi bi-heart-beat"></i></a></li>
+                                                        <li><a class="wishlist" onclick="addToCart(5)"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                        <li><a class="compare" onclick="addToWishlist(5)"><i class="bi bi-heart-beat"></i></a></li>
                                                         <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                     </ul>
                                                 </div>

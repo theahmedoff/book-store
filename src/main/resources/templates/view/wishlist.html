@@ -6,8 +6,10 @@
 	<th:block th:replace="fragments/imports :: imports" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script th:src="@{/js/wishlist.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 </head>
 <body>
+<input type="hidden" id="pageName" value="wishlistPage">
 	<!--[if lte IE 9]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 	<![endif]-->
