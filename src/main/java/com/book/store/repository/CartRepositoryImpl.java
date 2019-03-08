@@ -27,6 +27,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String DELETE_WISHLIST_BY_ID_SQL = "delete from wishlist where id_wishlist = ? and id_user = ?";
     private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
+    private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ? and id_user = ?";
 
 
     //methods
@@ -137,6 +138,14 @@ public class CartRepositoryImpl implements CartRepository {
     @Override
     public void addToWishlist(int idUser, int idBook) {
         int affectedRows = jdbcTemplate.update(ADD_TO_WISHLIST_SQL, idUser, idBook);
+        if (affectedRows == 0) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void updateCart(int idUser, int idCart, int quantity) {
+        int affectedRows = jdbcTemplate.update(UPDATE_CART_SQL, quantity, idCart, idUser);
         if (affectedRows == 0) {
             throw new RuntimeException();
         }

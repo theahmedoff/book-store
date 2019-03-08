@@ -54,3 +54,15 @@ function addToCart(idBook, idWishlist) {
     });
 }
 
+function updateCart(idCart ,quantity) {
+    $.ajax({
+        type: "POST",
+        url: "/cart/update-cart",
+        data: {idCart: idCart, quantity: quantity},
+        success: function () {
+            getCarts();
+        },error: function () {
+            alert('Internal error!');
+        }
+    });
+}

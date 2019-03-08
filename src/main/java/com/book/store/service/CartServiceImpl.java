@@ -45,4 +45,9 @@ public class CartServiceImpl implements CartService {
     public void addToWishlist(int idUser, int idBook) {
         cartRepository.addToWishlist(idUser, idBook);
     }
+
+    @Override
+    public void updateCart(int idUser, int idCart, int quantity) {
+        cartRepository.updateCart(idUser, idCart, quantity);
+    }
 }

@@ -20,4 +20,6 @@ public interface CartService {
 
     void addToWishlist(int idUser, int idBook);
 
+    void updateCart(int idUser, int idCart, int quantity);
+
 }

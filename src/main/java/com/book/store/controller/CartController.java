@@ -83,4 +83,12 @@ public class CartController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/update-cart")
+    public ResponseEntity updateCart(@RequestParam(name = "idCart") int idCart,
+                                     @RequestParam(name = "quantity") int quantity) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cartService.updateCart(user.getIdUser(), idCart, quantity);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

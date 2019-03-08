@@ -19,4 +19,6 @@ public interface CartRepository {
 
     void addToWishlist(int idUser, int idBook);
 
+    void updateCart(int idUser, int idCart, int quantity);
+
 }
