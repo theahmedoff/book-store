@@ -15,7 +15,7 @@ function getWishlists() {
             $('#idWishlists').empty();
             wishlists.forEach(function (wishlist) {
                 $('#idWishlists').append('<tr>');
-                $('#idWishlists').append('<td class="product-remove"><button onclick="deleteWishlistById(' + wishlist.idWishlist + ')" type="button">X</button></td>');
+                $('#idWishlists').append('<td class="product-remove"><button onclick="deleteWishlistById(' + wishlist.idWishlist + ',' + wishlist.book.idBook + ')" type="button">X</button></td>');
                 $('#idWishlists').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + wishlist.book.idBook + '"><img src="/images/product/sm-3/1.jpg" alt=""></a></td>');
                 $('#idWishlists').append('<td class="product-name"><a href="'+ "/single-product?idBook=" + wishlist.book.idBook + '">' + wishlist.book.title + '</a></td>');
                 $('#idWishlists').append('<td class="product-price"><span class="amount">' + "$" + wishlist.book.stock.price + '</span></td>');
@@ -27,13 +27,13 @@ function getWishlists() {
     });
 }
 
-function deleteWishlistById(idWishlist) {
+function deleteWishlistById(idWishlist, idBook) {
     $.ajax({
         type: "DELETE",
         url: "/cart/delete-wishlist",
-        data: {idWishlist: idWishlist},
+        data: {idWishlist: idWishlist, idBook: idBook},
         success: function () {
-            getWishlists();
+            location.reload(true);
         }
     });
 }
@@ -45,6 +45,7 @@ function addToWishlist(idBook) {
         data: {idBook: idBook},
         success: function () {
             alert('Book successfully added to wishlist!');
+            location.reload(true);
         },error: function () {
             alert('Internal error!');
         }

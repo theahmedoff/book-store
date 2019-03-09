@@ -2498,6 +2498,11 @@ nav.menu {
 			  visibility:hidden;
 			  transition: all 0.2s ease 0s;
 			}
+
+              wishlist-added{
+                color:#fff!important;
+                background-color: #ce7852!important;
+              }
 			
             .product .product__content .action .actions_inner .add_to_links li a.quickview:hover {
               background-position: 100% 0;

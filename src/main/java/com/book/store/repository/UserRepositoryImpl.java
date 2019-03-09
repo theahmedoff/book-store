@@ -64,7 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
                         map.put(user.getIdUser(), user);
                     }
 
-                    user.addWishlist(rs.getInt("w.id_wishlist"));
+                    user.addWishlist(rs.getInt("w.id_book"));
 
                 }
                 return new ArrayList<>(map.values());

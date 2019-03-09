@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:04:47 GMT -->
 <head>
@@ -106,13 +106,15 @@
                                     <li th:text="'$' + ${lb.getStock().getPrice()}"></li>
                                     <li th:text="'$' + ${lb.getStock().getPrice()}" class="old_prize"></li>
                                 </ul>
-                                <div class="action">
+                                <div class="action" sec:authorize="isAuthenticated()">
                                     <div class="actions_inner">
                                         <ul class="add_to_links">
                                             <li><a class="wishlist" th:onclick="'addToCart(' + ${lb.idBook} + ')'"><i
                                                     class="bi bi-shopping-cart-full"></i></a></li>
-                                            <li><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
+                                            <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
                                                     class="bi bi-heart-beat"></i></a></li>
+                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
+                                                    class="bi bi-reply"></i></a></li>
                                             <li><a data-toggle="modal" title="Quick View"
                                                    class="quickview modal-view detail-link" href="#productmodal"><i
                                                     class="bi bi-search"></i></a></li>
