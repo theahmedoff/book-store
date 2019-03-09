@@ -50,7 +50,6 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteCartById(@RequestParam("id") Integer id){
         cartService.deleteCartById(id);
-        System.out.println(id);
     }
 
     @GetMapping("/get-wishlists")
