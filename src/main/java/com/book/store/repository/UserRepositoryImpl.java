@@ -64,16 +64,8 @@ public class UserRepositoryImpl implements UserRepository {
                         map.put(user.getIdUser(), user);
                     }
 
-                    Wishlist wishlist = new Wishlist();
-                    wishlist.setIdWishlist(rs.getInt("w.id_wishlist"));
-                    User userWishlist = new User();
-                    userWishlist.setIdUser(rs.getInt("w.id_user"));
-                    Book bookWishlist = new Book();
-                    bookWishlist.setIdBook(rs.getInt("w.id_book"));
-                    wishlist.setUser(userWishlist);
-                    wishlist.setBook(bookWishlist);
+                    user.addWishlist(rs.getInt("w.id_wishlist"));
 
-                    user.addWishlist(wishlist);
                 }
                 return new ArrayList<>(map.values());
             }

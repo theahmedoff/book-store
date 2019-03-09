@@ -16,7 +16,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements UserDetails {
 
@@ -28,8 +27,12 @@ public class User implements UserDetails {
     private String email;
     private String token;
     private int status;
-    private List<Wishlist> wishlists = new ArrayList<>();
+    private List<Integer> idWishlists;
     private Role role;
+
+    public User() {
+        this.idWishlists = new ArrayList<>();
+    }
 
     @Override
     @JsonIgnore
@@ -60,7 +63,7 @@ public class User implements UserDetails {
         return status != Constants.USER_STATUS_INACTIVE;
     }
 
-    public void addWishlist(Wishlist wishlist) {
-        this.wishlists.add(wishlist);
+    public void addWishlist(Integer idWishlist) {
+        this.idWishlists.add(idWishlist);
     }
 }
