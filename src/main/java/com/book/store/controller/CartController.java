@@ -62,9 +62,11 @@ public class CartController {
     }
 
     @DeleteMapping("/delete-wishlist")
-    public ResponseEntity deleteWishlistById(@RequestParam(name = "idWishlist") Integer idWishlist) {
+    public ResponseEntity deleteWishlistById(@RequestParam(name = "idWishlist") Integer idWishlist,
+                                             @RequestParam(name = "idBook") Integer idBook) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.deleteWishlistById(idWishlist, user.getIdUser());
+        user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -73,6 +75,7 @@ public class CartController {
                                   @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.addToCart(user.getIdUser(), idBook, idWishlist);
+        user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -80,6 +83,7 @@ public class CartController {
     public ResponseEntity addToWishlist(@RequestParam(name = "idBook") Integer idBook) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.addToWishlist(user.getIdUser(), idBook);
+        user.addWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
 

@@ -63,7 +63,12 @@ public class User implements UserDetails {
         return status != Constants.USER_STATUS_INACTIVE;
     }
 
-    public void addWishlist(Integer idWishlist) {
-        this.idWishlists.add(idWishlist);
+    public void addWishlist(Integer idBook) {
+        this.idWishlists.add(idBook);
     }
+
+    public void removeWishlist(Integer idBook) {
+        this.idWishlists.remove(new Integer(idBook));
+    }
+
 }

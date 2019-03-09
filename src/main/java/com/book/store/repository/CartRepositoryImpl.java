@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ? and id_user = ?";
+    private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
 
 
     //methods
@@ -38,7 +40,7 @@ public class CartRepositoryImpl implements CartRepository {
             public List<Cart> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Cart> cartList = new ArrayList<>();
 
-                while (rs.next()){
+                while (rs.next()) {
                     Book book = new Book();
                     book.setIdBook(rs.getInt("id_book"));
                     book.setImagePath(rs.getString("image_path"));
@@ -125,9 +127,12 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public void addToCart(int idUser, int idBook, Integer idWishlist) {
-        int affectedRows = jdbcTemplate.update(ADD_TO_CART_SQL, idUser, idBook);
-        if (affectedRows == 0) {
-            throw new RuntimeException();
+        try {
+            jdbcTemplate.update(ADD_TO_CART_SQL, idUser, idBook);
+
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+            jdbcTemplate.update(UPDATE_QUANTITY_OF_CART_SQL, idUser, idBook);
         }
 
         if (idWishlist != null) {
