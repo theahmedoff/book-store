@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:06 GMT -->
 <head>
@@ -93,16 +93,16 @@
         						<div class="margin_between">
 	        						<div class="input_box space_between">
 	        							<label>First name <span> *</span></label>
-	        							<input type="text">
+	        							<input type="text" th:value="${billingInfo.firstname}">
 	        						</div>
 	        						<div class="input_box space_between">
 	        							<label>last name <span> *</span></label>
-	        							<input type="text">
+	        							<input type="text" th:value="${billingInfo.lastname}">
 	        						</div>
         						</div>
         						<div class="input_box">
         							<label>Company name <span> *</span></label>
-        							<input type="text">
+        							<input type="text" th:value="${billingInfo.companyName}">
         						</div>
         						<div class="input_box">
         							<label>Country<span> *</span></label>
@@ -118,10 +118,7 @@
         						</div>
         						<div class="input_box">
         							<label>Address <span> *</span></label>
-        							<input type="text" placeholder="Street address">
-        						</div>
-        						<div class="input_box">
-        							<input type="text" placeholder="Apartment, suite, unit etc. (optional)">
+        							<input type="text" th:value="${billingInfo.address}">
         						</div>
         						<div class="input_box">
         							<label>District<span> *</span></label>
@@ -137,17 +134,17 @@
         						</div>
 								<div class="input_box">
 									<label>Postcode / ZIP <span> *</span></label>
-									<input type="text">
+									<input type="text" th:value="${billingInfo.postcode}">
 								</div>
 								<div class="margin_between">
 									<div class="input_box space_between">
 										<label>Phone <span> *</span></label>
-										<input type="text">
+										<input type="text" th:value="${billingInfo.phone}">
 									</div>
 
 									<div class="input_box space_between">
 										<label>Email address <span> *</span></label>
-										<input type="email">
+										<input type="email" th:value="${billingInfo.email}">
 									</div>
 								</div>
         					</div>
