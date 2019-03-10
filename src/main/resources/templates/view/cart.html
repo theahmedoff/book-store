@@ -47,7 +47,7 @@
                     <div class="col-md-12 col-sm-12 ol-lg-12">
                         <form action="#">               
                             <div class="table-content wnro__table table-responsive">
-                                <table>
+                                <table id="cartTable">
                                     <thead>
                                         <tr class="title-top">
                                             <th class="product-thumbnail">Image</th>
@@ -65,8 +65,8 @@
                         <div class="cartbox__btn">
                             <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
                                 <li><a href="#">Coupon Code</a></li>
-                                <li><a href="#">Apply Code</a></li>
-                                <li><a onclick="updateCart(46, 9)">Update Cart</a></li>
+                                <li><a onclick="showContent('cartTable')" href="#">Apply Code</a></li>
+                                <li><a onclick="updateAllCarts()">Update Cart</a></li>
                                 <li><a th:href="@{/cart/checkout}">Check Out</a></li>
                             </ul>
                         </div>
