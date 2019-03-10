@@ -103,7 +103,7 @@
                                                     <ul class="add_to_links">
                                                         <li><a class="wishlist" th:onclick="'addToCart(' + ${book.idBook} + ')'"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                         <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(book.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${book.idBook} + ')'"><i class="bi bi-heart-beat"></i></a></li>
-                                                        <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(book.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${book.idBook} + ')'"><i
+                                                        <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(book.idBook)}"><a class="compare" th:onclick="'deleteWishlistById(' + ${book.idBook} + ')'"><i
                                                                 class="bi bi-reply"></i></a></li>
                                                         <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                     </ul>

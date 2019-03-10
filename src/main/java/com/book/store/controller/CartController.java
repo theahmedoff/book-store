@@ -1,5 +1,6 @@
 package com.book.store.controller;
 
+import com.book.store.model.BillingInfo;
 import com.book.store.model.Cart;
 import com.book.store.model.User;
 import com.book.store.model.Wishlist;
@@ -35,7 +36,11 @@ public class CartController {
     }
 
     @GetMapping("/checkout")
-    public String getCheckoutPage() {
+    public String getCheckoutPage(Model model) {
+        //billing info yoxdursa idBillingInfo = 0 olur..
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        BillingInfo billingInfo = cartService.getBillingInfo(user.getIdUser());
+        model.addAttribute("billingInfo", billingInfo);
         return "view/checkout";
     }
 
@@ -70,9 +75,9 @@ public class CartController {
 
     @PostMapping("/add-to-cart")
     public ResponseEntity addToCart(@RequestParam(name = "idBook") Integer idBook,
-                                  @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
+                                    @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartService.addToCart(user.getIdUser(), idBook);
+        cartService.addToCart(user.getIdUser(), idBook, idWishlist);
         user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -90,12 +95,6 @@ public class CartController {
                                      @RequestParam(name = "quantity") int quantity) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.updateCart(user.getIdUser(), idCart, quantity);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @PostMapping("/get-billing-info")
-    public ResponseEntity getBillingInfo() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ResponseEntity(HttpStatus.OK);
     }
 

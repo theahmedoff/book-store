@@ -29,7 +29,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ? and id_user = ?";
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
-    private static final String GET_BILLING_INFO = "select * from billing_info bi right join user u on bi.id_billing_info = u.id_billing_info where u.id_user = ?";
+    private static final String GET_BILLING_INFO = "select bi.id_billing_info, bi.firstname, bi.lastname, bi.company_name, bi.country, bi.district, bi.address, bi.postcode, bi.phone, bi.email, u.id_user from billing_info bi right join user u on bi.id_billing_info = u.id_billing_info where u.id_user = ?";
 
 
     //methods
@@ -126,7 +126,7 @@ public class CartRepositoryImpl implements CartRepository {
     }
 
     @Override
-    public void addToCart(int idUser, int idBook) {
+    public void addToCart(int idUser, int idBook, Integer idWishlist) {
         try {
             jdbcTemplate.update(ADD_TO_CART_SQL, idUser, idBook);
 
@@ -134,7 +134,9 @@ public class CartRepositoryImpl implements CartRepository {
             jdbcTemplate.update(UPDATE_QUANTITY_OF_CART_SQL, idUser, idBook);
         }
 
-        deleteWishlist(idBook, idUser);
+        if (idWishlist != null) {
+            deleteWishlist(idBook, idUser);
+        }
     }
 
     @Override
@@ -157,9 +159,18 @@ public class CartRepositoryImpl implements CartRepository {
     public BillingInfo getBillingInfo(int idUser) {
         BillingInfo billingInfo = jdbcTemplate.queryForObject(GET_BILLING_INFO, new Object[]{idUser}, new RowMapper<BillingInfo>() {
             @Override
-            public BillingInfo mapRow(ResultSet resultSet, int i) throws SQLException {
+            public BillingInfo mapRow(ResultSet rs, int i) throws SQLException {
                 BillingInfo info = new BillingInfo();
-
+                info.setIdBillingInfo(rs.getInt("bi.id_billing_info"));
+                info.setFirstname(rs.getString("bi.firstname"));
+                info.setLastname(rs.getString("bi.lastname"));
+                info.setCompanyName(rs.getString("bi.company_name"));
+                info.setCountry(rs.getString("bi.country"));
+                info.setDistrict(rs.getString("bi.district"));
+                info.setAddress(rs.getString("bi.address"));
+                info.setPostcode(rs.getString("bi.postcode"));
+                info.setPhone(rs.getString("bi.phone"));
+                info.setEmail(rs.getString("bi.email"));
                 return info;
             }
         });

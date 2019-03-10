@@ -12,6 +12,7 @@ public class BillingInfo {
     private int idBillingInfo;
     private String firstname;
     private String lastname;
+    private String companyName;
     private String country;
     private String district;
     private String address;

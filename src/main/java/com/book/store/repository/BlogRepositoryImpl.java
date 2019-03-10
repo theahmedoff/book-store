@@ -1,4 +1,7 @@
 package com.book.store.repository;
 
-public class BlogRepositoryImpl {
+public class BlogRepositoryImpl implements BlogRepository {
+
+
+
 }
