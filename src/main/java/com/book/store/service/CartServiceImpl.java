@@ -1,5 +1,6 @@
 package com.book.store.service;
 
+import com.book.store.model.BillingInfo;
 import com.book.store.model.Cart;
 import com.book.store.model.Wishlist;
 import com.book.store.repository.CartRepository;
@@ -32,13 +33,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteWishlistById(int idWishlist, int idUser) {
-        cartRepository.deleteWishlistById(idWishlist, idUser);
+    public void deleteWishlist(int idBook, int idUser) {
+        cartRepository.deleteWishlist(idBook, idUser);
     }
 
     @Override
-    public void addToCart(int idUser, int idBook, Integer idWishlist) {
-        cartRepository.addToCart(idUser, idBook, idWishlist);
+    public void addToCart(int idUser, int idBook) {
+        cartRepository.addToCart(idUser, idBook);
     }
 
     @Override
@@ -49,5 +50,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void updateCart(int idUser, int idCart, int quantity) {
         cartRepository.updateCart(idUser, idCart, quantity);
+    }
+
+    @Override
+    public BillingInfo getBillingInfo(int idUser) {
+        return cartRepository.getBillingInfo(idUser);
     }
 }

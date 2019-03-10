@@ -61,10 +61,9 @@ public class CartController {
     }
 
     @DeleteMapping("/delete-wishlist")
-    public ResponseEntity deleteWishlistById(@RequestParam(name = "idWishlist") Integer idWishlist,
-                                             @RequestParam(name = "idBook") Integer idBook) {
+    public ResponseEntity deleteWishlistById(@RequestParam(name = "idBook") Integer idBook) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartService.deleteWishlistById(idWishlist, user.getIdUser());
+        cartService.deleteWishlist(idBook, user.getIdUser());
         user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -73,7 +72,7 @@ public class CartController {
     public ResponseEntity addToCart(@RequestParam(name = "idBook") Integer idBook,
                                   @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartService.addToCart(user.getIdUser(), idBook, idWishlist);
+        cartService.addToCart(user.getIdUser(), idBook);
         user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -91,6 +90,12 @@ public class CartController {
                                      @RequestParam(name = "quantity") int quantity) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.updateCart(user.getIdUser(), idCart, quantity);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/get-billing-info")
+    public ResponseEntity getBillingInfo() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ResponseEntity(HttpStatus.OK);
     }
 

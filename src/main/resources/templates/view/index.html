@@ -113,7 +113,7 @@
                                                     class="bi bi-shopping-cart-full"></i></a></li>
                                             <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
                                                     class="bi bi-heart-beat"></i></a></li>
-                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
+                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'deleteWishlistById(' + ${lb.idBook} + ')'"><i
                                                     class="bi bi-reply"></i></a></li>
                                             <li><a data-toggle="modal" title="Quick View"
                                                    class="quickview modal-view detail-link" href="#productmodal"><i
