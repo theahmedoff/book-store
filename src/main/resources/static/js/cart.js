@@ -58,7 +58,11 @@ function getMinicarts() {
                 '                                        <span id="idCardSubtotal">0</span>\n' +
                 '                                    </div>\n' +
                 '                                    <div class="mini_action checkout">\n' +
+<<<<<<< HEAD
                 '                                        <a class="checkout__btn" href="/cart">Go to Checkout</a>\n' +
+=======
+                '                                        <a class="checkout__btn" href="/cart/checkout">Go to Checkout</a>\n' +
+>>>>>>> e079fd4680dfed4d94d52397e1456739d48bbf97
                 '                                    </div>\n' +
                 '                                    <div class="single__items">\n' +
                 '                                        <div class="miniproduct" id="minicart">\n' +

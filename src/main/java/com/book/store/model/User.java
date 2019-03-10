@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private int status;
     private List<Integer> idWishlists;
     private Role role;
+    private BillingInfo billingInfo;
 
     public User() {
         this.idWishlists = new ArrayList<>();
