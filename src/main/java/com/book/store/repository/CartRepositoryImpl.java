@@ -30,6 +30,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ? and id_user = ?";
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
     private static final String GET_BILLING_INFO = "select bi.id_billing_info, bi.firstname, bi.lastname, bi.company_name, bi.country, bi.district, bi.address, bi.postcode, bi.phone, bi.email, u.id_user from billing_info bi right join user u on bi.id_billing_info = u.id_billing_info where u.id_user = ?";
+    private static final String UPDATE_BILLING_INFO = "update billing_info bi inner join user u on bi.id_billing_info = u.id_billing_info set bi.firstname = ?, bi.lastname = ?, bi.company_name = ?, bi.country = ?, bi.district = ?, bi.address = ?, bi.postcode = ?, bi.phone = ?, bi.email = ? where u.id_user = ?";
 
 
     //methods
@@ -175,5 +176,15 @@ public class CartRepositoryImpl implements CartRepository {
             }
         });
         return billingInfo;
+    }
+
+    @Override
+    public BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo) {
+        int affectedRow = jdbcTemplate.update(UPDATE_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getDistrict(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
+
+        if (affectedRow == 0) {
+            throw new RuntimeException();
+        }
+        return getBillingInfo(idUser);
     }
 }

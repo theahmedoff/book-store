@@ -25,4 +25,6 @@ public interface CartService {
 
     BillingInfo getBillingInfo(int idUser);
 
+    BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo);
+
 }

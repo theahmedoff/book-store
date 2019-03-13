@@ -56,4 +56,9 @@ public class CartServiceImpl implements CartService {
     public BillingInfo getBillingInfo(int idUser) {
         return cartRepository.getBillingInfo(idUser);
     }
+
+    @Override
+    public BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo) {
+        return cartRepository.updateBillingInfo(idUser, billingInfo);
+    }
 }

@@ -50,18 +50,23 @@ public class CartController {
         return carts;
     }
 
-    @RequestMapping("/delete-cart")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteCartById(@RequestParam("id") Integer id){
-        cartService.deleteCartById(id);
-    }
-
     @GetMapping("/get-wishlists")
     @ResponseBody
     public List<Wishlist> getWishlistsByIdUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Wishlist> wishlists = cartService.getWishlistsByIdUser(user.getIdUser());
         return wishlists;
+    }
+
+    @GetMapping("/invoice")
+    public String getInvoicePage() {
+        return "view/invoice";
+    }
+
+    @RequestMapping("/delete-cart")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCartById(@RequestParam("id") Integer id){
+        cartService.deleteCartById(id);
     }
 
     @DeleteMapping("/delete-wishlist")
@@ -99,13 +104,11 @@ public class CartController {
 
     @PostMapping("/checkout")
     public String updateBillingInfo(@ModelAttribute(name = "billingInfo") BillingInfo billingInfo) {
-        System.out.println(billingInfo.getFirstname());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        BillingInfo updatedBillingInfo = cartService.updateBillingInfo(user.getIdUser(), billingInfo);
+        //TODO: add updatedBillingInfo to flash attribute..
+        System.out.println(updatedBillingInfo);
         return "redirect:/cart/invoice";
-    }
-
-    @GetMapping("/invoice")
-    public String getInvoicePage() {
-        return "view/invoice";
     }
 
 }

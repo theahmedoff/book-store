@@ -24,4 +24,6 @@ public interface CartRepository {
 
     BillingInfo getBillingInfo(int idUser);
 
+    BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo);
+
 }
