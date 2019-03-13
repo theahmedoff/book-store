@@ -27,7 +27,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String DELETE_WISHLIST_SQL = "delete from wishlist where id_book = ? and id_user = ?";
     private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
-    private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ? and id_user = ?";
+    private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ?";
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
     private static final String GET_BILLING_INFO = "select bi.id_billing_info, bi.firstname, bi.lastname, bi.company_name, bi.country, bi.district, bi.address, bi.postcode, bi.phone, bi.email, u.id_user from billing_info bi right join user u on bi.id_billing_info = u.id_billing_info where u.id_user = ?";
 
@@ -75,6 +75,7 @@ public class CartRepositoryImpl implements CartRepository {
     @Override
     public void deleteCartById(int id) {
         int affectedRows = jdbcTemplate.update(DELETE_CART_BY_ID_SQL, id);
+        System.out.println(affectedRows);
     }
 
 
@@ -148,8 +149,12 @@ public class CartRepositoryImpl implements CartRepository {
     }
 
     @Override
-    public void updateCart(int idUser, int idCart, int quantity) {
-        int affectedRows = jdbcTemplate.update(UPDATE_CART_SQL, quantity, idCart, idUser);
+    public void updateCart(int idCart, int quantity) {
+        System.out.println("-------------------------");
+        System.out.println("Repository ID: " + idCart);
+        System.out.println("Repository Quantity: " + quantity);
+        int affectedRows = jdbcTemplate.update(UPDATE_CART_SQL, quantity, idCart);
+        System.out.println("affectedRows: " + affectedRows);
         if (affectedRows == 0) {
             throw new RuntimeException();
         }

@@ -5317,7 +5317,7 @@ h3.widget-title-modal {
   border-left: 1px solid #e8e8e8;
   border-right: 1px solid #e8e8e8;
   padding: 40px; }
-.cart__btn__list li a {
+.cart__btn__list li button {
   background: #fff none repeat scroll 0 0;
   border-radius: 5px;
   display: block;
@@ -5329,7 +5329,7 @@ h3.widget-title-modal {
   padding: 0 26px;
   text-transform: capitalize;
   transition: all 0.3s ease 0s; }
-.cart__btn__list li a:hover {
+.cart__btn__list li button:hover {
   background: #e59285 none repeat scroll 0 0;
   color: #fff; }
 .cartbox-total {

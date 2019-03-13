@@ -48,8 +48,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateCart(int idUser, int idCart, int quantity) {
-        cartRepository.updateCart(idUser, idCart, quantity);
+    public void updateCart(int idCart, int quantity) {
+        System.out.println("-------------------------");
+        System.out.println("Service ID: " + idCart);
+        System.out.println("Service Quantity: " + quantity);
+        cartRepository.updateCart(idCart, quantity);
     }
 
     @Override
