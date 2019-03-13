@@ -37,7 +37,6 @@ public class CartController {
 
     @GetMapping("/checkout")
     public String getCheckoutPage(Model model) {
-        //billing info yoxdursa idBillingInfo = 0 olur..
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         BillingInfo billingInfo = cartService.getBillingInfo(user.getIdUser());
         model.addAttribute("billingInfo", billingInfo);
@@ -98,6 +97,17 @@ public class CartController {
         //user datalarini goturmek
         //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.updateCart(idCart, quantity);
+    }
+
+    @PostMapping("/checkout")
+    public String updateBillingInfo(@ModelAttribute(name = "billingInfo") BillingInfo billingInfo) {
+        System.out.println(billingInfo.getFirstname());
+        return "redirect:/cart/invoice";
+    }
+
+    @GetMapping("/invoice")
+    public String getInvoicePage() {
+        return "view/invoice";
     }
 
 }
