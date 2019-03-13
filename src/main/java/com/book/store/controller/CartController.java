@@ -95,11 +95,13 @@ public class CartController {
     }
 
     @PostMapping("/update-cart")
-    public ResponseEntity updateCart(@RequestParam(name = "idCart") int idCart,
+    public void updateCart(@RequestParam(name = "idCart") int idCart,
                                      @RequestParam(name = "quantity") int quantity) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartService.updateCart(user.getIdUser(), idCart, quantity);
-        return new ResponseEntity(HttpStatus.OK);
+        System.out.println("ID: " + idCart);
+        System.out.println("Quantity: " + quantity);
+        //user datalarini goturmek
+        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cartService.updateCart(idCart, quantity);
     }
 
     @PostMapping("/checkout")

@@ -139,27 +139,21 @@ function updateAllCarts() {
     $('.classCartQuantity').each(function (i) {
         cartQuantities.push($(this).val());
     });
-    var cartThisId = [];
+    //var cartThisId = [];
 
     console.log(cartIds);
     console.log(cartQuantities);
 
-    $.ajax({
-       type: "GET",
-       url: "/cart/get-carts",
-       data: "JSON",
-       success: function (carts) {
-           carts.forEach(function (cart) {
-               cartThisId.push(cart.id);
-               console.log(cartThisId);
-           });
-
-           getCarts();
-       }
-    });
+    for(var i=0; i<cartIds.length; i++){
+        console.log("ID: " + cartIds[i]);
+        console.log("Quantity: " + cartQuantities[i]);
+        updateCart(cartIds[i], cartQuantities[i]);
+    }
 }
 
 function updateCart(idCart, quantity) {
+    console.log("Gelen ID: " + idCart);
+    console.log("Gelen Quantity: " + quantity);
     $.ajax({
         type: "POST",
         url: "/cart/update-cart",
@@ -167,7 +161,7 @@ function updateCart(idCart, quantity) {
         success: function () {
             getCarts();
         },error: function () {
-            alert('Internal error!');
+            //alert('Internal error!');
         }
     });
 }
