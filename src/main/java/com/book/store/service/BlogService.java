@@ -1,18 +1,16 @@
-package com.book.store.repository;
+package com.book.store.service;
 
 import com.book.store.model.Blog;
-import com.book.store.model.Book;
 import com.book.store.model.Comment;
 
 import java.util.List;
 
-public interface BlogRepository {
+public interface BlogService {
     List<Blog> getAllBlog();
 
     Blog getBlogById(int id);
 
     void addBlog(Blog blog);
-
 
     List<Comment> getCommentByBlogId(int id);
 
