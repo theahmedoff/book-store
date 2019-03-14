@@ -109,15 +109,15 @@
 									<div class="input_box">
 										<label>Country<span> *</span></label>
 										<select class="select__option" th:field="*{country}" required>
-											<option th:value="sdsdsdsd" >Select a country…</option>
-											<option th:value="Algeria" th:selected="${billingInfo.country.equalsIgnoreCase('Algeria')}">Algeria</option>
-											<option th:value="Azerbaijan" th:selected="${billingInfo.country.equalsIgnoreCase('Azerbaijan')}">Azerbaijan</option>
-											<option th:value="Bolivia" th:selected="${billingInfo.country.equalsIgnoreCase('Bolivia')}">Bolivia</option>
-											<option th:value="Belgium" th:selected="${billingInfo.country.equalsIgnoreCase('Belgium')}">Belgium</option>
-											<option th:value="Canada" th:selected="${billingInfo.country.equalsIgnoreCase('Canada')}">Canada</option>
-											<option th:value="Estonia" th:selected="${billingInfo.country.equalsIgnoreCase('Estonia')}">Estonia</option>
-											<option th:value="Greece" th:selected="${billingInfo.country.equalsIgnoreCase('Greece')}">Greece</option>
-											<option th:value="Japan" th:selected="${billingInfo.country.equalsIgnoreCase('Japan')}">Japan</option>
+											<option th:value="nonSelected" >Select a country…</option>
+											<option th:value="Algeria" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Japan')}">Algeria</option>
+											<option th:value="Azerbaijan" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Azerbaijan')}">Azerbaijan</option>
+											<option th:value="Bolivia" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Bolivia')}">Bolivia</option>
+											<option th:value="Belgium" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Belgium')}">Belgium</option>
+											<option th:value="Canada" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Canada')}">Canada</option>
+											<option th:value="Estonia" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Estonia')}">Estonia</option>
+											<option th:value="Greece" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Greece')}">Greece</option>
+											<option th:value="Japan" th:selected="${billingInfo.country != null and billingInfo.country.equalsIgnoreCase('Japan')}">Japan</option>
 										</select>
 									</div>
 									<div class="input_box">

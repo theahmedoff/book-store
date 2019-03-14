@@ -3,6 +3,7 @@ package com.book.store.repository;
 import com.book.store.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,8 +30,9 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ?";
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
-    private static final String GET_BILLING_INFO = "select bi.id_billing_info, bi.firstname, bi.lastname, bi.company_name, bi.country, bi.district, bi.address, bi.postcode, bi.phone, bi.email, u.id_user from billing_info bi right join user u on bi.id_billing_info = u.id_billing_info where u.id_user = ?";
-    private static final String UPDATE_BILLING_INFO = "update billing_info bi inner join user u on bi.id_billing_info = u.id_billing_info set bi.firstname = ?, bi.lastname = ?, bi.company_name = ?, bi.country = ?, bi.district = ?, bi.address = ?, bi.postcode = ?, bi.phone = ?, bi.email = ? where u.id_user = ?";
+    private static final String GET_BILLING_INFO = "select id_billing_info, firstname, lastname, company_name, country, address, postcode, phone, email from billing_info where id_user = ?";
+    private static final String INSERT_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_BILLING_INFO = "update billing_info set firstname = ?, lastname = ?, company_name = ?, country = ?, district = ?, address = ?, postcode = ?, phone = ?, email = ? where id_user = ?";
 
 
     //methods
@@ -163,33 +165,42 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public BillingInfo getBillingInfo(int idUser) {
-        BillingInfo billingInfo = jdbcTemplate.queryForObject(GET_BILLING_INFO, new Object[]{idUser}, new RowMapper<BillingInfo>() {
-            @Override
-            public BillingInfo mapRow(ResultSet rs, int i) throws SQLException {
-                BillingInfo info = new BillingInfo();
-                info.setIdBillingInfo(rs.getInt("bi.id_billing_info"));
-                info.setFirstname(rs.getString("bi.firstname"));
-                info.setLastname(rs.getString("bi.lastname"));
-                info.setCompanyName(rs.getString("bi.company_name"));
-                info.setCountry(rs.getString("bi.country"));
-                info.setDistrict(rs.getString("bi.district"));
-                info.setAddress(rs.getString("bi.address"));
-                info.setPostcode(rs.getString("bi.postcode"));
-                info.setPhone(rs.getString("bi.phone"));
-                info.setEmail(rs.getString("bi.email"));
-                return info;
-            }
-        });
+        BillingInfo billingInfo;
+        try {
+            billingInfo = jdbcTemplate.queryForObject(GET_BILLING_INFO, new Object[]{idUser}, new RowMapper<BillingInfo>() {
+                @Override
+                public BillingInfo mapRow(ResultSet rs, int i) throws SQLException {
+                    BillingInfo info = new BillingInfo();
+                    info.setIdBillingInfo(rs.getInt("id_billing_info"));
+                    info.setFirstname(rs.getString("firstname"));
+                    info.setLastname(rs.getString("lastname"));
+                    info.setCompanyName(rs.getString("company_name"));
+                    info.setCountry(rs.getString("country"));
+                    info.setAddress(rs.getString("address"));
+                    info.setPostcode(rs.getString("postcode"));
+                    info.setPhone(rs.getString("phone"));
+                    info.setEmail(rs.getString("email"));
+
+                    return info;
+                }
+            });
+
+        } catch (EmptyResultDataAccessException e) {
+            billingInfo = new BillingInfo();
+        }
+
         return billingInfo;
     }
 
     @Override
     public BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo) {
-        int affectedRow = jdbcTemplate.update(UPDATE_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getDistrict(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
+        try {
+            jdbcTemplate.update(UPDATE_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
 
-        if (affectedRow == 0) {
-            throw new RuntimeException();
+        } catch (Exception e) {
+            jdbcTemplate.update(INSERT_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
         }
+
         return getBillingInfo(idUser);
     }
 }

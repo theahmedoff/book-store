@@ -14,10 +14,10 @@ public class BillingInfo {
     private String lastname;
     private String companyName;
     private String country;
-    private String district;
     private String address;
     private String postcode;
     private String phone;
     private String email;
+    private User user;
 
 }

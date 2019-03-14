@@ -109,7 +109,6 @@ public class CartController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         BillingInfo updatedBillingInfo = cartService.updateBillingInfo(user.getIdUser(), billingInfo);
         //TODO: add updatedBillingInfo to flash attribute..
-        System.out.println(updatedBillingInfo);
         return "redirect:/cart/invoice";
     }
 
