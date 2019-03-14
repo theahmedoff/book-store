@@ -15,6 +15,10 @@ public interface BookRepository {
 
     List<Book> getLastBooks();
 
+    List<Book> getAllBook();
+
+    List<Book> getAllBookByCategoryType(String cateType);
+
     List<Category> getAllCategories();
 
     Book getBookById(int idBook);
