@@ -1,10 +1,7 @@
 package com.book.store.controller;
 
-import com.book.store.model.Book;
-import com.book.store.model.Category;
-import com.book.store.model.Contact;
-import com.book.store.model.SearchEntity;
-import com.book.store.model.User;
+import com.book.store.model.*;
+import com.book.store.service.BlogService;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +20,8 @@ public class NavigationController {
     //fields
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BlogService blogService;
 
     //methods
     @RequestMapping("/")
@@ -79,8 +78,13 @@ public class NavigationController {
         return "view/faq";
     }
 
+
     @RequestMapping("/blog")
-    public String getBlogPage() {
+    public String getBlogPage(Model model)  {
+        List<Blog> list = blogService.getAllBlog();
+        model.addAttribute("blogList",list);
+
+
         return "view/blog";
     }
 

@@ -26,6 +26,8 @@ public class BookRepositoryImpl implements BookRepository {
     private static final String GET_ALL_LAST_BOOK_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
     private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
     private static final String GET_REVIEWS_BY_ID_BOOK = "select * from review r inner join user u on r.id_user = u.id_user where r.id_book = ?";
+    private static final String GET_ALL_BOOK_BY_CATEGORY_TYPE_SQL = "select b.id_book, b.title, b.image_path, a.id_author, a.full_name, c.id_category, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category where c.type = ?";
+    private static final String GET_ALL_BOOK_SQL = "select b.id_book, b.title, b.image_path, a.full_name, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category";
 
     //methods
     @Override
@@ -121,6 +123,77 @@ public class BookRepositoryImpl implements BookRepository {
                     stock.setAgeRange(rs.getInt("age_range"));
                     stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
                     book.setStock(stock);
+
+                    list.add(book);
+                }
+                return list;
+            }
+        });
+        return books;
+    }
+
+    @Override
+    public List<Book> getAllBook() {
+        List<Book> books = jdbcTemplate.query(GET_ALL_BOOK_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new LinkedList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("id_book"));
+                    book.setTitle(rs.getString("title"));
+                    book.setImagePath(rs.getString("image_path"));
+
+                    Author a = new Author();
+                    a.setFullName(rs.getString("full_name"));
+                    book.setAuthor(a);
+
+                    Stock s = new Stock();
+                    s.setPrice(rs.getDouble("price"));
+                    book.setStock(s);
+
+                    Category c = new Category();
+                    c.setType(rs.getString("type"));
+                    List<Category> categories = new ArrayList<>();
+                    categories.add(c);
+                    book.setCategoryList(categories);
+
+                    list.add(book);
+                }
+                return list;
+            }
+        });
+        return books;
+    }
+
+    @Override
+    public List<Book> getAllBookByCategoryType(String cateType) {
+        List<Book> books = jdbcTemplate.query(GET_ALL_BOOK_BY_CATEGORY_TYPE_SQL, new Object[]{cateType}, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new LinkedList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("id_book"));
+                    book.setTitle(rs.getString("title"));
+                    book.setImagePath(rs.getString("image_path"));
+
+                    Author a = new Author();
+                    a.setIdAuthor(rs.getInt("id_author"));
+                    a.setFullName(rs.getString("full_name"));
+                    book.setAuthor(a);
+
+                    Stock s = new Stock();
+                    s.setIdStock(rs.getInt("id_sock"));
+                    s.setPrice(rs.getDouble("price"));
+                    book.setStock(s);
+
+                    Category c = new Category();
+                    c.setIdCategory(rs.getInt("id_category"));
+                    c.setType(rs.getString("type"));
+                    List<Category> categories = new ArrayList<>();
+                    categories.add(c);
+                    book.setCategoryList(categories);
 
                     list.add(book);
                 }

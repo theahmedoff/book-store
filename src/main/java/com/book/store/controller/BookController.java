@@ -6,6 +6,8 @@ import com.book.store.model.Review;
 import com.book.store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,10 +39,21 @@ public class BookController {
         return reviews;
     }
 
-    @RequestMapping("/get-books")
-    @ResponseBody
-    public List<Book> getBooksByIdCategory(@RequestParam(name = "idCategory") Integer idCategory) {
-        return null;
+    @GetMapping("/get-all-books")
+    public String getBooksByIdCategory(Model model) {
+        List<Book> books = bookService.getAllBook();
+        model.addAttribute("allBooks", books);
+        return "fragments/tab-content";
     }
+
+
+    @GetMapping("/get-book-by-category-type")
+    @ResponseBody
+    public List<Book> getAllBookByCategoryType(@RequestParam("cateType")String cateType){
+        List<Book> books = bookService.getAllBookByCategoryType(cateType);
+
+        return books;
+    }
+
 
 }

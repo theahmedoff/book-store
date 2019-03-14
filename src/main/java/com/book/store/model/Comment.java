@@ -11,5 +11,9 @@ public class Comment {
 
     private LocalDateTime shareDate;
 
+    private Blog blog;
+
+    private Comment comment;
+
 
 }
