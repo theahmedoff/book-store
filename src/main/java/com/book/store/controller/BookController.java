@@ -33,9 +33,7 @@ public class BookController {
     @RequestMapping("/reviews")
     @ResponseBody
     public List<Review> getReviewsByIdBook(@RequestParam(name = "idBook") Integer idBook) {
-        System.out.println(idBook);
         List<Review> reviews = bookService.getReviewsByIdBook(idBook);
-        System.out.println(reviews);
         return reviews;
     }
 

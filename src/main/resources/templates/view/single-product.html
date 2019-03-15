@@ -5,27 +5,7 @@
 <head>
 	<th:block th:replace="fragments/imports :: imports" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" th:inline="javascript">
-		$(function () {
-			$('#idReviews').click(function () {
-				var data = "idBook="+''/*[[ ${book.idBook} ]]*/;
-				$.ajax({
-					type: "GET",
-					url: "/reviews",
-					data: data,
-					dataType: "json",
-					success: function (reviews) {
-						// $('#idCategories').empty();
-						// categories.forEach(function (category) {
-						// 	$('#idCategories').append('<input type="checkbox" name="categories" value="' + category.idCategory + '">');
-						// 	$('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
-						// 	$('#idCategories').append('<br>');
-						// });
-					}
-				});
-			});
-		});
-	</script>
+	<script th:src="@{/js/single-product.js}"></script>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -148,7 +128,7 @@
         				<div class="product__info__detailed">
 							<div class="pro_details_nav nav justify-content-start" role="tablist">
 	                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">Details</a>
-	                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab" id="idReviews">Reviews</a>
+	                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab" th:onclick="'getReviewsByIdBook(' + ${book.idBook} + ')'">Reviews</a>
 	                        </div>
 	                        <div class="tab__container">
 	                        	<!-- Start Single Tab Content -->
@@ -160,47 +140,26 @@
 	                        	<!-- End Single Tab Content -->
 	                        	<!-- Start Single Tab Content -->
 	                        	<div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
-									<div class="review__attribute">
-										<h1>Customer Reviews</h1>
-										<h2>Hastech</h2>
-										<div class="review__ratings__type d-flex">
-											<div class="review-ratings">
-												<div class="rating-summary d-flex">
-													<span>Quality</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
+									<div id="idDivReviews">
+										<div class="review__attribute">
+											<h2>Hastech</h2>
+											<div class="review__ratings__type d-flex">
+												<div class="review-ratings">
+													<div class="rating-summary d-flex">
+														<span>Quality</span>
+														<ul class="rating d-flex">
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li class="off"><i class="zmdi zmdi-star"></i></li>
+															<li class="off"><i class="zmdi zmdi-star"></i></li>
+														</ul>
+													</div>
 												</div>
-
-												<div class="rating-summary d-flex">
-													<span>Price</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
+												<div class="review-content">
+													<p>Review by Hastech</p>
+													<p>Posted on 11/6/2018</p>
 												</div>
-												<div class="rating-summary d-flex">
-													<span>value</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
-												</div>
-											</div>
-											<div class="review-content">
-												<p>Hastech</p>
-												<p>Review by Hastech</p>
-												<p>Posted on 11/6/2018</p>
 											</div>
 										</div>
 									</div>
