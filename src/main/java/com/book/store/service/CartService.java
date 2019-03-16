@@ -17,7 +17,7 @@ public interface CartService {
 
     void deleteWishlist(int idBook, int idUser);
 
-    void addToCart(int idUser, int idBook, Integer idWishlist);
+    void addToCart(int idUser, int idBook, Integer idWishlist, Integer quantity);
 
     void addToWishlist(int idUser, int idBook);
 

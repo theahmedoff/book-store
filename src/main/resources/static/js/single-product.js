@@ -1,3 +1,11 @@
+$(function () {
+    $('#idBtnAddToCart').click(function () {
+        var idBook = $('#idBook').val();
+        var quantity = $('#qty').val();
+        addToCart(idBook, null, quantity);
+    });
+});
+
 function getReviewsByIdBook(idBook) {
     $.ajax({
         type: "GET",
@@ -8,7 +16,7 @@ function getReviewsByIdBook(idBook) {
             $('#idDivReviews').empty();
             reviews.forEach(function (review) {
             	$('#idDivReviews').append('<div class="review__attribute">\n' +
-                    '\t\t\t\t\t\t\t\t\t\t\t<h2>' + review.desc +'</h2>\n' +
+                    '\t\t\t\t\t\t\t\t\t\t\t<p>' + review.desc +'</p>\n' +
                     '\t\t\t\t\t\t\t\t\t\t\t<div class="review__ratings__type d-flex">\n' +
                     '\t\t\t\t\t\t\t\t\t\t\t\t<div class="review-ratings">\n' +
                     '\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="rating-summary d-flex">\n' +
@@ -28,7 +36,9 @@ function getReviewsByIdBook(idBook) {
                     '\t\t\t\t\t\t\t\t\t\t\t\t</div>\n' +
                     '\t\t\t\t\t\t\t\t\t\t\t</div>\n' +
                     '\t\t\t\t\t\t\t\t\t\t</div>\n' +
-                    '<br>');
+                    '<br>\n' +
+                    '<hr/>\n' +
+                    '<br/>');
             });
         }
     });

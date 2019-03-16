@@ -6,8 +6,11 @@
 	<th:block th:replace="fragments/imports :: imports" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script th:src="@{/js/single-product.js}"></script>
+	<script th:src="@{/js/cart.js}"></script>
 </head>
 <body>
+<input type="hidden" id="pageName" value="singleProductPage">
+<input type="hidden" id="idBook" th:value="${book.idBook}">
 	<!--[if lte IE 9]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 	<![endif]-->
@@ -80,9 +83,9 @@
         								</div>
         								<div class="box-tocart d-flex">
         									<span>Qty</span>
-        									<input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+        									<input id="qty" class="input-text qty" min="1" value="1" title="Qty" type="number">
         									<div class="addtocart__actions">
-        										<button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+        										<button class="tocart" type="submit" title="Add to Cart" id="idBtnAddToCart">Add to Cart</button>
         									</div>
 											<div class="product-addto-links clearfix">
 												<a class="wishlist" href="#"></a>
@@ -142,25 +145,7 @@
 	                        	<div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
 									<div id="idDivReviews">
 										<div class="review__attribute">
-											<h2>Hastech</h2>
-											<div class="review__ratings__type d-flex">
-												<div class="review-ratings">
-													<div class="rating-summary d-flex">
-														<span>Quality</span>
-														<ul class="rating d-flex">
-															<li><i class="zmdi zmdi-star"></i></li>
-															<li><i class="zmdi zmdi-star"></i></li>
-															<li><i class="zmdi zmdi-star"></i></li>
-															<li class="off"><i class="zmdi zmdi-star"></i></li>
-															<li class="off"><i class="zmdi zmdi-star"></i></li>
-														</ul>
-													</div>
-												</div>
-												<div class="review-content">
-													<p>Review by Hastech</p>
-													<p>Posted on 11/6/2018</p>
-												</div>
-											</div>
+
 										</div>
 									</div>
 									<div class="review-fieldset">
