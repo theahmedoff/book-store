@@ -82,8 +82,13 @@
         									<div class="addtocart__actions">
         										<button class="tocart" type="submit" title="Add to Cart" id="idBtnAddToCart">Add to Cart</button>
         									</div>
-											<div class="product-addto-links clearfix">
-												<a class="wishlist" href="#"></a>
+											<div class="product-addto-links clearfix" sec:authorize="isAuthenticated()">
+                                                <ul>
+                                                    <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(book.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${book.idBook} + ')'"><i
+                                                            class="bi bi-heart-beat"></i></a></li>
+                                                    <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(book.idBook)}"><a class="compare" th:onclick="'deleteWishlistById(' + ${book.idBook} + ')'"><i
+                                                            class="bi bi-reply"></i></a></li>
+                                                </ul>
 											</div>
         								</div>
 										<div class="product_meta">
