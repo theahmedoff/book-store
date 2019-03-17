@@ -35,6 +35,51 @@ function getCarts(){
     })
 }
 
+// $(function() {
+//     console.log( "Success!" );
+//     getCheckoutCarts();
+// });
+//
+// function getCheckoutCarts() {
+//     $.ajax({
+//         type: "GET",
+//         url: "/cart/get-cart",
+//         data: "JSON",
+//         success: function (cart) {
+//             $('#order-box').empty();
+//             $('#order-box').append('<h3 class="onder__title">Your order</h3>\n' +
+//                 '        \t\t\t\t\t<ul class="order__total">\n' +
+//                 '        \t\t\t\t\t\t<li>Product</li>\n' +
+//                 '        \t\t\t\t\t\t<li>Total</li>\n' +
+//                 '        \t\t\t\t\t</ul>\n' +
+//                 '        \t\t\t\t\t<ul class="order_product">\n' +
+//                 '        \t\t\t\t\t\t<li>Buscipit at magna × 1<span>$48.00</span></li>\n' +
+//                 '        \t\t\t\t\t\t<li>Buscipit at magna × 1<span>$48.00</span></li>\n' +
+//                 '        \t\t\t\t\t\t<li>Buscipit at magna × 1<span>$48.00</span></li>\n' +
+//                 '        \t\t\t\t\t\t<li>Buscipit at magna × 1<span>$48.00</span></li>\n' +
+//                 '        \t\t\t\t\t</ul>\n' +
+//                 '        \t\t\t\t\t<ul class="shipping__method">\n' +
+//                 '        \t\t\t\t\t\t<li>Cart Subtotal <span>$48.00</span></li>\n' +
+//                 '        \t\t\t\t\t\t<li>Shipping\n' +
+//                 '        \t\t\t\t\t\t\t<ul>\n' +
+//                 '        \t\t\t\t\t\t\t\t<li>\n' +
+//                 '        \t\t\t\t\t\t\t\t\t<input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">\n' +
+//                 '        \t\t\t\t\t\t\t\t\t<label>Flat Rate: $48.00</label>\n' +
+//                 '        \t\t\t\t\t\t\t\t</li>\n' +
+//                 '        \t\t\t\t\t\t\t\t<li>\n' +
+//                 '        \t\t\t\t\t\t\t\t\t<input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">\n' +
+//                 '        \t\t\t\t\t\t\t\t\t<label>Flat Rate: $48.00</label>\n' +
+//                 '        \t\t\t\t\t\t\t\t</li>\n' +
+//                 '        \t\t\t\t\t\t\t</ul>\n' +
+//                 '        \t\t\t\t\t\t</li>\n' +
+//                 '        \t\t\t\t\t</ul>\n' +
+//                 '        \t\t\t\t\t<ul class="total__amount">\n' +
+//                 '        \t\t\t\t\t\t<li>Order Total <span>$223.00</span></li>\n' +
+//                 '        \t\t\t\t\t</ul>')
+//         }
+//     })
+// }
+
 function getQuant() {
     console.log(quantityArr);
 }
