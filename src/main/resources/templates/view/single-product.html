@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:01 GMT -->
 <head>
@@ -55,12 +55,6 @@
 	        							<div class="fotorama wn__fotorama__action" data-nav="thumbs">
 		        							  <a th:href="@{/1.jpg}"><img th:src="@{images/product/1.jpg}" alt=""></a>
 		        							  <a th:href="@{/2.jpg}"><img th:src="@{images/product/2.jpg}" alt=""></a>
-		        							  <a th:href="@{/3.jpg}"><img th:src="@{images/product/3.jpg}" alt=""></a>
-		        							  <a th:href="@{/4.jpg}"><img th:src="@{images/product/4.jpg}" alt=""></a>
-		        							  <a th:href="@{/5.jpg}"><img th:src="@{images/product/5.jpg}" alt=""></a>
-		        							  <a th:href="@{/6.jpg}"><img th:src="@{images/product/6.jpg}" alt=""></a>
-		        							  <a th:href="@{/7.jpg}"><img th:src="@{images/product/7.jpg}" alt=""></a>
-		        							  <a th:href="@{/8.jpg}"><img th:src="@{images/product/8.jpg}" alt=""></a>
 	        							</div>
         							</div>
         						</div>
@@ -148,7 +142,7 @@
 
 										</div>
 									</div>
-									<div class="review-fieldset">
+									<div class="review-fieldset" sec:authorize="isAuthenticated()">
 										<h2>You're reviewing:</h2>
 										<h3>Chaz Kangeroo Hoodie</h3>
 										<div class="review-field-ratings">
@@ -202,6 +196,9 @@
 												<button>Submit Review</button>
 											</div>
 										</div>
+									</div>
+									<div class="review-fieldset" sec:authorize="!isAuthenticated()">
+										<p>For writing review:   <a style="color: darkred" th:href="@{/login}">Login</a> or <a style="color: darkred" th:href="@{/register}">Create an account</a></p>
 									</div>
 	                        	</div>
 	                        	<!-- End Single Tab Content -->

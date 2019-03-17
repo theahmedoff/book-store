@@ -32,7 +32,7 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + ? where id_user = ? and id_book = ?";
     private static final String GET_BILLING_INFO = "select id_billing_info, firstname, lastname, company_name, country, address, postcode, phone, email from billing_info where id_user = ?";
     private static final String INSERT_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_BILLING_INFO = "update billing_info set firstname = ?, lastname = ?, company_name = ?, country = ?, district = ?, address = ?, postcode = ?, phone = ?, email = ? where id_user = ?";
+    private static final String UPDATE_BILLING_INFO = "update billing_info set firstname = ?, lastname = ?, company_name = ?, country = ?, address = ?, postcode = ?, phone = ?, email = ? where id_user = ?";
 
 
     //methods
