@@ -26,10 +26,10 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String DELETE_CART_BY_ID_SQL = "delete from cart where id_cart = ?";
     private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
     private static final String DELETE_WISHLIST_SQL = "delete from wishlist where id_book = ? and id_user = ?";
-    private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book) values(?, ?)";
+    private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book, quantity) values(?, ?, ?);";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ?";
-    private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + 1 where id_user = ? and id_book = ?";
+    private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + ? where id_user = ? and id_book = ?";
     private static final String GET_BILLING_INFO = "select id_billing_info, firstname, lastname, company_name, country, address, postcode, phone, email from billing_info where id_user = ?";
     private static final String INSERT_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_BILLING_INFO = "update billing_info set firstname = ?, lastname = ?, company_name = ?, country = ?, district = ?, address = ?, postcode = ?, phone = ?, email = ? where id_user = ?";
@@ -78,7 +78,6 @@ public class CartRepositoryImpl implements CartRepository {
     @Override
     public void deleteCartById(int id) {
         int affectedRows = jdbcTemplate.update(DELETE_CART_BY_ID_SQL, id);
-        System.out.println(affectedRows);
     }
 
 
@@ -130,12 +129,12 @@ public class CartRepositoryImpl implements CartRepository {
     }
 
     @Override
-    public void addToCart(int idUser, int idBook, Integer idWishlist) {
+    public void addToCart(int idUser, int idBook, Integer idWishlist, Integer quantity) {
         try {
-            jdbcTemplate.update(ADD_TO_CART_SQL, idUser, idBook);
+            jdbcTemplate.update(ADD_TO_CART_SQL, idUser, idBook, quantity);
 
         } catch (DataAccessException e) {
-            jdbcTemplate.update(UPDATE_QUANTITY_OF_CART_SQL, idUser, idBook);
+            jdbcTemplate.update(UPDATE_QUANTITY_OF_CART_SQL, quantity, idUser, idBook);
         }
 
         if (idWishlist != null) {
@@ -153,11 +152,7 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public void updateCart(int idCart, int quantity) {
-        System.out.println("-------------------------");
-        System.out.println("Repository ID: " + idCart);
-        System.out.println("Repository Quantity: " + quantity);
         int affectedRows = jdbcTemplate.update(UPDATE_CART_SQL, quantity, idCart);
-        System.out.println("affectedRows: " + affectedRows);
         if (affectedRows == 0) {
             throw new RuntimeException();
         }

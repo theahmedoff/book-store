@@ -38,8 +38,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addToCart(int idUser, int idBook, Integer idWishlist) {
-        cartRepository.addToCart(idUser, idBook, idWishlist);
+    public void addToCart(int idUser, int idBook, Integer idWishlist, Integer quantity) {
+        cartRepository.addToCart(idUser, idBook, idWishlist, quantity);
     }
 
     @Override

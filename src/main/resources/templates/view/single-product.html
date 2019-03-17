@@ -5,36 +5,20 @@
 <head>
 	<th:block th:replace="fragments/imports :: imports" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" th:inline="javascript">
-		$(function () {
-			$('#idReviews').click(function () {
-				var data = "idBook="+''/*[[ ${book.idBook} ]]*/;
-				$.ajax({
-					type: "GET",
-					url: "/reviews",
-					data: data,
-					dataType: "json",
-					success: function (reviews) {
-						// $('#idCategories').empty();
-						// categories.forEach(function (category) {
-						// 	$('#idCategories').append('<input type="checkbox" name="categories" value="' + category.idCategory + '">');
-						// 	$('#idCategories').append('<li style="display: inline-block">' + category.type + '</li>');
-						// 	$('#idCategories').append('<br>');
-						// });
-					}
-				});
-			});
-		});
-	</script>
+	<script th:src="@{/js/single-product.js}"></script>
+	<script th:src="@{/js/cart.js}"></script>
+	<script th:src="@{/js/wishlist.js}"></script>
 </head>
 <body>
+<input type="hidden" id="pageName" value="singleProductPage">
+<input type="hidden" id="idBook" th:value="${book.idBook}">
 	<!--[if lte IE 9]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 	<![endif]-->
 
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
-		
+
 		<!-- Header -->
 		<th:block th:replace="fragments/header :: header" />
 		<!-- //Header -->
@@ -100,13 +84,12 @@
         								</div>
         								<div class="box-tocart d-flex">
         									<span>Qty</span>
-        									<input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+        									<input id="qty" class="input-text qty" min="1" value="1" title="Qty" type="number">
         									<div class="addtocart__actions">
-        										<button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+        										<button class="tocart" type="submit" title="Add to Cart" id="idBtnAddToCart">Add to Cart</button>
         									</div>
 											<div class="product-addto-links clearfix">
 												<a class="wishlist" href="#"></a>
-												<a class="compare" href="#"></a>
 											</div>
         								</div>
 										<div class="product_meta">
@@ -120,22 +103,22 @@
 											<ul>
 												<li class="categories-title">Share :</li>
 												<li>
-													<a href="#">
+													<a href="https://www.twitter.com">
 														<i class="icon-social-twitter icons"></i>
 													</a>
 												</li>
 												<li>
-													<a href="#">
+													<a href="https://www.tumblr.com">
 														<i class="icon-social-tumblr icons"></i>
 													</a>
 												</li>
 												<li>
-													<a href="#">
+													<a href="https://www.facebook.com">
 														<i class="icon-social-facebook icons"></i>
 													</a>
 												</li>
 												<li>
-													<a href="#">
+													<a href="https://www.linkedin.com">
 														<i class="icon-social-linkedin icons"></i>
 													</a>
 												</li>
@@ -148,7 +131,7 @@
         				<div class="product__info__detailed">
 							<div class="pro_details_nav nav justify-content-start" role="tablist">
 	                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">Details</a>
-	                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab" id="idReviews">Reviews</a>
+	                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab" th:onclick="'getReviewsByIdBook(' + ${book.idBook} + ')'">Reviews</a>
 	                        </div>
 	                        <div class="tab__container">
 	                        	<!-- Start Single Tab Content -->
@@ -160,48 +143,9 @@
 	                        	<!-- End Single Tab Content -->
 	                        	<!-- Start Single Tab Content -->
 	                        	<div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
-									<div class="review__attribute">
-										<h1>Customer Reviews</h1>
-										<h2>Hastech</h2>
-										<div class="review__ratings__type d-flex">
-											<div class="review-ratings">
-												<div class="rating-summary d-flex">
-													<span>Quality</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
-												</div>
+									<div id="idDivReviews">
+										<div class="review__attribute">
 
-												<div class="rating-summary d-flex">
-													<span>Price</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
-												</div>
-												<div class="rating-summary d-flex">
-													<span>value</span>
-			    									<ul class="rating d-flex">
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-														<li class="off"><i class="zmdi zmdi-star"></i></li>
-			    									</ul>
-												</div>
-											</div>
-											<div class="review-content">
-												<p>Hastech</p>
-												<p>Review by Hastech</p>
-												<p>Posted on 11/6/2018</p>
-											</div>
 										</div>
 									</div>
 									<div class="review-fieldset">
@@ -617,7 +561,7 @@
 	<!-- //Main wrapper -->
 
 
-	
+
 </body>
 <th:block th:replace="fragments/imports :: js-imports" />
 <!-- Mirrored from demo.devitems.com/boighor-v2/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:04 GMT -->

@@ -115,11 +115,11 @@ function deleteCartById(id) {
     })
 }
 
-function addToCart(idBook, idWishlist) {
+function addToCart(idBook, idWishlist, quantity) {
     $.ajax({
         type: "POST",
         url: "/cart/add-to-cart",
-        data: {idBook: idBook, idWishlist: idWishlist},
+        data: {idBook: idBook, idWishlist: idWishlist, quantity: quantity},
         success: function () {
             alert('Book successfully added to cart!');
             getWishlists();

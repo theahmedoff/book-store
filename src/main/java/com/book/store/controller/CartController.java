@@ -79,9 +79,17 @@ public class CartController {
 
     @PostMapping("/add-to-cart")
     public ResponseEntity addToCart(@RequestParam(name = "idBook") Integer idBook,
-                                    @RequestParam(name = "idWishlist", required = false) Integer idWishlist) {
+                                    @RequestParam(name = "idWishlist", required = false) Integer idWishlist,
+                                    @RequestParam(name = "quantity", required = false) String quantity) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartService.addToCart(user.getIdUser(), idBook, idWishlist);
+
+        Integer qty;
+        if (quantity != null && !quantity.trim().isEmpty()) {
+            qty = Integer.parseInt(quantity);
+        } else {
+            qty = 1;
+        }
+        cartService.addToCart(user.getIdUser(), idBook, idWishlist, qty);
         user.removeWishlist(idBook);
         return new ResponseEntity(HttpStatus.OK);
     }
