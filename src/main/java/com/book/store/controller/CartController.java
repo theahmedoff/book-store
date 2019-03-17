@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("cart")
+@RequestMapping("/cart")
 public class CartController {
 
     //fields
