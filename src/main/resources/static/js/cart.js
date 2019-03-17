@@ -84,7 +84,7 @@ function getMinicarts() {
                     '                                                        <span class="qun">Qty: '+ cart.quantity +'</span>\n' +
                     '                                                        <ul class="d-flex justify-content-end">\n' +
                     '                                                            <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>\n' +
-                    '                                                            <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>\n' +
+                    '                                                            <li><a href="#"><i type="button" onclick="deleteCartById('+ cart.idCart +')" class="zmdi zmdi-delete"></i></a></li>\n' +
                     '                                                        </ul>\n' +
                     '                                                    </div>\n' +
                     '                                                </div>\n' +
@@ -103,13 +103,13 @@ function getMinicarts() {
 }
 
 function deleteCartById(id) {
-    console.log("asdas");
     $.ajax({
         type: "DELETE",
         url: "/cart/delete-cart",
         data: {id: id},
         success: function () {
             getCarts();
+            getMinicarts();
         }
 
     })

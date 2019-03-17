@@ -70,7 +70,7 @@ function getBooksByCategoryType(cateType) {
 
 $(function() {
     console.log( "Success!" );
-    getAllBook();
+   // getAllBook();
 });
 
 function getAllBook(){
@@ -80,7 +80,7 @@ function getAllBook(){
         dataType: "HTML",
         success: function (books) {
             // console.log(books);
-            $('#bookProduct').html(books);
+            $('#nav-all').html(books);
             console.log('done');
 
         }
