@@ -40,6 +40,10 @@ public class CartController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         BillingInfo billingInfo = cartService.getBillingInfo(user.getIdUser());
         model.addAttribute("billingInfo", billingInfo);
+
+        List<Cart> carts = cartService.getCartsByIdUser(5);
+        model.addAttribute("carts", carts);
+
         return "view/checkout";
     }
 
@@ -49,6 +53,8 @@ public class CartController {
         List<Cart> carts = cartService.getCartsByIdUser(5);
         return carts;
     }
+
+
 
     @GetMapping("/get-wishlists")
     @ResponseBody
@@ -103,6 +109,7 @@ public class CartController {
     }
 
     @PostMapping("/update-cart")
+    @ResponseStatus(HttpStatus.OK)
     public void updateCart(@RequestParam(name = "idCart") int idCart,
                                      @RequestParam(name = "quantity") int quantity) {
         System.out.println("ID: " + idCart);
