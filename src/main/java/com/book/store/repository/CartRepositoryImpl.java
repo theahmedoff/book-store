@@ -78,7 +78,6 @@ public class CartRepositoryImpl implements CartRepository {
     @Override
     public void deleteCartById(int id) {
         int affectedRows = jdbcTemplate.update(DELETE_CART_BY_ID_SQL, id);
-        System.out.println(affectedRows);
     }
 
 
@@ -153,11 +152,7 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public void updateCart(int idCart, int quantity) {
-        System.out.println("-------------------------");
-        System.out.println("Repository ID: " + idCart);
-        System.out.println("Repository Quantity: " + quantity);
         int affectedRows = jdbcTemplate.update(UPDATE_CART_SQL, quantity, idCart);
-        System.out.println("affectedRows: " + affectedRows);
         if (affectedRows == 0) {
             throw new RuntimeException();
         }
