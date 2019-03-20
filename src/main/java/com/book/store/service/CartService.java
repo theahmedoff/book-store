@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CartService {
 
-    List<Cart> getCartsByIdUser(int idUser);
+    List<Cart> getCartsById(int idUser);
 
     void deleteCartById(int id);
 

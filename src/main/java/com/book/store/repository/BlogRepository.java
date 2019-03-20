@@ -7,6 +7,7 @@ import com.book.store.model.Comment;
 import java.util.List;
 
 public interface BlogRepository {
+
     List<Blog> getAllBlog();
 
     Blog getBlogById(int id);

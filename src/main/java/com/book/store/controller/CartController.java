@@ -41,7 +41,7 @@ public class CartController {
         BillingInfo billingInfo = cartService.getBillingInfo(user.getIdUser());
         model.addAttribute("billingInfo", billingInfo);
 
-        List<Cart> carts = cartService.getCartsByIdUser(5);
+        List<Cart> carts = cartService.getCartsById(user.getIdUser());
         model.addAttribute("carts", carts);
 
         return "view/checkout";
@@ -50,11 +50,10 @@ public class CartController {
     @GetMapping("/get-carts")
     @ResponseBody
     public List<Cart> getCartByIdUser(){
-        List<Cart> carts = cartService.getCartsByIdUser(5);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Cart> carts = cartService.getCartsById(user.getIdUser());
         return carts;
     }
-
-
 
     @GetMapping("/get-wishlists")
     @ResponseBody
@@ -112,9 +111,6 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public void updateCart(@RequestParam(name = "idCart") int idCart,
                                      @RequestParam(name = "quantity") int quantity) {
-        System.out.println("ID: " + idCart);
-        System.out.println("Quantity: " + quantity);
-        //user datalarini goturmek
         //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.updateCart(idCart, quantity);
     }

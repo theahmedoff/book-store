@@ -22,9 +22,9 @@ public class CartRepositoryImpl implements CartRepository {
     //fields
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
-    private static final String DELETE_CART_BY_ID_SQL = "delete from cart where id_cart = ?";
-    private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
+    private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.first_image_path, b.second_image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
+    private static final String DELETE_CART_SQL = "delete from cart where id_cart = ?";
+    private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.first_image_path, b.second_image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
     private static final String DELETE_WISHLIST_SQL = "delete from wishlist where id_book = ? and id_user = ?";
     private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book, quantity) values(?, ?, ?);";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
@@ -37,7 +37,7 @@ public class CartRepositoryImpl implements CartRepository {
 
     //methods
     @Override
-    public List<Cart> getCartsByIdUser(int idUser) {
+    public List<Cart> getCartsById(int idUser) {
         List<Cart> carts = jdbcTemplate.query(GET_CARTS_BY_ID_USER_SQL, new Object[]{idUser}, new ResultSetExtractor<List<Cart>>() {
             @Override
             public List<Cart> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -46,7 +46,8 @@ public class CartRepositoryImpl implements CartRepository {
                 while (rs.next()) {
                     Book book = new Book();
                     book.setIdBook(rs.getInt("id_book"));
-                    book.setImagePath(rs.getString("image_path"));
+                    book.setFirstImagePath(rs.getString("first_image_path"));
+                    book.setSecondImagePath(rs.getString("second_image_path"));
                     book.setTitle(rs.getString("title"));
 
                     Stock stock = new Stock();
@@ -77,7 +78,7 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public void deleteCartById(int id) {
-        int affectedRows = jdbcTemplate.update(DELETE_CART_BY_ID_SQL, id);
+        int affectedRows = jdbcTemplate.update(DELETE_CART_SQL, id);
     }
 
 
@@ -91,7 +92,8 @@ public class CartRepositoryImpl implements CartRepository {
                     Book book = new Book();
                     book.setIdBook(rs.getInt("id_book"));
                     book.setTitle(rs.getString("title"));
-                    book.setImagePath(rs.getString("image_path"));
+                    book.setFirstImagePath(rs.getString("first_image_path"));
+                    book.setSecondImagePath(rs.getString("second_image_path"));
 
                     Stock stock = new Stock();
                     stock.setIdStock(rs.getInt("id_stock"));

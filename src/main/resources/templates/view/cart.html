@@ -15,7 +15,7 @@
 
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
-		
+
 		<!-- Header -->
 		<th:block th:replace="fragments/header :: header" />
 		<!-- //Header -->
@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 ol-lg-12">
-                        <form action="#">               
+                        <form action="#">
                             <div class="table-content wnro__table table-responsive">
                                 <table id="cartTable">
                                     <thead>
@@ -55,19 +55,19 @@
                                             <th class="product-price">Price</th>
                                             <th class="product-quantity">Quantity</th>
                                             <th class="product-subtotal">Total</th>
-                                            <th class="product-remove">Remove</th>
+                                            <th class="product-remove">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="idCarts"></tbody>
                                 </table>
                             </div>
-                        </form> 
+                        </form>
                         <div class="cartbox__btn">
                             <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
                                 <li><button onclick="updateAllCarts()" href="#">Coupon Code</button></li>
                                 <li><button onclick="showContent('cartTable')" href="#">Apply Code</button></li>
                                 <li><button onclick="updateAllCarts()" href="#">Update Carts</button></li>
-                                <li><button th:href="@{/cart/checkout}">Checkout</button></li>
+                                <li><a th:href="@{/cart/checkout}">Checkout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
         <!-- cart-main-area end -->
 		<!-- Footer Area -->
@@ -102,7 +102,7 @@
 	</div>
 	<!-- //Main wrapper -->
 
-	
+
 </body>
 <th:block th:replace="fragments/imports :: js-imports" />
 <!-- Mirrored from demo.devitems.com/boighor-v2/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:06 GMT -->

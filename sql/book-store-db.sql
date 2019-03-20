@@ -62,7 +62,7 @@ CREATE TABLE `billing_info` (
   PRIMARY KEY (`id_billing_info`),
   UNIQUE KEY `id_user_UNIQUE` (`id_user`),
   CONSTRAINT `fk_billing_info_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,8 @@ CREATE TABLE `book` (
   `id_book` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `desc` text NOT NULL,
-  `image_path` varchar(45) DEFAULT NULL,
+  `first_image_path` varchar(45) DEFAULT NULL,
+  `second_image_path` varchar(45) DEFAULT NULL,
   `language` varchar(45) DEFAULT NULL,
   `write_date` date DEFAULT NULL,
   `id_author` int(11) DEFAULT NULL,
@@ -127,7 +128,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (1,'Black House','In this sequel to The Talisman, Jack Sawyer is now in his late thirties and has taken early retirement from the LAPD, retreating to a small town in Wisconsin. He has no memory of his adventures as a twelve-year-old boy, when he traveled into a parallel universe in search of the talisman that would save his mother\'s life. A series of murders involving young children force him out of retirement. There is more to these cases than murder, though, and Jack must retrieve his childhood memories to rescue the latest victim, who is coveted by the killer\'s evil overlord, a powerful force from End-World, in Roland the gunslinger\'s universe','default.jpg','eng','2001-09-09',3),(2,'Christine','A love triangle involving 17-year-old misfit Arnie Cunningham, his new girlfriend and a haunted 1958 Plymouth Fury. Dubbed Christine by her previous owner, Arnie\'s first car is jealous, possessive and deadly','default.jpg','eng','1983-09-04',3),(3,'Death of Secrets','Kathy Kelver nearly trips over a murder victim on her way back to her dorm room late one night. In his last words, the dying man gives her stolen data about a secret project that could blow the lid off a shocking conspiracy. From the halls of Congress to the National Security Agency and beyond, Kathy must run for her life from shadowy forces who want her dead, while trying to build a relationship and hang on to her faith. The secret she\'s carrying could end the right to privacy forever, if she doesn\'t survive to warn the world','default.jpg','eng','1995-04-20',2),(4,'Nightmare','When Maia Peters visits during her senior year of college, she\'s not expecting to be impressed. Maia grew up as the only child of a pair of world-renowned \"ghost hunters,\" so the paranormal is nothing new. In fact, the ride feels pretty boring until the very end. There, a face appears from the mist. The face of Jordin Cole, a girl who disappeared from campus a year ago','default.jpg','eng','2004-11-30',1),(5,'Fear to Freedom','Fear  to  Freedom  is  a  collaboration  of  10 authors  who  share  their  fears  and  triumphs.  It  is  your  guide  to  a  life  of  faith,  favor  and  fulfillment','default.jpg','eng','2016-03-02',4);
+INSERT INTO `book` VALUES (1,'Black House','In this sequel to The Talisman, Jack Sawyer is now in his late thirties and has taken early retirement from the LAPD, retreating to a small town in Wisconsin. He has no memory of his adventures as a twelve-year-old boy, when he traveled into a parallel universe in search of the talisman that would save his mother\'s life. A series of murders involving young children force him out of retirement. There is more to these cases than murder, though, and Jack must retrieve his childhood memories to rescue the latest victim, who is coveted by the killer\'s evil overlord, a powerful force from End-World, in Roland the gunslinger\'s universe','default.jpg','default.jpg','eng','2001-09-09',3),(2,'Christine','A love triangle involving 17-year-old misfit Arnie Cunningham, his new girlfriend and a haunted 1958 Plymouth Fury. Dubbed Christine by her previous owner, Arnie\'s first car is jealous, possessive and deadly','default.jpg','default.jpg','eng','1983-09-04',3),(3,'Death of Secrets','Kathy Kelver nearly trips over a murder victim on her way back to her dorm room late one night. In his last words, the dying man gives her stolen data about a secret project that could blow the lid off a shocking conspiracy. From the halls of Congress to the National Security Agency and beyond, Kathy must run for her life from shadowy forces who want her dead, while trying to build a relationship and hang on to her faith. The secret she\'s carrying could end the right to privacy forever, if she doesn\'t survive to warn the world','default.jpg','default.jpg','eng','1995-04-20',2),(4,'Nightmare','When Maia Peters visits during her senior year of college, she\'s not expecting to be impressed. Maia grew up as the only child of a pair of world-renowned \"ghost hunters,\" so the paranormal is nothing new. In fact, the ride feels pretty boring until the very end. There, a face appears from the mist. The face of Jordin Cole, a girl who disappeared from campus a year ago','default.jpg','default.jpg','eng','2004-11-30',1),(5,'Fear to Freedom','Fear  to  Freedom  is  a  collaboration  of  10 authors  who  share  their  fears  and  triumphs.  It  is  your  guide  to  a  life  of  faith,  favor  and  fulfillment','default.jpg','default.jpg','eng','2016-03-02',4);
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `cart` (
   KEY `fk_basket_book_idx` (`id_book`),
   CONSTRAINT `fk_cart_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +188,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (72,1,5,6);
+INSERT INTO `cart` VALUES (109,1,1,4),(111,1,2,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +260,7 @@ CREATE TABLE `review` (
   KEY `fk_review_book_idx` (`id_book`),
   CONSTRAINT `fk_review_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +269,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (41,'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.','2019-02-03 00:00:00',4,1,2),(42,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.','2019-02-03 00:00:00',5,1,2);
+INSERT INTO `review` VALUES (41,'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.','2019-02-03 00:00:00',4,1,2),(42,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.','2019-02-03 00:00:00',5,1,2),(44,'If you ask me, this book is really interesting.','2019-03-20 21:07:50',4,1,5),(45,'Thanks for fast service','2019-03-20 21:10:09',4,1,3),(50,'Thanks','2019-03-20 21:21:33',4,1,3);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,6 +309,7 @@ CREATE TABLE `stock` (
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `age_range` int(11) DEFAULT NULL,
+  `upsell` int(11) DEFAULT '0',
   `last_added_date` datetime DEFAULT NULL,
   `id_book` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_stock`),
@@ -322,7 +324,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,17,25.95,12,'2019-02-03 00:00:00',1),(2,0,18.95,18,'2019-01-03 00:00:00',2),(3,12,12.95,3,'2019-01-18 00:00:00',3),(4,35,10.95,6,'2018-11-11 00:00:00',4),(5,22,12.95,12,'2019-02-20 00:00:00',5);
+INSERT INTO `stock` VALUES (1,17,25.95,12,10,'2019-02-03 00:00:00',1),(2,0,18.95,18,8,'2019-01-03 00:00:00',2),(3,12,12.95,3,22,'2019-01-18 00:00:00',3),(4,35,10.95,6,17,'2018-11-11 00:00:00',4),(5,22,12.95,12,14,'2019-02-20 00:00:00',5);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,7 +379,7 @@ CREATE TABLE `wishlist` (
   KEY `fk_bookshelf_book_idx` (`id_book`),
   CONSTRAINT `fk_wishlist_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +388,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (23,5,3),(24,5,4),(95,1,3),(100,1,5);
+INSERT INTO `wishlist` VALUES (23,5,3),(24,5,4),(124,1,5);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -399,4 +401,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-15 19:20:48
+-- Dump completed on 2019-03-20 21:27:30

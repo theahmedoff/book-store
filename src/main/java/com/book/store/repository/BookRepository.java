@@ -13,16 +13,20 @@ public interface BookRepository {
 
     List<Book> getBooksByMultipleParameters(SearchEntity searchEntity);
 
-    List<Book> getLastBooks();
+    List<Book> getLastAddedBooks();
 
-    List<Book> getAllBook();
+    List<Book> getUpSellBooks();
 
-    List<Book> getAllBookByCategoryType(String cateType);
+    List<Book> getAllBooks();
+
+    List<Book> getBooksByCategoryType(String cateType);
 
     List<Category> getAllCategories();
 
     Book getBookById(int idBook);
 
     List<Review> getReviewsByIdBook(int idBook);
+
+    void addReview(Review review);
 
 }

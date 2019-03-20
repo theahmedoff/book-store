@@ -18,8 +18,8 @@ public class CartServiceImpl implements CartService {
 
     //methods
     @Override
-    public List<Cart> getCartsByIdUser(int idUser) {
-        return cartRepository.getCartsByIdUser(idUser);
+    public List<Cart> getCartsById(int idUser) {
+        return cartRepository.getCartsById(idUser);
     }
 
     @Override

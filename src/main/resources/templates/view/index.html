@@ -100,8 +100,8 @@
                                 </div>
                             </div>
                             <div class="product__content content--center">
-                                <h4><a th:text="${lb.getAuthor().getFullName()}" href="single-product.html">robin
-                                    parrish</a></h4>
+                                <h4><a th:text="${lb.getAuthor().getFullName()}"
+                                       th:href="@{/single-product?idBook=} + ${lb.idBook}"></a></h4>
                                 <ul class="prize d-flex">
                                     <li th:text="'$' + ${lb.getStock().getPrice()}"></li>
                                     <li th:text="'$' + ${lb.getStock().getPrice()}" class="old_prize"></li>

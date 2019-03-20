@@ -43,3 +43,21 @@ function getReviewsByIdBook(idBook) {
         }
     });
 }
+
+function addReview(idBook) {
+    var desc = $('#idReviewDesc').val();
+    var rating = $('#idReviewRating').val();
+
+    $.ajax({
+        type: "POST",
+        url: "/add-review",
+        data: {idBook: idBook, desc: desc, rating: rating},
+        success: function (reviews) {
+            getReviewsByIdBook(idBook);
+            desc.val('');
+
+        }, error: function () {
+            alert('Internal error!');
+        }
+    });
+}

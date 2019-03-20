@@ -13,6 +13,7 @@ import javax.jws.soap.SOAPBinding;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Repository
@@ -22,17 +23,19 @@ public class BookRepositoryImpl implements BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
-    private static final String GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
-    private static final String GET_ALL_LAST_BOOK_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
-    private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
+    private static final String GET_BOOKS_BY_MULTIPLE_PARAMETERS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
+    private static final String GET_LAST_ADDED_BOOKS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
+    private static final String GET_UPSELL_BOOKS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by upsell desc limit 6";
+    private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
     private static final String GET_REVIEWS_BY_ID_BOOK = "select * from review r inner join user u on r.id_user = u.id_user where r.id_book = ?";
-    private static final String GET_ALL_BOOK_BY_CATEGORY_TYPE_SQL = "select b.id_book, b.title, b.image_path, a.id_author, a.full_name, c.id_category, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category where c.type = ?";
-    private static final String GET_ALL_BOOK_SQL = "select b.id_book, b.title, b.image_path, a.full_name, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category";
+    private static final String GET_BOOKS_BY_CATEGORY_TYPE_SQL = "select b.id_book, b.title, b.first_image_path, b.second_image_path, a.id_author, a.full_name, c.id_category, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category where c.type = ?";
+    private static final String GET_ALL_BOOKS_SQL = "select b.id_book, b.title, b.first_image_path, b.second_image_path, a.full_name, c.type, s.price from book b inner join author a on b.id_author = a.id_author inner join book_category bc on bc.id_book = b.id_book inner join stock s on s.id_book = b.id_book inner join category c on bc.id_category = c.id_category";
+    private static final String ADD_REVIEW_SQL = "insert into review(`desc`, `write_date`, `rating`, `id_user`, `id_book`) values(?, ?, ?, ?, ?)";
 
     //methods
     @Override
     public List<Book> getBooksByMultipleParameters(SearchEntity searchEntity) {
-        StringBuilder builder = new StringBuilder(GET_BOOKS_BY_MULTIPLE_PARAMETER_SQL);
+        StringBuilder builder = new StringBuilder(GET_BOOKS_BY_MULTIPLE_PARAMETERS_SQL);
         int categoriesLength = (searchEntity.getCategories() == null) ? 0 : searchEntity.getCategories().length;
         Object[] parameters;
         int counter = 0;
@@ -67,7 +70,8 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setIdBook(rs.getInt("book.id_book"));
                     book.setTitle(rs.getString("book.title"));
                     book.setDesc(rs.getString("book.desc"));
-                    book.setImagePath(rs.getString("book.image_path"));
+                    book.setFirstImagePath(rs.getString("book.first_image_path"));
+                    book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
                     book.setAvarageRating(rs.getDouble("book.average_rating"));
@@ -96,8 +100,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> getLastBooks() {
-        List<Book> books = jdbcTemplate.query(GET_ALL_LAST_BOOK_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+    public List<Book> getLastAddedBooks() {
+        List<Book> books = jdbcTemplate.query(GET_LAST_ADDED_BOOKS_SQL, new ResultSetExtractor<List<Book>>() {
             @Override
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Book> list = new LinkedList<>();
@@ -106,7 +110,8 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setIdBook(rs.getInt("book.id_book"));
                     book.setTitle(rs.getString("book.title"));
                     book.setDesc(rs.getString("book.desc"));
-                    book.setImagePath(rs.getString("book.image_path"));
+                    book.setFirstImagePath(rs.getString("book.first_image_path"));
+                    book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
                     book.setAvarageRating(rs.getDouble("book.average_rating"));
@@ -133,8 +138,47 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> getAllBook() {
-        List<Book> books = jdbcTemplate.query(GET_ALL_BOOK_SQL, new Object[]{}, new ResultSetExtractor<List<Book>>() {
+    public List<Book> getUpSellBooks() {
+        List<Book> books = jdbcTemplate.query(GET_UPSELL_BOOKS_SQL, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new LinkedList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("book.id_book"));
+                    book.setTitle(rs.getString("book.title"));
+                    book.setDesc(rs.getString("book.desc"));
+                    book.setFirstImagePath(rs.getString("book.first_image_path"));
+                    book.setSecondImagePath(rs.getString("book.second_image_path"));
+                    book.setLanguage(rs.getString("book.language"));
+                    book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
+                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+
+                    Author author = new Author();
+                    author.setIdAuthor(rs.getInt("id_author"));
+                    author.setFullName(rs.getString("full_name"));
+                    book.setAuthor(author);
+
+                    Stock stock = new Stock();
+                    stock.setIdStock(rs.getInt("id_stock"));
+                    stock.setQuantity(rs.getInt("quantity"));
+                    stock.setPrice(rs.getDouble("price"));
+                    stock.setAgeRange(rs.getInt("age_range"));
+                    stock.setUpsell(rs.getInt("upsell"));
+                    stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
+                    book.setStock(stock);
+
+                    list.add(book);
+                }
+                return list;
+            }
+        });
+        return books;
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        List<Book> books = jdbcTemplate.query(GET_ALL_BOOKS_SQL, new ResultSetExtractor<List<Book>>() {
             @Override
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Book> list = new LinkedList<>();
@@ -142,7 +186,8 @@ public class BookRepositoryImpl implements BookRepository {
                     Book book = new Book();
                     book.setIdBook(rs.getInt("id_book"));
                     book.setTitle(rs.getString("title"));
-                    book.setImagePath(rs.getString("image_path"));
+                    book.setFirstImagePath(rs.getString("first_image_path"));
+                    book.setSecondImagePath(rs.getString("second_image_path"));
 
                     Author a = new Author();
                     a.setFullName(rs.getString("full_name"));
@@ -167,8 +212,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> getAllBookByCategoryType(String cateType) {
-        List<Book> books = jdbcTemplate.query(GET_ALL_BOOK_BY_CATEGORY_TYPE_SQL, new Object[]{cateType}, new ResultSetExtractor<List<Book>>() {
+    public List<Book> getBooksByCategoryType(String cateType) {
+        List<Book> books = jdbcTemplate.query(GET_BOOKS_BY_CATEGORY_TYPE_SQL, new Object[]{cateType}, new ResultSetExtractor<List<Book>>() {
             @Override
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Book> list = new LinkedList<>();
@@ -176,7 +221,8 @@ public class BookRepositoryImpl implements BookRepository {
                     Book book = new Book();
                     book.setIdBook(rs.getInt("id_book"));
                     book.setTitle(rs.getString("title"));
-                    book.setImagePath(rs.getString("image_path"));
+                    book.setFirstImagePath(rs.getString("first_image_path"));
+                    book.setSecondImagePath(rs.getString("second_image_path"));
 
                     Author a = new Author();
                     a.setIdAuthor(rs.getInt("id_author"));
@@ -226,7 +272,8 @@ public class BookRepositoryImpl implements BookRepository {
                         book.setIdBook(rs.getInt("book.id_book"));
                         book.setTitle(rs.getString("book.title"));
                         book.setDesc(rs.getString("book.desc"));
-                        book.setImagePath(rs.getString("book.image_path"));
+                        book.setFirstImagePath(rs.getString("book.first_image_path"));
+                        book.setSecondImagePath(rs.getString("book.second_image_path"));
                         book.setLanguage(rs.getString("book.language"));
                         book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
                         book.setAvarageRating(rs.getDouble("book.average_rating"));
@@ -290,6 +337,11 @@ public class BookRepositoryImpl implements BookRepository {
         return reviews;
     }
 
+    @Override
+    public void addReview(Review review) {
+        jdbcTemplate.update(ADD_REVIEW_SQL, new Object[]{review.getDesc(), review.getWriteDate(), review.getRating(), review.getUser().getIdUser(), review.getBook().getIdBook()});
+
+    }
 
 
     //private methods

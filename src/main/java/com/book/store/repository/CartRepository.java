@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CartRepository {
 
-    List<Cart> getCartsByIdUser(int idUser);
+    List<Cart> getCartsById(int idUser);
 
     void deleteCartById(int id);
 

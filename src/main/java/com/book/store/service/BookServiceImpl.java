@@ -29,18 +29,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getLastBooks() {
-        return bookRepository.getLastBooks();
+    public List<Book> getLastAddedBooks() {
+        return bookRepository.getLastAddedBooks();
     }
 
     @Override
-    public List<Book> getAllBook() {
-        return bookRepository.getAllBook();
+    public List<Book> getUpSellBooks() {
+        return bookRepository.getUpSellBooks();
     }
 
     @Override
-    public List<Book> getAllBookByCategoryType(String cateType) {
-        return bookRepository.getAllBookByCategoryType(cateType);
+    public List<Book> getAllBooks() {
+        return bookRepository.getAllBooks();
+    }
+
+    @Override
+    public List<Book> getBooksByCategoryType(String cateType) {
+        return bookRepository.getBooksByCategoryType(cateType);
     }
 
     @Override
@@ -56,6 +61,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Review> getReviewsByIdBook(int idBook) {
         return bookRepository.getReviewsByIdBook(idBook);
+    }
+
+    @Override
+    public void addReview(Review review) {
+        bookRepository.addReview(review);
     }
 
 }

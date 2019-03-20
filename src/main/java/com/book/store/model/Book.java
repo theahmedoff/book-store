@@ -17,7 +17,8 @@ public class Book {
     private int idBook;
     private String title;
     private String desc;
-    private String imagePath;
+    private String firstImagePath;
+    private String secondImagePath;
     private String language;
     private LocalDate writeDate;
     private double avarageRating;
