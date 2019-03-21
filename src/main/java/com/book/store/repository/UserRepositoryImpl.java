@@ -1,21 +1,18 @@
 package com.book.store.repository;
 
-import com.book.store.model.Book;
-import com.book.store.model.Role;
-import com.book.store.model.User;
-import com.book.store.model.Wishlist;
+import com.book.store.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.util.*;
 
 @Repository
@@ -23,15 +20,37 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static final String SET_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String ADD_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String ACTIVATE_USER_BY_TOKEN_SQL = "UPDATE user SET token=?, status=? WHERE token=?";
     private static final String GET_USER_BY_USERNAME_SQL = "select * from user u inner join role r on u.id_role = r.id_role left join wishlist w on u.id_user = w.id_user where u.username = ?";
+    private static final String UPDATE_USER_SQL = "update user set name = ?, surname = ?, username = ?, password = ? where email = ?";
+    private static final String ADD_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     @Override
-    public void register(User user) {
+    public void register(User user, BillingInfo billingInfo) {
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+
         try {
-            jdbcTemplate.update(SET_USER_SQL, user.getName(), user.getSurname(), user.getUsername(), user.getEmail(), user.getPassword(), user.getRole().getIdRole(), user.getToken(), user.getStatus());
-        }catch (DuplicateKeyException e){
+            jdbcTemplate.update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                    PreparedStatement statement = con.prepareStatement(ADD_USER_SQL, Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, user.getName());
+                    statement.setString(2, user.getSurname());
+                    statement.setString(3, user.getUsername());
+                    statement.setString(4, user.getEmail());
+                    statement.setString(5, user.getPassword());
+                    statement.setInt(6, user.getRole().getIdRole());
+                    statement.setString(7, user.getToken());
+                    statement.setInt(8, user.getStatus());
+                    return statement;
+                }
+            }, holder);
+
+            long idUser = holder.getKey().longValue();
+            jdbcTemplate.update(ADD_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
+
+        } catch (DuplicateKeyException e){
             e.printStackTrace();
         }
     }
@@ -71,6 +90,11 @@ public class UserRepositoryImpl implements UserRepository {
             }
         });
         return list.get(0);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        jdbcTemplate.update(UPDATE_USER_SQL, user.getName(), user.getSurname(), user.getUsername(), user.getPassword(), user.getEmail());
     }
 
     @Override

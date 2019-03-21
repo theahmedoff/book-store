@@ -135,7 +135,7 @@ function getMinicarts() {
                     '                                                </div>\n' +
                     '                                                \n' +
                     '                                            </div>');
-                $('#idCardSubtotal').text(parseInt($('#idCardSubtotal').text())+cart.subTotals);
+                $('#idCardSubtotal').text(parseInt($('#idCardSubtotal').text()) + cart.subTotals);
             });
 
 

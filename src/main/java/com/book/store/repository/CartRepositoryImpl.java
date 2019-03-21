@@ -31,7 +31,6 @@ public class CartRepositoryImpl implements CartRepository {
     private static final String UPDATE_CART_SQL = "update cart set quantity = ? where id_cart = ?";
     private static final String UPDATE_QUANTITY_OF_CART_SQL = "update cart set quantity = quantity + ? where id_user = ? and id_book = ?";
     private static final String GET_BILLING_INFO = "select id_billing_info, firstname, lastname, company_name, country, address, postcode, phone, email from billing_info where id_user = ?";
-    private static final String INSERT_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_BILLING_INFO = "update billing_info set firstname = ?, lastname = ?, company_name = ?, country = ?, address = ?, postcode = ?, phone = ?, email = ? where id_user = ?";
 
 
@@ -191,13 +190,7 @@ public class CartRepositoryImpl implements CartRepository {
 
     @Override
     public BillingInfo updateBillingInfo(int idUser, BillingInfo billingInfo) {
-        try {
-            jdbcTemplate.update(UPDATE_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
-
-        } catch (Exception e) {
-            jdbcTemplate.update(INSERT_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
-        }
-
+        jdbcTemplate.update(UPDATE_BILLING_INFO, billingInfo.getFirstname(), billingInfo.getLastname(), billingInfo.getCompanyName(), billingInfo.getCountry(), billingInfo.getAddress(), billingInfo.getPostcode(), billingInfo.getPhone(), billingInfo.getEmail(), idUser);
         return getBillingInfo(idUser);
     }
 }

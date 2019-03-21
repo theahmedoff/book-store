@@ -61,8 +61,8 @@ CREATE TABLE `billing_info` (
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_billing_info`),
   UNIQUE KEY `id_user_UNIQUE` (`id_user`),
-  CONSTRAINT `fk_billing_info_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_billing_info_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `billing_info` (
 
 LOCK TABLES `billing_info` WRITE;
 /*!40000 ALTER TABLE `billing_info` DISABLE KEYS */;
-INSERT INTO `billing_info` VALUES (1,'Senan','Kazimov','Company LTD','Belgium','Ozbekistan str 1','AZ1020','055-555-55-55','senan0144@gmail.com',1),(2,'Aslan','Ahmedov','Company LTD','Estonia','unknown','ES1010','055-323-23-23','aslan@gmail.com',5);
+INSERT INTO `billing_info` VALUES (7,'Senan','Kazimov','Company LTD','Azerbaijan','Ozbekistan str 1','AZ1020','055-555-55-55','senan0144@gmail.com',22);
 /*!40000 ALTER TABLE `billing_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,8 +178,8 @@ CREATE TABLE `cart` (
   KEY `fk_basket_user_idx` (`id_user`),
   KEY `fk_basket_book_idx` (`id_book`),
   CONSTRAINT `fk_cart_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
-  CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +188,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (109,1,1,4),(111,1,2,1);
+INSERT INTO `cart` VALUES (116,22,5,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,6 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (41,'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.','2019-02-03 00:00:00',4,1,2),(42,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.','2019-02-03 00:00:00',5,1,2),(44,'If you ask me, this book is really interesting.','2019-03-20 21:07:50',4,1,5),(45,'Thanks for fast service','2019-03-20 21:10:09',4,1,3),(50,'Thanks','2019-03-20 21:21:33',4,1,3);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,11 +345,11 @@ CREATE TABLE `user` (
   `token` text,
   `id_role` int(11) NOT NULL,
   PRIMARY KEY (`id_user`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_user_role_idx` (`id_role`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,7 +358,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Senan','Kazimov','senan0144','$2a$10$v.xHljR4LsBOEnd6DGvOHeVNByfNuiyTjG9cYapCM8BeWgBSxa8v6','senan0144@gmail.com',1,'7a855c0f-3471-4ffb-9c02-5c995ebac6c3',2),(5,'Aslan','Ahmedov','akmedof','$2a$10$5A1IJyXwyKyOSz/oAz3JB.bXK3ZyYJdKfKaiOYh5g29J7rSqshcSK','akmedofaslan@gmail.com',1,'bb45bbd9-282c-449d-a219-f94ab5a82b7c',2);
+INSERT INTO `user` VALUES (22,'Senan','Kazimov','senan0144','$2a$10$Uz8DG8/LTitlEJOK29RlyuEQS6egtJH6dBZ.YXUqg5zEKdBDnnk/m','senan0144@gmail.com',1,'980eaf6b-a6f5-4c43-8a30-bace75232bd3',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,8 +377,8 @@ CREATE TABLE `wishlist` (
   KEY `fk_bookshelf_user_idx` (`id_user`),
   KEY `fk_bookshelf_book_idx` (`id_book`),
   CONSTRAINT `fk_wishlist_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
-  CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +387,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (23,5,3),(24,5,4),(124,1,5);
+INSERT INTO `wishlist` VALUES (128,22,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -401,4 +400,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-20 21:27:30
+-- Dump completed on 2019-03-21 23:13:32

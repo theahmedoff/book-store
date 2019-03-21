@@ -20,4 +20,15 @@ public class BillingInfo {
     private String email;
     private User user;
 
+    public BillingInfo(User user) {
+        this.firstname = "";
+        this.lastname = "";
+        this.companyName = "";
+        this.country = "";
+        this.address = "";
+        this.postcode = "";
+        this.phone = "";
+        this.email = "";
+        this.user = user;
+    }
 }

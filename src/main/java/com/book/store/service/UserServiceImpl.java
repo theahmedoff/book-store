@@ -1,5 +1,6 @@
 package com.book.store.service;
 
+import com.book.store.model.BillingInfo;
 import com.book.store.model.User;
 import com.book.store.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void register(User user) {
-        userRepository.register(user);
+    public void register(User user, BillingInfo billingInfo) {
+        userRepository.register(user, billingInfo);
     }
 
     @Override
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void activateUserByToken(String token) {
         userRepository.activateUserByToken(token);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.updateUser(user);
     }
 
 
