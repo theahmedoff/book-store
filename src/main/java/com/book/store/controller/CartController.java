@@ -5,6 +5,7 @@ import com.book.store.model.Cart;
 import com.book.store.model.User;
 import com.book.store.model.Wishlist;
 import com.book.store.service.CartService;
+import com.book.store.util.CartUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +39,12 @@ public class CartController {
     @GetMapping("/checkout")
     public String getCheckoutPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //billing info
         BillingInfo billingInfo = cartService.getBillingInfo(user.getIdUser());
         model.addAttribute("billingInfo", billingInfo);
-
+        //carts
         List<Cart> carts = cartService.getCartsById(user.getIdUser());
         model.addAttribute("carts", carts);
-
         return "view/checkout";
     }
 
