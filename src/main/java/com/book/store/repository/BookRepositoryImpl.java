@@ -25,6 +25,7 @@ public class BookRepositoryImpl implements BookRepository {
     private static final String GET_ALL_CATEGORIES_SQL = "select * from category";
     private static final String GET_BOOKS_BY_MULTIPLE_PARAMETERS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book";
     private static final String GET_LAST_ADDED_BOOKS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by last_added_date desc limit 6";
+    private static final String GET_RANDOM_BOOKS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by rand() limit 6";
     private static final String GET_UPSELL_BOOKS_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book order by upsell desc limit 6";
     private static final String GET_BOOK_BY_ID_SQL = "select * from (select b.id_book, b.title, b.desc, b.first_image_path, b.second_image_path, b.language, b.write_date, avg(r.rating) as average_rating, b.id_author from book b left join review r on b.id_book=r.id_book group by b.id_book) book inner join author a on book.id_author=a.id_author inner join stock s on book.id_book=s.id_book inner join book_category bc on book.id_book=bc.id_book inner join category c on bc.id_category=c.id_category where book.id_book = ?";
     private static final String GET_REVIEWS_BY_ID_BOOK = "select * from review r inner join user u on r.id_user = u.id_user where r.id_book = ?";
@@ -102,6 +103,44 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> getLastAddedBooks() {
         List<Book> books = jdbcTemplate.query(GET_LAST_ADDED_BOOKS_SQL, new ResultSetExtractor<List<Book>>() {
+            @Override
+            public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Book> list = new LinkedList<>();
+                while (rs.next()){
+                    Book book = new Book();
+                    book.setIdBook(rs.getInt("book.id_book"));
+                    book.setTitle(rs.getString("book.title"));
+                    book.setDesc(rs.getString("book.desc"));
+                    book.setFirstImagePath(rs.getString("book.first_image_path"));
+                    book.setSecondImagePath(rs.getString("book.second_image_path"));
+                    book.setLanguage(rs.getString("book.language"));
+                    book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
+                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+
+                    Author author = new Author();
+                    author.setIdAuthor(rs.getInt("id_author"));
+                    author.setFullName(rs.getString("full_name"));
+                    book.setAuthor(author);
+
+                    Stock stock = new Stock();
+                    stock.setIdStock(rs.getInt("id_stock"));
+                    stock.setQuantity(rs.getInt("quantity"));
+                    stock.setPrice(rs.getDouble("price"));
+                    stock.setAgeRange(rs.getInt("age_range"));
+                    stock.setLastAddedDate(rs.getTimestamp("last_added_date").toLocalDateTime());
+                    book.setStock(stock);
+
+                    list.add(book);
+                }
+                return list;
+            }
+        });
+        return books;
+    }
+
+    @Override
+    public List<Book> getRandomBooks() {
+        List<Book> books = jdbcTemplate.query(GET_RANDOM_BOOKS_SQL, new ResultSetExtractor<List<Book>>() {
             @Override
             public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Book> list = new LinkedList<>();

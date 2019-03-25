@@ -13,6 +13,8 @@ public interface BookService {
 
     List<Book> getLastAddedBooks();
 
+    List<Book> getRandomBooks();
+
     List<Book> getUpSellBooks();
 
     List<Book> getAllBooks();

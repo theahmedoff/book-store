@@ -11,22 +11,21 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Blog {
-    private int id;
 
+    private int idBlog;
     private String title;
-
-    private String description;
-
+    private String desc;
     private LocalDateTime shareDate;
-
-    private List<Comment> commentList;
+    private String imagePath;
+    private List<BlogReview> blogReviewList;
+    private User user;
 
     public Blog(){
-        commentList = new ArrayList<>();
+        blogReviewList = new ArrayList<>();
     }
 
-    public void addComment(Comment comment){
-        commentList.add(comment);
+    public void addBlogReview(BlogReview blogReview){
+        blogReviewList.add(blogReview);
     }
 
 

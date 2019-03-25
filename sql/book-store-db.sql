@@ -83,12 +83,16 @@ DROP TABLE IF EXISTS `blog`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `blog` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` text NOT NULL,
-  `share_date` date NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_blog` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text,
+  `desc` text,
+  `share_date` datetime DEFAULT NULL,
+  `image_path` varchar(100) DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_blog`),
+  KEY `fk_blog_user_idx` (`id_user`),
+  CONSTRAINT `fk_blog_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +101,32 @@ CREATE TABLE `blog` (
 
 LOCK TABLES `blog` WRITE;
 /*!40000 ALTER TABLE `blog` DISABLE KEYS */;
+INSERT INTO `blog` VALUES (1,'Putting Literary Miami on the Map','Thirty-seven years, an international book fair and eight additional locations later, Kaplan is celebrated as the man who turned Miami into a book town, and one of the foremost literary centers in the world, starting at a time when nobody took it seriously.','2019-02-04 00:00:00','default.jpg',22),(2,'Looking Back at ‘A Heartbreaking Work of Staggering Genius’','“A Heartbreaking Work of Staggering Genius” may start off sounding like one of those coy, solipsistic exercises that put everything in little ironic quote marks, but it quickly becomes a virtuosic piece of writing, a big, daring, manic-depressive stew of a book that noisily announces the debut of a talented — yes, staggeringly talented new writer.','2019-02-05 00:00:00','default.jpg',22);
 /*!40000 ALTER TABLE `blog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `blog_review`
+--
+
+DROP TABLE IF EXISTS `blog_review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `blog_review` (
+  `id_blog_review` int(11) NOT NULL AUTO_INCREMENT,
+  `desc` text,
+  `share_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_blog_review`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `blog_review`
+--
+
+LOCK TABLES `blog_review` WRITE;
+/*!40000 ALTER TABLE `blog_review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blog_review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -179,7 +208,7 @@ CREATE TABLE `cart` (
   KEY `fk_basket_book_idx` (`id_book`),
   CONSTRAINT `fk_cart_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +217,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (116,22,5,1);
+INSERT INTO `cart` VALUES (119,22,5,2),(121,22,1,2),(122,22,2,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,31 +243,6 @@ LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` VALUES (1,'Biography'),(2,'Business'),(3,'Cookbooks'),(4,'Health & Fitness'),(5,'History'),(6,'Mystery'),(7,'Religion & Inspiration'),(8,'Romance'),(9,'Fantasy'),(10,'Sleeveless'),(11,'Science'),(12,'Harry Potter'),(13,'Self-Improvemen'),(14,'Home & Garden'),(15,'Humor books');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `comment`
---
-
-DROP TABLE IF EXISTS `comment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text NOT NULL,
-  `share_date` datetime NOT NULL,
-  `title` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comment`
---
-
-LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -358,7 +362,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Senan','Kazimov','senan0144','$2a$10$Uz8DG8/LTitlEJOK29RlyuEQS6egtJH6dBZ.YXUqg5zEKdBDnnk/m','senan0144@gmail.com',1,'980eaf6b-a6f5-4c43-8a30-bace75232bd3',2);
+INSERT INTO `user` VALUES (22,'Senan','Kazimov','senan0144','$2a$10$vGNZ7Ci3nxode7YGIU6y4ONu32xDn1R2cM6.mcnAS1jm314vkfrXW','senan0144@gmail.com',1,'980eaf6b-a6f5-4c43-8a30-bace75232bd3',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,7 +382,7 @@ CREATE TABLE `wishlist` (
   KEY `fk_bookshelf_book_idx` (`id_book`),
   CONSTRAINT `fk_wishlist_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,7 +391,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (128,22,1);
+INSERT INTO `wishlist` VALUES (129,22,1),(130,22,3);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -400,4 +404,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 23:13:32
+-- Dump completed on 2019-03-25 21:22:51

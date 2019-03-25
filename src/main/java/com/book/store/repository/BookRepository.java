@@ -15,6 +15,8 @@ public interface BookRepository {
 
     List<Book> getLastAddedBooks();
 
+    List<Book> getRandomBooks();
+
     List<Book> getUpSellBooks();
 
     List<Book> getAllBooks();

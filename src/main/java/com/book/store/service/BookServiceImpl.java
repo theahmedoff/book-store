@@ -34,6 +34,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> getRandomBooks() {
+        return bookRepository.getRandomBooks();
+    }
+
+    @Override
     public List<Book> getUpSellBooks() {
         return bookRepository.getUpSellBooks();
     }

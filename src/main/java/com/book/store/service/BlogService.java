@@ -1,19 +1,22 @@
 package com.book.store.service;
 
 import com.book.store.model.Blog;
-import com.book.store.model.Comment;
+import com.book.store.model.BlogReview;
 
 import java.util.List;
 
 public interface BlogService {
-    List<Blog> getAllBlog();
+
+    List<Blog> getAllBlogs();
+
+    List<Blog> getLastAddedBlogs();
 
     Blog getBlogById(int id);
 
     void addBlog(Blog blog);
 
-    List<Comment> getCommentByBlogId(int id);
+    List<BlogReview> getReviewByIdBlog(int id);
 
-    void addComment(Comment comment);
+    void addReview(BlogReview blogReview);
 
 }

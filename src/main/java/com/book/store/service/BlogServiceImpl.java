@@ -2,7 +2,7 @@ package com.book.store.service;
 
 
 import com.book.store.model.Blog;
-import com.book.store.model.Comment;
+import com.book.store.model.BlogReview;
 import com.book.store.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,27 +22,32 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<Blog> getAllBlog() {
-        return null;
+    public List<Blog> getAllBlogs() {
+        return blogRepository.getAllBlogs();
+    }
+
+    @Override
+    public List<Blog> getLastAddedBlogs() {
+        return blogRepository.getLastAddedBlogs();
     }
 
     @Override
     public Blog getBlogById(int id) {
-        return null;
+        return blogRepository.getBlogById(id);
     }
 
     @Override
     public void addBlog(Blog blog) {
-
+        blogRepository.addBlog(blog);
     }
 
     @Override
-    public List<Comment> getCommentByBlogId(int id) {
-        return null;
+    public List<BlogReview> getReviewByIdBlog(int id) {
+        return blogRepository.getReviewByIdBlog(id);
     }
 
     @Override
-    public void addComment(Comment comment) {
-
+    public void addReview(BlogReview blogReview) {
+        blogRepository.addReview(blogReview);
     }
 }

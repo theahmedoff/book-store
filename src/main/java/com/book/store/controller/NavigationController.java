@@ -27,8 +27,14 @@ public class NavigationController {
     @RequestMapping("/")
     public String getIndexPage(Model model) {
         //last added books
-        List<Book> lastBooks = bookService.getLastAddedBooks();
-        model.addAttribute("lastBooks", lastBooks);
+        List<Book> lastAddedBooks = bookService.getLastAddedBooks();
+        model.addAttribute("lastAddedBooks", lastAddedBooks);
+        //random books
+        List<Book> randomBooks = bookService.getRandomBooks();
+        model.addAttribute("randomBooks", randomBooks);
+        //last added blogs
+        List<Blog> lastAddedBlogs = blogService.getLastAddedBlogs();
+        model.addAttribute("lastAddedBlogs", lastAddedBlogs);
         return "view/index";
     }
 
@@ -73,35 +79,17 @@ public class NavigationController {
         return "view/register";
     }
 
-    @RequestMapping("/team")
-    public String getTeamPage() {
-        return "view/team";
-    }
-
-    @RequestMapping("/faq")
-    public String getFaqPage() {
-        return "view/faq";
-    }
-
-
+    //admin adi duzeldilmelidir front terefde ve test olunmalidir..
     @RequestMapping("/blog")
     public String getBlogPage(Model model)  {
-        List<Blog> list = blogService.getAllBlog();
-        model.addAttribute("blogList",list);
-
-
+        List<Blog> blogs = blogService.getAllBlogs();
+        model.addAttribute("blogs",blogs);
         return "view/blog";
-    }
-
-    @RequestMapping("/about")
-    public String getAboutPage() {
-        return "view/about";
     }
 
     @GetMapping("/contact")
     public String getContactPage(Model model) {
         model.addAttribute("contact", new Contact());
-        System.out.print(model.asMap().get("message"));
         return "view/contact";
     }
 

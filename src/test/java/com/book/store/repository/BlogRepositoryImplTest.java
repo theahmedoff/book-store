@@ -21,7 +21,7 @@ public class BlogRepositoryImplTest {
 
     @Test
     public void getAllBlog() {
-     List<Blog> list = blogRepository.getAllBlog();
+     List<Blog> list = blogRepository.getAllBlogs();
         System.out.println(list);
         System.out.println(list.size());
     }
@@ -36,7 +36,7 @@ public class BlogRepositoryImplTest {
     public void addBlog() {
         Blog blog = new Blog();
         blog.setTitle("title");
-        blog.setDescription("description");
+        blog.setDesc("description");
         blog.setShareDate(LocalDateTime.now());
 
         blogRepository.addBlog(blog);
