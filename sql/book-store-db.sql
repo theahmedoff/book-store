@@ -256,7 +256,7 @@ CREATE TABLE `review` (
   `id_review` int(11) NOT NULL AUTO_INCREMENT,
   `desc` text,
   `write_date` datetime DEFAULT NULL,
-  `rating` double DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_book` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_review`),
@@ -264,7 +264,7 @@ CREATE TABLE `review` (
   KEY `fk_review_book_idx` (`id_book`),
   CONSTRAINT `fk_review_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,6 +273,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (54,'Good','2019-02-04 00:00:00',5,22,1),(55,'Thanks','2019-02-04 00:00:00',4,22,2),(56,'My favorite book','2019-02-04 00:00:00',3,22,2),(57,'I don\'t like this book','2019-02-04 00:00:00',4,22,1);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,4 +405,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-25 21:22:51
+-- Dump completed on 2019-03-25 21:56:17

@@ -17,7 +17,7 @@ public class Review {
     private int idReview;
     private String desc;
     private LocalDateTime writeDate;
-    private double rating;
+    private int rating;
     private User user;
     private Book book;
 

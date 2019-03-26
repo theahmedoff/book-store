@@ -21,7 +21,7 @@ public class Book {
     private String secondImagePath;
     private String language;
     private LocalDate writeDate;
-    private double avarageRating;
+    private int avarageRating;
     private Author author;
     private List<Category> categoryList;
     private List<Review> reviewList;

@@ -1,10 +1,11 @@
 ﻿<!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:36 GMT -->
 <head>
 	<th:block th:replace="fragments/imports :: imports" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script th:src="@{/js/cart.js}"></script>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -80,28 +81,20 @@
 									</li>
 								</ul>
 							</div>
-							<div class="comment_respond">
-								<h3 class="reply_title">Leave a Reply <small><a href="#">Cancel reply</a></small></h3>
+							<div class="comment_respond" sec:authorize="isAuthenticated()">
+								<h3 class="reply_title">Leave a Reply</h3>
 								<form class="comment__form" action="#">
-									<p>Your email address will not be published.Required fields are marked </p>
+									<p>Your email address will not be published.</p>
 									<div class="input__box">
-										<textarea name="blogReview" placeholder="Your blogReview here"></textarea>
-									</div>
-									<div class="input__wrapper clearfix">
-										<div class="input__box name one--third">
-											<input type="text" placeholder="name">
-										</div>
-										<div class="input__box email one--third">
-											<input type="email" placeholder="email">
-										</div>
-										<div class="input__box website one--third">
-											<input type="text" placeholder="website">
-										</div>
+										<textarea name="blogReview" placeholder="Write a review" required></textarea>
 									</div>
 									<div class="submite__btn">
 										<a href="#">Post Comment</a>
 									</div>
 								</form>
+							</div>
+							<div class="comment_respond" sec:authorize="!isAuthenticated()">
+								<p>For writing review:   <a style="color: #FC6621" th:href="@{/login}">Login</a> or <a style="color: #FC6621" th:href="@{/register}">Create new account</a></p>
 							</div>
 						</div>
 					</div>

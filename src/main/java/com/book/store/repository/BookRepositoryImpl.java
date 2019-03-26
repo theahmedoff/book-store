@@ -75,7 +75,7 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+                    book.setAvarageRating(rs.getInt("book.average_rating"));
 
                     Author author = new Author();
                     author.setIdAuthor(rs.getInt("id_author"));
@@ -115,7 +115,7 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+                    book.setAvarageRating(rs.getInt("book.average_rating"));
 
                     Author author = new Author();
                     author.setIdAuthor(rs.getInt("id_author"));
@@ -153,7 +153,7 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+                    book.setAvarageRating(rs.getInt("book.average_rating"));
 
                     Author author = new Author();
                     author.setIdAuthor(rs.getInt("id_author"));
@@ -191,7 +191,7 @@ public class BookRepositoryImpl implements BookRepository {
                     book.setSecondImagePath(rs.getString("book.second_image_path"));
                     book.setLanguage(rs.getString("book.language"));
                     book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                    book.setAvarageRating(rs.getDouble("book.average_rating"));
+                    book.setAvarageRating(rs.getInt("book.average_rating"));
 
                     Author author = new Author();
                     author.setIdAuthor(rs.getInt("id_author"));
@@ -315,7 +315,7 @@ public class BookRepositoryImpl implements BookRepository {
                         book.setSecondImagePath(rs.getString("book.second_image_path"));
                         book.setLanguage(rs.getString("book.language"));
                         book.setWriteDate(rs.getDate("book.write_date").toLocalDate());
-                        book.setAvarageRating(rs.getDouble("book.average_rating"));
+                        book.setAvarageRating(rs.getInt("book.average_rating"));
 
                         Author author = new Author();
                         author.setIdAuthor(rs.getInt("a.id_author"));
