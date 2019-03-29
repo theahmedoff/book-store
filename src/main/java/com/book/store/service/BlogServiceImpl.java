@@ -42,8 +42,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogReview> getReviewByIdBlog(int id) {
-        return blogRepository.getReviewByIdBlog(id);
+    public List<BlogReview> getReviewsByIdBlog(int id) {
+        return blogRepository.getReviewsByIdBlog(id);
     }
 
     @Override

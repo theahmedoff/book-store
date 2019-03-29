@@ -6,6 +6,7 @@
 	<th:block th:replace="fragments/imports :: imports" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script th:src="@{/js/cart.js}"></script>
+	<script th:src="@{/js/blog.js}"></script>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -14,7 +15,7 @@
 
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
-		
+
 		<!-- Header -->
 		<th:block th:replace="fragments/header :: header" />
 		<!-- //Header -->
@@ -61,37 +62,26 @@
 									<div class="post_content">
 										<p th:text="${blog.desc}"></p>
 									</div>
+									<input type="hidden" id="idBlog" th:value="${blog.idBlog}">
 									<ul class="blog_meta">
-										<li><a href="#">3 comments</a></li>
+										<li><a id="idBlogComments">View all comments</a></li>
 									</ul>
 								</div>
 							</article>
-							<div class="comments_area">
-								<ul class="comment__list">
-									<li>
-										<div class="wn__comment">
-											<div class="content">
-												<div class="comnt__author d-block d-sm-flex">
-													<span><a href="#">admin</a> Post author</span>
-													<span>October 6, 2014 at 9:26 am</span>
-												</div>
-												<p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
+								<div class="comments_area">
+									<ul id="idDivBlogComments" class="comment__list"></ul>
+								</div>
 							<div class="comment_respond" sec:authorize="isAuthenticated()">
 								<h3 class="reply_title">Leave a Reply</h3>
-								<form class="comment__form" action="#">
+								<div class="comment__form">
 									<p>Your email address will not be published.</p>
 									<div class="input__box">
-										<textarea name="blogReview" placeholder="Write a review" required></textarea>
+										<textarea id="idDescReview" placeholder="Write a review" required></textarea>
 									</div>
 									<div class="submite__btn">
-										<a href="#">Post Comment</a>
+										<a th:onclick="addBlogReview()">Post Comment</a>
 									</div>
-								</form>
+								</div>
 							</div>
 							<div class="comment_respond" sec:authorize="!isAuthenticated()">
 								<p>For writing review:   <a style="color: #FC6621" th:href="@{/login}">Login</a> or <a style="color: #FC6621" th:href="@{/register}">Create new account</a></p>
@@ -233,7 +223,7 @@
 	<!-- //Main wrapper -->
 
 
-	
+
 </body>
 <th:block th:replace="fragments/imports :: js-imports" />
 <!-- Mirrored from demo.devitems.com/boighor-v2/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:05:36 GMT -->

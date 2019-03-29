@@ -246,7 +246,7 @@
         						<li>Total</li>
         					</ul>
 							<ul class="order_product" th:each="c : ${carts}">
-								<li th:inline="text">[[${c.getBook().getTitle()}]] x [[${c.getQuantity()}]]<span th:text="'$' + ${c.getBook().getStock().getPrice()}" class="cartTotal"></span></li>
+								<li th:inline="text">[[${c.getBook().getTitle()}]] x [[${c.getQuantity()}]]<span th:text="'$' + ${c.book.stock.discountedPrice}" class="cartTotal"></span></li>
 							</ul>
         					<!--<ul class="shipping__method">-->
         						<!--<li>Cart Subtotal <span th:text="'$' + ${T(com.book.store.util.CartUtil).getSubtotal(carts)}"></span></li>-->

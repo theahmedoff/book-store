@@ -1,10 +1,8 @@
 package com.book.store.controller;
 
-import com.book.store.model.BillingInfo;
-import com.book.store.model.Cart;
-import com.book.store.model.User;
-import com.book.store.model.Wishlist;
+import com.book.store.model.*;
 import com.book.store.service.CartService;
+import com.book.store.util.BookUtil;
 import com.book.store.util.CartUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +42,9 @@ public class CartController {
         model.addAttribute("billingInfo", billingInfo);
         //carts
         List<Cart> carts = cartService.getCartsById(user.getIdUser());
+        for (Cart cart : carts) {
+            BookUtil.calculateDiscountedPrice(cart.getBook());
+        }
         model.addAttribute("carts", carts);
         return "view/checkout";
     }
@@ -53,6 +54,9 @@ public class CartController {
     public List<Cart> getCartByIdUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Cart> carts = cartService.getCartsById(user.getIdUser());
+        for (Cart cart : carts) {
+            BookUtil.calculateDiscountedPrice(cart.getBook());
+        }
         return carts;
     }
 
@@ -61,12 +65,10 @@ public class CartController {
     public List<Wishlist> getWishlistsByIdUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Wishlist> wishlists = cartService.getWishlistsByIdUser(user.getIdUser());
+        for (Wishlist wishlist : wishlists) {
+            BookUtil.calculateDiscountedPrice(wishlist.getBook());
+        }
         return wishlists;
-    }
-
-    @GetMapping("/invoice")
-    public String getInvoicePage() {
-        return "view/invoice";
     }
 
     @RequestMapping("/delete-cart")
@@ -120,7 +122,6 @@ public class CartController {
     public String updateBillingInfo(@ModelAttribute(name = "billingInfo") BillingInfo billingInfo) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         BillingInfo updatedBillingInfo = cartService.updateBillingInfo(user.getIdUser(), billingInfo);
-        //TODO: add updatedBillingInfo and carts to flash attribute..
         return "redirect:/cart/invoice";
     }
 

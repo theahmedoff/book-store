@@ -22,9 +22,9 @@ public class CartRepositoryImpl implements CartRepository {
     //fields
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.first_image_path, b.second_image_path, b.title, s.id_stock, s.price, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
+    private static final String GET_CARTS_BY_ID_USER_SQL = "select b.id_book, b.first_image_path, b.second_image_path, b.title, s.id_stock, s.price, s.discount, s.quantity as stockQuantity, u.id_user, u.email, c.id_cart, c.quantity as cartQuantity FROM book b INNER JOIN stock s on b.id_book = s.id_book INNER JOIN user u on u.id_user = id_user INNER JOIN cart c on c.id_book = b.id_book WHERE u.id_user = ?";
     private static final String DELETE_CART_SQL = "delete from cart where id_cart = ?";
-    private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.first_image_path, b.second_image_path, s.id_stock, s.quantity, s.price from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
+    private static final String GET_WISHLISTS_BY_ID_USER_SQL = "select w.id_wishlist, u.id_user, u.name, u.surname, u.username, u.email, b.id_book, b.title, b.first_image_path, b.second_image_path, s.id_stock, s.quantity, s.price, s.discount from wishlist w inner join user u on w.id_user = u.id_user inner join book b on w.id_book = b.id_book inner join stock s on s.id_book = b.id_book where u.id_user = ?";
     private static final String DELETE_WISHLIST_SQL = "delete from wishlist where id_book = ? and id_user = ?";
     private static final String ADD_TO_CART_SQL = "insert into cart(id_user, id_book, quantity) values(?, ?, ?);";
     private static final String ADD_TO_WISHLIST_SQL = "insert into wishlist(id_user, id_book) values(?, ?)";
@@ -51,7 +51,8 @@ public class CartRepositoryImpl implements CartRepository {
 
                     Stock stock = new Stock();
                     stock.setIdStock(rs.getInt("id_stock"));
-                    stock.setPrice(rs.getInt("price"));
+                    stock.setPrice(rs.getDouble("price"));
+                    stock.setDiscount(rs.getInt("discount"));
                     stock.setQuantity(rs.getInt("stockQuantity"));
                     book.setStock(stock);
 
@@ -97,7 +98,8 @@ public class CartRepositoryImpl implements CartRepository {
                     Stock stock = new Stock();
                     stock.setIdStock(rs.getInt("id_stock"));
                     stock.setQuantity(rs.getInt("quantity"));
-                    stock.setPrice(rs.getInt("price"));
+                    stock.setPrice(rs.getDouble("price"));
+                    stock.setDiscount(rs.getInt("discount"));
                     book.setStock(stock);
 
                     User user = new User();

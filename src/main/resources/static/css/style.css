@@ -3704,6 +3704,7 @@ wishlist-added {
     font-weight: 700;
 }
 
+.product__info__main .price-box .old-price,
 .product.product__style--3 .product__content .prize li.old_prize {
     color: #7d7d7d;
     text-decoration: line-through;
@@ -5998,6 +5999,7 @@ h3.widget-title-modal {
     padding: 0 10px 0 0;
 }
 
+.product__info__main .rating-summary .rating li i,
 .product__info__detailed .review__attribute .review__ratings__type .review-ratings .rating-summary .rating li i {
     color: #ff5501;
     font-size: 18px;
@@ -6005,6 +6007,7 @@ h3.widget-title-modal {
     line-height: 28px;
 }
 
+.product__info__main .rating-summary .rating li.off i,
 .product__info__detailed .review__attribute .review__ratings__type .review-ratings .rating-summary .rating li.off i {
     color: #c7c7c7;
 }

@@ -1,5 +1,6 @@
 <!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- Mirrored from demo.devitems.com/boighor-v2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Jan 2019 07:04:47 GMT -->
 <head>
@@ -103,7 +104,7 @@
                                 <h4><a th:text="${lb.author.fullName}"
                                        th:href="@{/single-product?idBook=} + ${lb.idBook}"></a></h4>
                                 <ul class="prize d-flex">
-                                    <li th:text="'$' + ${lb.stock.price}"></li>
+                                    <li th:text="'$' + ${lb.stock.discountedPrice}"></li>
                                     <li th:text="'$' + ${lb.stock.price}" class="old_prize"></li>
                                 </ul>
                                 <div class="action" sec:authorize="isAuthenticated()">
@@ -111,23 +112,61 @@
                                         <ul class="add_to_links">
                                             <li><a class="wishlist" th:onclick="'addToCart(' + ${lb.idBook} + ')'"><i
                                                     class="bi bi-shopping-cart-full"></i></a></li>
-                                            <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
-                                                    class="bi bi-heart-beat"></i></a></li>
-                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}"><a class="compare" th:onclick="'deleteWishlistById(' + ${lb.idBook} + ')'"><i
-                                                    class="bi bi-reply"></i></a></li>
+                                            <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}">
+                                                <a class="compare" th:onclick="'addToWishlist(' + ${lb.idBook} + ')'"><i
+                                                        class="bi bi-heart-beat"></i></a></li>
+                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(lb.idBook)}">
+                                                <a class="compare"
+                                                   th:onclick="'deleteWishlistById(' + ${lb.idBook} + ')'"><i
+                                                        class="bi bi-reply"></i></a></li>
                                             <li><a data-toggle="modal" title="Quick View"
                                                    class="quickview modal-view detail-link" href="#productmodal"><i
                                                     class="bi bi-search"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="product__hover--content">
-                                    <ul class="rating d-flex">
+                                <div class="product__hover--content" th:switch="${lb.avarageRating}">
+                                    <ul class="rating d-flex" th:case="'0'">
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'1'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'2'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'3'">
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li><i class="fa fa-star-o"></i></li>
                                         <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'4'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'5'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
                                     </ul>
                                 </div>
                             </div>
@@ -239,7 +278,7 @@
                                 <h4><a th:text="${rb.getAuthor().getFullName()}"
                                        th:href="@{/single-product?idBook=} + ${rb.idBook}"></a></h4>
                                 <ul class="prize d-flex">
-                                    <li th:text="'$' + ${rb.getStock().getPrice()}"></li>
+                                    <li th:text="'$' + ${rb.stock.discountedPrice}"></li>
                                     <li th:text="'$' + ${rb.getStock().getPrice()}" class="old_prize"></li>
                                 </ul>
                                 <div class="action" sec:authorize="isAuthenticated()">
@@ -247,23 +286,61 @@
                                         <ul class="add_to_links">
                                             <li><a class="wishlist" th:onclick="'addToCart(' + ${rb.idBook} + ')'"><i
                                                     class="bi bi-shopping-cart-full"></i></a></li>
-                                            <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(rb.idBook)}"><a class="compare" th:onclick="'addToWishlist(' + ${rb.idBook} + ')'"><i
-                                                    class="bi bi-heart-beat"></i></a></li>
-                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(rb.idBook)}"><a class="compare" th:onclick="'deleteWishlistById(' + ${rb.idBook} + ')'"><i
-                                                    class="bi bi-reply"></i></a></li>
+                                            <li th:if="${!#authentication.getPrincipal().getIdWishlists().contains(rb.idBook)}">
+                                                <a class="compare" th:onclick="'addToWishlist(' + ${rb.idBook} + ')'"><i
+                                                        class="bi bi-heart-beat"></i></a></li>
+                                            <li th:if="${#authentication.getPrincipal().getIdWishlists().contains(rb.idBook)}">
+                                                <a class="compare"
+                                                   th:onclick="'deleteWishlistById(' + ${rb.idBook} + ')'"><i
+                                                        class="bi bi-reply"></i></a></li>
                                             <li><a data-toggle="modal" title="Quick View"
                                                    class="quickview modal-view detail-link" href="#productmodal"><i
                                                     class="bi bi-search"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="product__hover--content">
-                                    <ul class="rating d-flex">
+                                <div class="product__hover--content" th:switch="${rb.avarageRating}">
+                                    <ul class="rating d-flex" th:case="'0'">
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'1'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'2'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'3'">
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li class="on"><i class="fa fa-star-o"></i></li>
                                         <li><i class="fa fa-star-o"></i></li>
                                         <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'4'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <ul class="rating d-flex" th:case="'5'">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
                                     </ul>
                                 </div>
                             </div>
@@ -324,10 +401,10 @@
                                 <div class="post__time">
                                     <span class="day" th:text="${lb.shareDate}"></span>
                                     <!--<div class="post-meta">-->
-                                        <!--<ul>-->
-                                            <!--<li><a href="#"><i class="bi bi-love"></i>72</a></li>-->
-                                            <!--<li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>-->
-                                        <!--</ul>-->
+                                    <!--<ul>-->
+                                    <!--<li><a href="#"><i class="bi bi-love"></i>72</a></li>-->
+                                    <!--<li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>-->
+                                    <!--</ul>-->
                                     <!--</div>-->
                                 </div>
                             </div>

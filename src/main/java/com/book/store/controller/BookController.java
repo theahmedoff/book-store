@@ -42,13 +42,6 @@ public class BookController {
         return reviews;
     }
 
-    @GetMapping("/get-all-books")
-    public String getBooksByIdCategory(Model model) {
-        List<Book> books = bookService.getAllBooks();
-        model.addAttribute("allBooks", books);
-        return "fragments/tab-content";
-    }
-
     @RequestMapping("/add-review")
     @ResponseBody
     public ResponseEntity addreview(@RequestParam(name = "idBook") Integer idBook,
@@ -72,15 +65,6 @@ public class BookController {
 
         bookService.addReview(review);
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-    //TODO: !!!
-    @GetMapping("/get-book-by-category-type")
-    @ResponseBody
-    public List<Book> getAllBookByCategoryType(@RequestParam("cateType")String cateType){
-        List<Book> books = bookService.getBooksByCategoryType(cateType);
-
-        return books;
     }
 
 }

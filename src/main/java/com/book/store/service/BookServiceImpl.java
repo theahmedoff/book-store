@@ -44,16 +44,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        return bookRepository.getAllBooks();
-    }
-
-    @Override
-    public List<Book> getBooksByCategoryType(String cateType) {
-        return bookRepository.getBooksByCategoryType(cateType);
-    }
-
-    @Override
     public List<Category> getAllCategories() {
         return bookRepository.getAllCategories();
     }

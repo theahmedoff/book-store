@@ -2,6 +2,7 @@ package com.book.store.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Blog {
 
     private int idBlog;
@@ -17,17 +19,6 @@ public class Blog {
     private String desc;
     private LocalDateTime shareDate;
     private String imagePath;
-    private List<BlogReview> blogReviewList;
     private User user;
-
-    public Blog(){
-        blogReviewList = new ArrayList<>();
-    }
-
-    public void addBlogReview(BlogReview blogReview){
-        blogReviewList.add(blogReview);
-    }
-
-
 
 }

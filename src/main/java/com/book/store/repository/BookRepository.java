@@ -19,10 +19,6 @@ public interface BookRepository {
 
     List<Book> getUpSellBooks();
 
-    List<Book> getAllBooks();
-
-    List<Book> getBooksByCategoryType(String cateType);
-
     List<Category> getAllCategories();
 
     Book getBookById(int idBook);

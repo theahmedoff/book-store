@@ -116,8 +116,14 @@ CREATE TABLE `blog_review` (
   `id_blog_review` int(11) NOT NULL AUTO_INCREMENT,
   `desc` text,
   `share_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_blog_review`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_blog` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_blog_review`),
+  KEY `fk_blog_review_blog_idx` (`id_blog`),
+  KEY `fk_blog_review_user_idx` (`id_user`),
+  CONSTRAINT `fk_blog_review_blog` FOREIGN KEY (`id_blog`) REFERENCES `blog` (`id_blog`),
+  CONSTRAINT `fk_blog_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +132,7 @@ CREATE TABLE `blog_review` (
 
 LOCK TABLES `blog_review` WRITE;
 /*!40000 ALTER TABLE `blog_review` DISABLE KEYS */;
+INSERT INTO `blog_review` VALUES (1,'Good blog!','2019-02-04 00:00:00',1,22),(2,'Thanks!','2019-02-04 00:00:00',1,22),(4,'Great!','2019-03-29 21:55:20',1,22),(5,'My favorite blog!','2019-03-29 21:56:09',2,22),(6,'Thanks a lot!','2019-03-29 22:00:26',2,22);
 /*!40000 ALTER TABLE `blog_review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +215,7 @@ CREATE TABLE `cart` (
   KEY `fk_basket_book_idx` (`id_book`),
   CONSTRAINT `fk_cart_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +224,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (119,22,5,2),(121,22,1,2),(122,22,2,1);
+INSERT INTO `cart` VALUES (125,22,3,2),(126,22,2,2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,6 +319,7 @@ CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
+  `discount` int(11) NOT NULL DEFAULT '0',
   `age_range` int(11) DEFAULT NULL,
   `upsell` int(11) DEFAULT '0',
   `last_added_date` datetime DEFAULT NULL,
@@ -328,7 +336,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,17,25.95,12,10,'2019-02-03 00:00:00',1),(2,0,18.95,18,8,'2019-01-03 00:00:00',2),(3,12,12.95,3,22,'2019-01-18 00:00:00',3),(4,35,10.95,6,17,'2018-11-11 00:00:00',4),(5,22,12.95,12,14,'2019-02-20 00:00:00',5);
+INSERT INTO `stock` VALUES (1,17,25.95,10,12,10,'2019-02-03 00:00:00',1),(2,0,18.95,10,18,8,'2019-01-03 00:00:00',2),(3,12,12.95,20,3,22,'2019-01-18 00:00:00',3),(4,35,10.95,20,6,17,'2018-11-11 00:00:00',4),(5,22,12.95,0,12,14,'2019-02-20 00:00:00',5);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +391,7 @@ CREATE TABLE `wishlist` (
   KEY `fk_bookshelf_book_idx` (`id_book`),
   CONSTRAINT `fk_wishlist_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`),
   CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,7 +400,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (129,22,1),(130,22,3);
+INSERT INTO `wishlist` VALUES (136,22,5),(137,22,3);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -405,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-25 21:56:17
+-- Dump completed on 2019-03-29 22:06:23

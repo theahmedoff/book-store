@@ -18,7 +18,7 @@ function getWishlists() {
                 $('#idWishlists').append('<td class="product-remove"><button type="button" onclick="deleteWishlistById(' + wishlist.book.idBook + ')"> X</button></td>');
                 $('#idWishlists').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + wishlist.book.idBook + '"><img src="/images/product/sm-3/1.jpg" alt=""></a></td>');
                 $('#idWishlists').append('<td class="product-name"><a href="' + "/single-product?idBook=" + wishlist.book.idBook + '">' + wishlist.book.title + '</a></td>');
-                $('#idWishlists').append('<td class="product-price"><span class="amount">' + "$" + wishlist.book.stock.price + '</span></td>');
+                $('#idWishlists').append('<td class="product-price"><span class="amount">' + "$" + wishlist.book.stock.discountedPrice + '</span></td>');
                 $('#idWishlists').append('<td class="product-stock-status"><span class="wishlist-in-stock">' + (wishlist.book.stock.quantity !== 0 ? "In Stock" : "Non Stock") + '</span></td>');
                 $('#idWishlists').append('<td class="product-add-to-cart"><button onclick="addToCart(' + wishlist.book.idBook + ',' + wishlist.idWishlist + ')" type="button">Add to Cart</button></td>');
                 $('#idWishlists').append('</tr>');

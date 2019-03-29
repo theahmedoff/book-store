@@ -16,6 +16,8 @@ public class Stock {
     private int idStock;
     private int quantity;
     private double price;
+    private double discountedPrice;
+    private int discount;
     private int ageRange;
     private int upsell;
     private LocalDateTime lastAddedDate;

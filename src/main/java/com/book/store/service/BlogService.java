@@ -15,7 +15,7 @@ public interface BlogService {
 
     void addBlog(Blog blog);
 
-    List<BlogReview> getReviewByIdBlog(int id);
+    List<BlogReview> getReviewsByIdBlog(int id);
 
     void addReview(BlogReview blogReview);
 

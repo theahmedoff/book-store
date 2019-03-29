@@ -15,7 +15,6 @@ public class BlogReview {
     private String desc;
     private LocalDateTime shareDate;
     private Blog blog;
-    private BlogReview blogReview;
-
+    private User user;
 
 }

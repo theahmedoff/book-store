@@ -21,7 +21,7 @@ function getCarts(){
                 $('#idCarts').append('<tr>')
                     $('#idCarts').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + cart.book.idBook + '"><img src="/images/product/sm-3/1.jpg" alt=""></a></td>');
                     $('#idCarts').append('<td class="product-name"><a href="' + "/single-product?idBook=" + cart.book.idBook + '">' + cart.book.title + '</a></td>')
-                    $('#idCarts').append('<td class="product-price"><span class="amount">' + "$" + cart.book.stock.price + '</span></td>');
+                    $('#idCarts').append('<td class="product-price"><span class="amount">' + "$" + cart.book.stock.discountedPrice + '</span></td>');
                     $('#idCarts').append('<td class="product-stock-status"><input type="number" id="count" value="' + cart.quantity + '" class="classCartQuantity"/></td>');
                     $('#idCarts').append('<td class="product-subtotal">' + "$" + cart.subTotals + '</td>');
                 $('#idCarts').append('<td class="product-remove"> <button class="zmdi zmdi-delete" type="button" onclick="deleteCartById('+ cart.idCart +')" ></button></td>');
@@ -73,13 +73,13 @@ function getMinicarts() {
             carts.forEach(function (cart) {
                 $('#minicart').append(' <div class="item01 d-flex" >\n' +
                     '                                                <div class="thumb">\n' +
-                    '                                                    <a href="product-details.html"><img\n' +
+                    '                                                    <a href="' + "/single-product?idBook=" + cart.book.idBook + '"><img\n' +
                     '                                                            src="/images/product/sm-img/1.jpg"\n' +
                     '                                                            alt="product images"></a>\n' +
                     '                                                </div>\n' +
                     '                                                <div class="content">\n' +
-                    '                                                    <h6><a href="product-details.html">' + cart.book.title + '</a></h6>\n' +
-                    '                                                    <span class="prize">$'+ cart.book.stock.price +'</span>\n' +
+                    '                                                    <h6><a href="' + "/single-product?idBook=" + cart.book.idBook + '">' + cart.book.title + '</a></h6>\n' +
+                    '                                                    <span class="prize">$'+ cart.book.stock.discountedPrice +'</span>\n' +
                     '                                                    <div class="product_prize d-flex justify-content-between">\n' +
                     '                                                        <span class="qun">Qty: '+ cart.quantity +'</span>\n' +
                     '                                                        <ul class="d-flex justify-content-end">\n' +

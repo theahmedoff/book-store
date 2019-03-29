@@ -17,10 +17,6 @@ public interface BookService {
 
     List<Book> getUpSellBooks();
 
-    List<Book> getAllBooks();
-
-    List<Book> getBooksByCategoryType(String cateType);
-
     List<Category> getAllCategories();
 
     Book getBookById(int idBook);
