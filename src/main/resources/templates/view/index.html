@@ -104,7 +104,7 @@
                                 <h4><a th:text="${lb.author.fullName}"
                                        th:href="@{/single-product?idBook=} + ${lb.idBook}"></a></h4>
                                 <ul class="prize d-flex">
-                                    <li th:text="'$' + ${lb.stock.discountedPrice}"></li>
+                                    <li th:text="'$' + ${lb.stock.getDiscountedPrice()}"></li>
                                     <li th:text="'$' + ${lb.stock.price}" class="old_prize"></li>
                                 </ul>
                                 <div class="action" sec:authorize="isAuthenticated()">
@@ -278,7 +278,7 @@
                                 <h4><a th:text="${rb.getAuthor().getFullName()}"
                                        th:href="@{/single-product?idBook=} + ${rb.idBook}"></a></h4>
                                 <ul class="prize d-flex">
-                                    <li th:text="'$' + ${rb.stock.discountedPrice}"></li>
+                                    <li th:text="'$' + ${rb.stock.getDiscountedPrice()}"></li>
                                     <li th:text="'$' + ${rb.getStock().getPrice()}" class="old_prize"></li>
                                 </ul>
                                 <div class="action" sec:authorize="isAuthenticated()">

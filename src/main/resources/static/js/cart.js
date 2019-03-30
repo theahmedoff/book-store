@@ -55,6 +55,7 @@ function getMinicarts() {
                 '                                        <span>Cart Subtotal</span>\n' +
                 '                                    </div>\n' +
                 '                                    <div class="total_amount text-right">\n' +
+                '                                        <span>$</span>\n' +
                 '                                        <span id="idCardSubtotal">0</span>\n' +
                 '                                    </div>\n' +
                 '                                    <div class="mini_action checkout">\n' +
@@ -90,7 +91,8 @@ function getMinicarts() {
                     '                                                </div>\n' +
                     '                                                \n' +
                     '                                            </div>');
-                $('#idCardSubtotal').text(parseInt($('#idCardSubtotal').text()) + cart.subTotals);
+                console.log(cart);
+                $('#idCardSubtotal').text(parseFloat($('#idCardSubtotal').text()) + cart.subTotals);
             });
 
 

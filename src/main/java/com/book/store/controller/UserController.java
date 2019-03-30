@@ -58,6 +58,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getProfilePage(Model model) {
+        //TODO: datalari databaseden goturmek
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         return "view/profile";

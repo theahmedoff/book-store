@@ -1,5 +1,6 @@
 package com.book.store.model;
 
+import com.book.store.util.BookUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +24,7 @@ public class Stock {
     private LocalDateTime lastAddedDate;
     private Book book;
 
+    public double getDiscountedPrice() {
+        return BookUtil.calculateDiscountedPrice(discount, price);
+    }
 }

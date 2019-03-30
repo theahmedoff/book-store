@@ -89,7 +89,7 @@
                                         <div class="product__content content--center">
                                             <h4><a th:href="single-product.html" th:text="${book.author.fullName}"></a></h4>
                                             <ul class="prize d-flex">
-                                                <li th:text="'$' + ${book.stock.discountedPrice}"></li>
+                                                <li th:text="'$' + ${book.stock.getDiscountedPrice()}"></li>
                                                 <li class="old_prize" th:text="'$' + ${book.stock.price}"></li>
                                             </ul>
                                             <div class="action" sec:authorize="isAuthenticated()">

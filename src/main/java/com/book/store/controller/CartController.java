@@ -42,9 +42,6 @@ public class CartController {
         model.addAttribute("billingInfo", billingInfo);
         //carts
         List<Cart> carts = cartService.getCartsById(user.getIdUser());
-        for (Cart cart : carts) {
-            BookUtil.calculateDiscountedPrice(cart.getBook());
-        }
         model.addAttribute("carts", carts);
         return "view/checkout";
     }
@@ -54,9 +51,6 @@ public class CartController {
     public List<Cart> getCartByIdUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Cart> carts = cartService.getCartsById(user.getIdUser());
-        for (Cart cart : carts) {
-            BookUtil.calculateDiscountedPrice(cart.getBook());
-        }
         return carts;
     }
 
@@ -65,9 +59,6 @@ public class CartController {
     public List<Wishlist> getWishlistsByIdUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Wishlist> wishlists = cartService.getWishlistsByIdUser(user.getIdUser());
-        for (Wishlist wishlist : wishlists) {
-            BookUtil.calculateDiscountedPrice(wishlist.getBook());
-        }
         return wishlists;
     }
 

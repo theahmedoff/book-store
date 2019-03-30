@@ -29,15 +29,9 @@ public class NavigationController {
     public String getIndexPage(Model model) {
         //last added books
         List<Book> lastAddedBooks = bookService.getLastAddedBooks();
-        for (Book book : lastAddedBooks) {
-            BookUtil.calculateDiscountedPrice(book);
-        }
         model.addAttribute("lastAddedBooks", lastAddedBooks);
         //random books
         List<Book> randomBooks = bookService.getRandomBooks();
-        for (Book book : randomBooks) {
-            BookUtil.calculateDiscountedPrice(book);
-        }
         model.addAttribute("randomBooks", randomBooks);
         //last added blogs
         List<Blog> lastAddedBlogs = blogService.getLastAddedBlogs();
@@ -59,9 +53,6 @@ public class NavigationController {
         model.addAttribute("categories", categories);
         //books
         List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
-        for (Book book : books) {
-            BookUtil.calculateDiscountedPrice(book);
-        }
         model.addAttribute("books", books);
         return "view/shop";
     }
@@ -70,13 +61,9 @@ public class NavigationController {
     public String getSingleProductPage(Model model, @RequestParam(name = "idBook") Integer idBook){
         //get book by id
         Book book = bookService.getBookById(idBook);
-        BookUtil.calculateDiscountedPrice(book);
         model.addAttribute("book", book);
         //upsell books
         List<Book> upsellBooks = bookService.getUpSellBooks();
-        for (Book ub : upsellBooks) {
-            BookUtil.calculateDiscountedPrice(ub);
-        }
         model.addAttribute("upsellBooks", upsellBooks);
         return "view/single-product";
     }

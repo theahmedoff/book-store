@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="price-box">
                                         <span class="old-price" th:text="'$' + ${book.stock.price}"></span>
-                                        <span th:text="'$' + ${book.stock.discountedPrice}"></span>
+                                        <span th:text="'$' + ${book.stock.getDiscountedPrice()}"></span>
                                     </div>
                                     <div class="product__overview">
                                         <p th:text="${book.desc}"></p>
@@ -258,7 +258,7 @@
                                             <h4><a th:href="@{/single-product?idBook=} + ${up.idBook}"
                                                    th:text="${up.getAuthor().getFullName()}"></a></h4>
                                             <ul class="prize d-flex">
-                                                <li th:text="'$' + ${book.stock.discountedPrice}"></li>
+                                                <li th:text="'$' + ${up.stock.getDiscountedPrice()}"></li>
                                                 <li th:text="'$' + ${up.getStock().getPrice()}" class="old_prize"></li>
                                             </ul>
                                             <div class="action">
