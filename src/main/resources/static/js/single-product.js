@@ -53,7 +53,7 @@ function addReview(idBook) {
         data: {idBook: idBook, desc: desc, rating: rating},
         success: function (reviews) {
             getReviewsByIdBook(idBook);
-            desc.val('');
+            $('#idReviewDesc').val('');
 
         }, error: function () {
             alert('Internal error!');

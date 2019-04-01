@@ -7428,6 +7428,7 @@ h3.widget-title-modal {
     width: 40px;
 }
 
+.cartbox__btn a,
 .cartbox__btn button {
     background: #f6f6f6 none repeat scroll 0 0;
     border-bottom: 1px solid #e8e8e8;
@@ -7500,6 +7501,7 @@ h3.widget-title-modal {
     padding: 40px;
 }
 
+.cart__btn__list li a,
 .cart__btn__list li button {
     background: #fff none repeat scroll 0 0;
     border-radius: 5px;
@@ -7514,6 +7516,7 @@ h3.widget-title-modal {
     transition: all 0.3s ease 0s;
 }
 
+.cart__btn__list li a:hover,
 .cart__btn__list li button:hover {
     background: #e59285 none repeat scroll 0 0;
     color: #fff;

@@ -58,8 +58,8 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getProfilePage(Model model) {
-        //TODO: datalari databaseden goturmek
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) service.loadUserByUsername(currentUser.getUsername());
         model.addAttribute("user", user);
         return "view/profile";
     }
@@ -74,8 +74,10 @@ public class UserController {
             user.setEmail(currentUser.getEmail());
             user.setPassword(encoder.encode(password));
             service.updateUser(user);
+
+            currentUser.setUsername(user.getUsername());
         }
-        return "redirect:/logout";
+        return "redirect:/profile";
     }
 
 }

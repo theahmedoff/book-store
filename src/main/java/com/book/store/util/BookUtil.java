@@ -3,14 +3,17 @@ package com.book.store.util;
 import com.book.store.model.Book;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class BookUtil {
 
     public static double calculateDiscountedPrice(int discount, double price) {
+        //price
         BigDecimal bigDecimal = new BigDecimal(price);
-        BigDecimal bd2 = bigDecimal.multiply(new BigDecimal(discount)).divide(new BigDecimal(100));
-        BigDecimal result = bd2.setScale(0, 4);
-        return bigDecimal.subtract(result).doubleValue();
+        //(price * discount) / 100
+        BigDecimal result = bigDecimal.multiply(new BigDecimal(discount)).divide(new BigDecimal(100));
+        BigDecimal truncatedValue = result.setScale(2, RoundingMode.DOWN);
+        return bigDecimal.subtract(truncatedValue).doubleValue();
     }
 
 }

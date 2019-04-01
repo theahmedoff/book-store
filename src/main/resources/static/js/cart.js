@@ -27,10 +27,9 @@ function getCarts(){
                 $('#idCarts').append('<td class="product-remove"> <button class="zmdi zmdi-delete" type="button" onclick="deleteCartById('+ cart.idCart +')" ></button></td>');
                 $('#idCarts').append('<input type="hidden" value="'+cart.idCart+'" class="classIdCart"/>');
                 $('#idCarts').append('</tr>')
+            });
 
-
-
-            })
+            $('#idGrandTotal').text('$' + setGrandTotal(carts));
         }
     })
 }
@@ -94,7 +93,6 @@ function getMinicarts() {
                 console.log(cart);
                 $('#idCardSubtotal').text(parseFloat($('#idCardSubtotal').text()) + cart.subTotals);
             });
-
 
             $('#startShping').append('</div>');
         },
@@ -175,4 +173,13 @@ function showContent(tableID) {
 
 function myFunction(table) {
     var x = document.getElementById(table).rows.length;
+}
+
+function setGrandTotal(carts) {
+    var sum = 0;
+    carts.forEach(function(cart) {
+        sum += cart.subTotals;
+    });
+
+    return sum;
 }
