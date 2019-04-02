@@ -19,7 +19,7 @@ function getCarts(){
             carts.forEach(function (cart) {
                 $('#count').clear;
                 $('#idCarts').append('<tr>')
-                    $('#idCarts').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + cart.book.idBook + '"><img src="/images/product/sm-3/1.jpg" alt=""></a></td>');
+                    $('#idCarts').append('<td class="product-thumbnail"><a href="' + "/single-product?idBook=" + cart.book.idBook + '"><img src="' + "/images/product/sm-3/" + cart.book.firstImagePath + '" alt="product image"></a></td>');
                     $('#idCarts').append('<td class="product-name"><a href="' + "/single-product?idBook=" + cart.book.idBook + '">' + cart.book.title + '</a></td>')
                     $('#idCarts').append('<td class="product-price"><span class="amount">' + "$" + cart.book.stock.discountedPrice + '</span></td>');
                     $('#idCarts').append('<td class="product-stock-status"><input type="number" id="count" value="' + cart.quantity + '" class="classCartQuantity"/></td>');
@@ -74,8 +74,8 @@ function getMinicarts() {
                 $('#minicart').append(' <div class="item01 d-flex" >\n' +
                     '                                                <div class="thumb">\n' +
                     '                                                    <a href="' + "/single-product?idBook=" + cart.book.idBook + '"><img\n' +
-                    '                                                            src="/images/product/sm-img/1.jpg"\n' +
-                    '                                                            alt="product images"></a>\n' +
+                    '                                                            src="' + "/images/product/sm-img/" + cart.book.firstImagePath + '"\n' +
+                    '                                                            alt="product image"></a>\n' +
                     '                                                </div>\n' +
                     '                                                <div class="content">\n' +
                     '                                                    <h6><a href="' + "/single-product?idBook=" + cart.book.idBook + '">' + cart.book.title + '</a></h6>\n' +

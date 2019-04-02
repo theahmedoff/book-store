@@ -12,7 +12,7 @@ public class BookUtil {
         BigDecimal bigDecimal = new BigDecimal(price);
         //(price * discount) / 100
         BigDecimal result = bigDecimal.multiply(new BigDecimal(discount)).divide(new BigDecimal(100));
-        BigDecimal truncatedValue = result.setScale(2, RoundingMode.DOWN);
+        BigDecimal truncatedValue = result.setScale(2, RoundingMode.HALF_UP);
         return bigDecimal.subtract(truncatedValue).doubleValue();
     }
 

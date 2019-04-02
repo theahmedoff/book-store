@@ -79,9 +79,9 @@
                                     <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="product__thumb">
                                             <a class="first__img" th:href="@{/single-product?idBook=} + ${book.idBook}"><img
-                                                    th:src="@{images/books/6.jpg}" alt="product image"></a>
+                                                    th:src="@{images/books/} + ${book.firstImagePath}" alt="product image"></a>
                                             <a class="second__img animation1" th:href="@{/single-product?idBook=} + ${book.idBook}"><img
-                                                    th:src="@{images/books/8.jpg}" alt="product image"></a>
+                                                    th:src="@{images/books/} + ${book.secondImagePath}" alt="product image"></a>
                                             <div class="hot__box">
                                                 <span class="hot-label">BEST SALLER</span>
                                             </div>

@@ -92,10 +92,10 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="product__thumb">
                                 <a class="first__img" th:href="@{/single-product?idBook=} + ${lb.idBook}"><img
-                                        th:src="@{/images/books/1.jpg}" alt="product image"></a>
+                                        th:src="@{/images/books/} + ${lb.firstImagePath}" alt="product image"></a>
                                 <a class="second__img animation1"
                                    th:href="@{/single-product?idBook=} + ${lb.idBook}"><img
-                                        th:src="@{/images/books/2.jpg}" alt="product image"></a>
+                                        th:src="@{/images/books/} + ${lb.secondImagePath}" alt="product image"></a>
                                 <div class="hot__box">
                                     <span class="hot-label">BEST SALLER</span>
                                 </div>
@@ -266,10 +266,10 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="product__thumb">
                                 <a class="first__img" th:href="@{/single-product?idBook=} + ${rb.idBook}"><img
-                                        th:src="@{/images/books/1.jpg}" alt="product image"></a>
+                                        th:src="@{/images/books/} + ${rb.firstImagePath}" alt="product image"></a>
                                 <a class="second__img animation1"
                                    th:href="@{/single-product?idBook=} + ${rb.idBook}"><img
-                                        th:src="@{/images/books/2.jpg}" alt="product image"></a>
+                                        th:src="@{/images/books/} + ${rb.secondImagePath}" alt="product image"></a>
                                 <div class="hot__box">
                                     <span class="hot-label">BEST SALLER</span>
                                 </div>
