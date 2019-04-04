@@ -105,7 +105,6 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public void updateCart(@RequestParam(name = "idCart") int idCart,
                                      @RequestParam(name = "quantity") int quantity) {
-        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartService.updateCart(idCart, quantity);
     }
 

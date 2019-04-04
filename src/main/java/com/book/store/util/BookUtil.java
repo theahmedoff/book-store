@@ -9,11 +9,11 @@ public class BookUtil {
 
     public static double calculateDiscountedPrice(int discount, double price) {
         //price
-        BigDecimal bigDecimal = new BigDecimal(price);
+        BigDecimal bigDecimal = new BigDecimal(Double.toString(price));
         //(price * discount) / 100
         BigDecimal result = bigDecimal.multiply(new BigDecimal(discount)).divide(new BigDecimal(100));
-        BigDecimal truncatedValue = result.setScale(2, RoundingMode.HALF_UP);
-        return bigDecimal.subtract(truncatedValue).doubleValue();
+        BigDecimal roundedValue = result.setScale(2, RoundingMode.HALF_UP);
+        return bigDecimal.subtract(roundedValue).doubleValue();
     }
 
 }

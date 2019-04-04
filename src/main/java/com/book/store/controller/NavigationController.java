@@ -54,6 +54,8 @@ public class NavigationController {
         //books
         List<Book> books = bookService.getBooksByMultipleParameters(searchEntity);
         model.addAttribute("books", books);
+        //searchEntity
+        model.addAttribute("searchentity", searchEntity);
         return "view/shop";
     }
 
@@ -80,7 +82,6 @@ public class NavigationController {
         return "view/register";
     }
 
-    //TODO: admin adi duzeldilmelidir front terefde ve test olunmalidir..
     @RequestMapping("/blog")
     public String getBlogPage(Model model)  {
         List<Blog> blogs = blogService.getAllBlogs();
