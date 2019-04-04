@@ -49,7 +49,7 @@
                 <div class="col-lg-6 col-12">
                     <div class="my__account__wrapper">
                         <h3 class="account__title">Edit your account settings here</h3>
-                        <form th:action="@{/update-profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/user/update-profile}" th:object="${user}" method="post" enctype="multipart/form-data">
                             <div class="account__form">
                                 <div class="input__box">
                                     <label>Name <span>*</span></label>
@@ -69,11 +69,11 @@
                                 </div>
                                 <div class="input__box">
                                     <label>Password (8 or more characters) <span>*</span></label>
-                                    <input type="password" placeholder="Password" name="password" required>
+                                    <input type="password" placeholder="Password" name="password" minlength="8" required>
                                 </div>
                                 <div class="input__box">
                                     <label>Confirm password <span>*</span></label>
-                                    <input type="password" placeholder="Confirm password" name="confirmPassword" required>
+                                    <input type="password" placeholder="Confirm password" name="confirmPassword" minlength="8" required>
                                 </div>
                                 <div class="form__btn">
                                     <button>Update</button>

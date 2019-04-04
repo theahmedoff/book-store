@@ -56,28 +56,4 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/profile")
-    public String getProfilePage(Model model) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = (User) service.loadUserByUsername(currentUser.getUsername());
-        model.addAttribute("user", user);
-        return "view/profile";
-    }
-
-    @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute(name = "user") User user,
-                                @RequestParam(name = "password") String password,
-                                @RequestParam(name = "confirmPassword") String confirmPassword) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (password.equals(confirmPassword)) {
-            user.setEmail(currentUser.getEmail());
-            user.setPassword(encoder.encode(password));
-            service.updateUser(user);
-
-            currentUser.setUsername(user.getUsername());
-        }
-        return "redirect:/profile";
-    }
-
 }

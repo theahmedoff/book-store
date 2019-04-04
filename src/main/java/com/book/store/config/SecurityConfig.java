@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/cart/**").authenticated()
+                .antMatchers("/user/**").authenticated()
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").failureForwardUrl("/login").successForwardUrl("/")

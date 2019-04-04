@@ -32,16 +32,12 @@ public class ContactController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("message",bindingResult.getFieldError().getField() + " " +  bindingResult.getFieldError().getDefaultMessage());
             return "redirect:/contact";
-
         }
 
-
-//        emailUtil.sendEmailMessage(contact);
         String body="Firstname: " + contact.getFirstName() + "\nLastname: " +contact.getLastName() + "\nEmail: " +contact.getEmail() + "\nSubject: " +contact.getSubject() +"\nWebsite: " +contact.getWebsite();
         emailUtil.sendEmailMessage(to, subject, body);
 
         return "redirect:/contact";
 
     }
-
 }
