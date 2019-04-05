@@ -47,5 +47,10 @@ public class UserServiceImpl implements UserService {
         userRepository.updateUser(user);
     }
 
+    @Override
+    public void sucscribe(String email) {
+        userRepository.sucscribe(email);
+    }
+
 
 }

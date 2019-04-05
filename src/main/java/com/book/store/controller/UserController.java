@@ -8,6 +8,8 @@ import com.book.store.util.EmailUtil;
 import com.book.store.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -54,6 +56,19 @@ public class UserController {
         service.activateUserByToken(token);
         redirectAttributes.addFlashAttribute("message", "Profile successfully activated!");
         return "redirect:/login";
+    }
+
+    @RequestMapping("/sucscribe")
+    @ResponseBody
+    public ResponseEntity sucscribe(@RequestParam(name = "email") String email) {
+        if (!email.trim().isEmpty()) {
+            service.sucscribe(email);
+
+        } else {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

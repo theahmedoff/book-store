@@ -215,7 +215,7 @@ CREATE TABLE `cart` (
   KEY `fk_basket_book_idx` (`id_book`),
   CONSTRAINT `fk_cart_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +224,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (143,22,12,1),(144,22,7,4);
+INSERT INTO `cart` VALUES (146,22,13,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +271,7 @@ CREATE TABLE `review` (
   KEY `fk_review_book_idx` (`id_book`),
   CONSTRAINT `fk_review_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +280,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (61,'Thanks!','2018-06-02 17:26:39',4,22,8),(62,'My favorite book.','2018-11-24 17:27:26',5,22,8),(63,'I have got a problem!','2018-04-02 17:27:57',2,22,9),(64,'Thanks for fast shipping!','2019-04-02 17:29:42',5,22,15),(65,'I don\'t like this book.','2019-01-11 17:30:28',3,22,6),(66,'Thanks!','2019-03-02 17:32:24',4,22,7),(67,'Prices aren\'t suitable!','2019-02-04 17:32:24',1,22,11);
+INSERT INTO `review` VALUES (61,'Thanks!','2018-06-02 17:26:39',4,22,8),(62,'My favorite book.','2018-11-24 17:27:26',5,22,8),(63,'I have got a problem!','2018-04-02 17:27:57',2,22,9),(64,'Thanks for fast shipping!','2019-04-02 17:29:42',5,22,15),(65,'I don\'t like this book.','2019-01-11 17:30:28',3,22,6),(66,'Thanks!','2019-03-02 17:32:24',4,22,7),(67,'Prices aren\'t suitable!','2019-02-04 17:32:24',1,22,11),(69,'kkhk','2019-04-05 19:32:57',4,22,8);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,6 +341,30 @@ INSERT INTO `stock` VALUES (6,12,12.75,10,12,496,'2018-04-03 00:00:00',6),(7,24,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `subscriber`
+--
+
+DROP TABLE IF EXISTS `subscriber`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `subscriber` (
+  `id_subscriber` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_subscriber`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subscriber`
+--
+
+LOCK TABLES `subscriber` WRITE;
+/*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -371,7 +395,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Senan','Kazimov','senan0144','$2a$10$.fUQZKF8jp1LnoLTvUy/bORZngEm//L5lSJzeix7Sq/mZhghle7lS','senan0144@gmail.com',1,'980eaf6b-a6f5-4c43-8a30-bace75232bd3',2);
+INSERT INTO `user` VALUES (22,'Senan','Kazimov','senan0144','$2a$10$XMlS3Q4Y6A78RswoQ06OrezBbfXciv4/8ByPGL0Zumz3SFQPnEcXa','senan0144@gmail.com',1,'980eaf6b-a6f5-4c43-8a30-bace75232bd3',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +415,7 @@ CREATE TABLE `wishlist` (
   KEY `fk_bookshelf_book_idx` (`id_book`),
   CONSTRAINT `fk_wishlist_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,7 +424,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (147,22,8),(148,22,12);
+INSERT INTO `wishlist` VALUES (149,22,15);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -413,4 +437,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-02 19:17:23
+-- Dump completed on 2019-04-05 20:35:04

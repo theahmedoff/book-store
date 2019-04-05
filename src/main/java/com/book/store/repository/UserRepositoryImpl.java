@@ -25,6 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String GET_USER_BY_USERNAME_SQL = "select * from user u inner join role r on u.id_role = r.id_role left join wishlist w on u.id_user = w.id_user where u.username = ?";
     private static final String UPDATE_USER_SQL = "update user set name = ?, surname = ?, username = ?, password = ? where email = ?";
     private static final String ADD_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SUCSCRIBE_SQL = "insert into subscriber(email) values(?)";
 
     @Override
     public void register(User user, BillingInfo billingInfo) {
@@ -95,6 +96,14 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void updateUser(User user) {
         jdbcTemplate.update(UPDATE_USER_SQL, user.getName(), user.getSurname(), user.getUsername(), user.getPassword(), user.getEmail());
+    }
+
+    @Override
+    public void sucscribe(String email) {
+        int affectedRow = jdbcTemplate.update(SUCSCRIBE_SQL, email);
+        if (affectedRow == 0) {
+            throw new RuntimeException();
+        }
     }
 
     @Override

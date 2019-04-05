@@ -13,4 +13,6 @@ public interface UserRepository {
 
     void updateUser(User user);
 
+    void sucscribe(String email);
+
 }
