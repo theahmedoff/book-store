@@ -61,13 +61,11 @@ public class UserController {
     @RequestMapping("/sucscribe")
     @ResponseBody
     public ResponseEntity sucscribe(@RequestParam(name = "email") String email) {
-        if (!email.trim().isEmpty()) {
-            service.sucscribe(email);
-
-        } else {
+        if (email == null || email.trim().isEmpty()) {
             throw new RuntimeException();
         }
 
+        service.sucscribe(email);
         return new ResponseEntity(HttpStatus.OK);
     }
 
