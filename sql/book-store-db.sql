@@ -224,7 +224,6 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (146,22,13,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +270,7 @@ CREATE TABLE `review` (
   KEY `fk_review_book_idx` (`id_book`),
   CONSTRAINT `fk_review_book` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +279,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (61,'Thanks!','2018-06-02 17:26:39',4,22,8),(62,'My favorite book.','2018-11-24 17:27:26',5,22,8),(63,'I have got a problem!','2018-04-02 17:27:57',2,22,9),(64,'Thanks for fast shipping!','2019-04-02 17:29:42',5,22,15),(65,'I don\'t like this book.','2019-01-11 17:30:28',3,22,6),(66,'Thanks!','2019-03-02 17:32:24',4,22,7),(67,'Prices aren\'t suitable!','2019-02-04 17:32:24',1,22,11),(69,'kkhk','2019-04-05 19:32:57',4,22,8);
+INSERT INTO `review` VALUES (61,'Thanks!','2018-06-02 17:26:39',4,22,8),(62,'My favorite book.','2018-11-24 17:27:26',5,22,8),(63,'I have got a problem!','2018-04-02 17:27:57',2,22,9),(64,'Thanks for fast shipping!','2019-04-02 17:29:42',5,22,15),(65,'I don\'t like this book.','2019-01-11 17:30:28',3,22,6),(66,'Thanks!','2019-03-02 17:32:24',4,22,7),(67,'Prices aren\'t suitable!','2019-02-04 17:32:24',1,22,11);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +351,7 @@ CREATE TABLE `subscriber` (
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`id_subscriber`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +423,6 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (149,22,15);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -437,4 +435,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-05 20:35:04
+-- Dump completed on 2019-04-06 14:14:48

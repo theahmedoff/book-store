@@ -18,6 +18,7 @@ import java.util.*;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
+    //fields
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private static final String ADD_USER_SQL = "INSERT INTO user(name, surname, username, email, password, id_role, token, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -27,6 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String ADD_BILLING_INFO = "insert into billing_info(firstname, lastname, company_name, country, address, postcode, phone, email, id_user) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SUCSCRIBE_SQL = "insert into subscriber(email) values(?)";
 
+    //methods
     @Override
     public void register(User user, BillingInfo billingInfo) {
         GeneratedKeyHolder holder = new GeneratedKeyHolder();

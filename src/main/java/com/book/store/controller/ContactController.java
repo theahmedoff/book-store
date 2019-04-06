@@ -17,16 +17,15 @@ import javax.validation.Valid;
 @Controller
 public class ContactController {
 
+    //fields
     @Autowired
     private EmailUtil emailUtil;
-
     @Value("${spring.mail.contact.to}")
     private String to;
-
     @Value("${spring.mail.contact.subject}")
     private String subject;
 
-
+    //methods
     @PostMapping("/contact")
     public String contact(@Valid @ModelAttribute("contact")Contact contact, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

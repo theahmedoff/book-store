@@ -36,10 +36,10 @@ public class BookController {
     }
 
     @RequestMapping("/reviews")
-    @ResponseBody
-    public List<Review> getReviewsByIdBook(@RequestParam(name = "idBook") Integer idBook) {
+    public String getReviewsByIdBook(@RequestParam(name = "idBook") Integer idBook, Model model) {
         List<Review> reviews = bookService.getReviewsByIdBook(idBook);
-        return reviews;
+        model.addAttribute("reviews", reviews);
+        return "fragments/book-review-rating";
     }
 
     @RequestMapping("/add-review")

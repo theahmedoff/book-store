@@ -19,9 +19,11 @@ import java.util.List;
 @Controller
 public class BlogController {
 
+    //fields
     @Autowired
     private BlogService blogService;
 
+    //methods
     @RequestMapping("/blog-details/{idBlog}")
     public String getBlogById(@PathVariable("idBlog") int idBlog, Model model) {
         Blog blog = blogService.getBlogById(idBlog);

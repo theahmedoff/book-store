@@ -1,0 +1,61 @@
+<th:block th:each="review : ${reviews}" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="review__attribute">
+        <p th:text="${review.desc}"></p>
+        <div class="review__ratings__type d-flex">
+            <div class="review-ratings">
+                <div class="rating-summary d-flex" th:switch="${review.rating}">
+                    <ul class="rating d-flex" th:case="0">
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                    <ul class="rating d-flex" th:case="1">
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                    <ul class="rating d-flex" th:case="2">
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                    <ul class="rating d-flex" th:case="3">
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                    <ul class="rating d-flex" th:case="4">
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li class="off"><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                    <ul class="rating d-flex" th:case="5">
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                        <li><i class="zmdi zmdi-star"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="review-content">
+                <p th:text="${'Review by: ' + review.user.name + review.user.surname}"></p>
+                <p th:text="${'Posted on: ' + review.writeDate}"></p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr/>
+    <br/>
+</th:block>

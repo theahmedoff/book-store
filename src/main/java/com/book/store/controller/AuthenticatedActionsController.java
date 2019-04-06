@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class AuthenticatedActionsController {
 
+    //fields
     @Autowired
     private BCryptPasswordEncoder encoder;
     @Autowired
     private UserService service;
 
+    //methods
     @GetMapping("/profile")
     public String getProfilePage(Model model) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

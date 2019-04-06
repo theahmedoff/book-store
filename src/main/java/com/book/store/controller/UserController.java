@@ -23,18 +23,19 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
+    //fields
     @Autowired
     private BCryptPasswordEncoder encoder;
     @Autowired
     private EmailUtil emailUtil;
     @Autowired
     private UserService service;
-
     @Value("${spring.mail.register.subject}")
     private String subject;
     @Value("${spring.mail.register.body}")
     private String body;
 
+    //methods
     @PostMapping("/register")
     public String getRegisterPage(@ModelAttribute("newUser")User newUser, RedirectAttributes redirectAttributes) {
         newUser.setPassword(encoder.encode(newUser.getPassword()));
